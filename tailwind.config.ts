@@ -12,6 +12,22 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        didesa: "url('/images/wallpaper.jpg')",
+      },
+      colors: {
+        primary: "#FF7757",
+        secondary: "#331811",
+        tertiary: "#FFF2E9",
+      },
+      fontFamily: {
+        bebas: ["Bebas Neue", "sans-serif"],
+        montserrat: ["Montserrat", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
+        ubuntu: ["Ubuntu", "sans-serif"],
+        roboto: ["Roboto", "sans-serif"],
+        typography: ["Typography", "sans-serif"],
+        playfair: ["Playfair Display", "serif"],
+        rubik: ["Rubik", "sans-serif"],
       },
     },
   },

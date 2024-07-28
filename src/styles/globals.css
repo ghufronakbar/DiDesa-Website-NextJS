@@ -16,6 +16,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -24,6 +28,41 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+.scroll-container {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.horizontal-scroll{
+  width: 100%;
+  overflow-x: scroll;
+  scrollbar-color: transparent transparent; 
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.netflix-spinner {
+  width: 26px;
+  height: 26px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #e50914;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @layer utilities {
