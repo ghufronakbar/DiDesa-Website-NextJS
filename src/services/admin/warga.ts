@@ -12,4 +12,22 @@ const deleteWarga = async (wargaId: number) => {
   return response.data;
 };
 
-export { getAllWarga, deleteWarga };
+const createWarga = async (
+  namaLengkap: string,
+  nik: string,
+  kk: string,
+  tanggalLahir: string,
+  telepon: string
+) => {
+  const response = await axiosInstance.post("/api/admin/warga", {
+    namaLengkap,
+    nik,
+    kk,
+    tanggalLahir,
+    telepon,
+  });
+
+  return response.data;
+};
+
+export { getAllWarga, deleteWarga, createWarga };

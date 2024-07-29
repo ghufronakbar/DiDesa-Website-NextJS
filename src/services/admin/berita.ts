@@ -7,6 +7,11 @@ const getAllBerita = async (page: number) => {
   return response.data;
 };
 
+const getBeritaById = async (id: number) => {
+  const response = await axiosInstance.get(`/api/admin/berita/${id}`);
+  return response.data;     
+};
+
 const putPublikasiBerita = async (beritaId: number, publikasi: boolean) => {
   const response = await axiosInstance.put(
     `/api/admin/berita/publikasi/${beritaId}`,
@@ -24,10 +29,56 @@ const putPrioritasBerita = async (beritaId: number, prioritas: boolean) => {
 };
 
 const deleteBerita = async (beritaId: number) => {
-  const response = await axiosInstance.delete(
-    `/api/admin/berita/${beritaId}`
-  );
+  const response = await axiosInstance.delete(`/api/admin/berita/${beritaId}`);
   return response.data;
 };
 
-export { getAllBerita, putPublikasiBerita, putPrioritasBerita, deleteBerita };
+const createBerita = async (
+  judul: string,
+  subjudul: string,
+  isi: string,
+  gambar: File
+) => {  
+  const formData = new FormData();  
+  formData.append("judul", judul);
+  formData.append("subjudul", subjudul);
+  formData.append("isi", isi);
+  formData.append("gambar", gambar);
+  
+  const response = await axiosInstance.post("/api/admin/berita", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return response.data;
+};
+
+const editBerita = async (id: number, judul: string, subjudul: string, isi: string, gambar: File|null) => {
+  if(!gambar) {
+    const response = await axiosInstance.put(`/api/admin/berita/${id}`, { judul, subjudul, isi });
+    return response.data;
+  } else {
+    const formData = new FormData();
+    formData.append("judul", judul);
+    formData.append("subjudul", subjudul);
+    formData.append("isi", isi);
+    formData.append("gambar", gambar);
+    const response = await axiosInstance.put(`/api/admin/berita/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  }
+};
+
+export {
+  getAllBerita,
+  putPublikasiBerita,
+  putPrioritasBerita,
+  deleteBerita,
+  createBerita,
+  editBerita,
+  getBeritaById
+};
