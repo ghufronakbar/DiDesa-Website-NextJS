@@ -5,7 +5,7 @@ interface LoadingTableProps {
     count: number;
 }
 
-const LoadingTable: React.FC<LoadingTableProps> = ({ colSpan, count }) => {
+const TableLoading: React.FC<LoadingTableProps> = ({ colSpan, count }) => {
     return (
         <>
             {Array.from({ length: count }).map((_, index) => (
@@ -23,4 +23,4 @@ const LoadingTable: React.FC<LoadingTableProps> = ({ colSpan, count }) => {
     );
 };
 
-export default LoadingTable;
+export default TableLoading;

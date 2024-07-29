@@ -1,10 +1,12 @@
-import Link from 'next/link';
-import React, { useState } from 'react';
-import { AiOutlineShop } from 'react-icons/ai';
-import { FaBars, FaTimes, FaUser } from 'react-icons/fa';
-import { IoNewspaperOutline } from 'react-icons/io5';
-import { MdOutlineHowToVote } from 'react-icons/md';
-import { RiLogoutBoxLine } from 'react-icons/ri';
+import Link from "next/link";
+import React, { useState } from "react";
+import { AiOutlineShop } from "react-icons/ai";
+import { FaBars, FaTimes, FaUser } from "react-icons/fa";
+import { GoPeople } from "react-icons/go";
+import { IoNewspaperOutline } from "react-icons/io5";
+import { LiaEnvelopeOpenTextSolid } from "react-icons/lia";
+import { MdOutlineHowToVote } from "react-icons/md";
+import { RiLogoutBoxLine } from "react-icons/ri";
 
 const Nav: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,49 +16,61 @@ const Nav: React.FC = () => {
   };
 
   return (
-    <div className="fixed bg-white md:bg-transparent w-full md:h-full md:w-fit">      
-    <div className='flex items-center '>
-      <button
-        className="p-2 text-white bg-black rounded-md m-4 hover:scale-110 transition-transform duration-300"
-        onClick={toggleNavbar}
-      >
-        {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-      </button>
-      <div className='md:hidden text-2xl font-bold text-black font-playfair'>Di Desa</div>
-    </div>
+    <div className="fixed bg-white md:bg-transparent w-full md:h-full md:w-fit z-50">
+      <div className="flex items-center ">
+        <button
+          className="p-2 text-white bg-black rounded-md m-4 hover:scale-110 transition-transform duration-300"
+          onClick={toggleNavbar}
+        >
+          {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+        </button>
+        <div className="md:hidden text-2xl font-bold text-black font-playfair">
+          Di Desa
+        </div>
+      </div>
       <div
-        className={`fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm transition-all duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm  transition-all duration-300 ${
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
         onClick={toggleNavbar}
       />
       <div
-        className={`fixed top-0 left-0 h-full min-h-screen w-64 bg-blue-600 text-white transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300`}
+        className={`fixed top-0 left-0 h-full min-h-screen w-[30vw] bg-black bg-opacity-80 text-white transform ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } transition-transform duration-300`}
       >
         <div className="p-4 text-2xl font-bold tracking-wider font-playfair">
           Di Desa
         </div>
-        <ul className='flex flex-col h-full'>
-          <li className="px-4 py-2 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
-            <Link href="/admin/berita">
+        <ul className="flex flex-col h-full">
+          <Link href="/admin/berita">
+            <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
               <IoNewspaperOutline className="inline-block mr-2" /> Berita
-            </Link>
-          </li>
-          <li className="px-4 py-2 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
-            <Link href="/admin/warga">
-              <FaUser className="inline-block mr-2" /> Warga
-            </Link>
-          </li>
-          <li className="px-4 py-2 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
-            <Link href="/admin/umkm">
+            </li>
+          </Link>
+          <Link href="/admin/warga">
+            <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
+              <GoPeople className="inline-block mr-2" /> Warga
+            </li>
+          </Link>
+          <Link href="/admin/umkm">
+            <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
               <AiOutlineShop className="inline-block mr-2" /> UMKM
-            </Link>
-          </li>
-          <li className="px-4 py-2 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
-            <Link href="/admin/pemilihan">
+            </li>
+          </Link>
+          <Link href="/admin/pengaduan">
+            <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
+              <LiaEnvelopeOpenTextSolid className="inline-block mr-2" /> Pengaduan Masyarakat
+            </li>
+          </Link>
+          <Link href="/admin/pemilihan">
+            <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
               <MdOutlineHowToVote className="inline-block mr-2" /> Pemilihan
-            </Link>
-          </li>
-          <li className="px-4 py-2 transition-colors duration-300 ease-in-out hover:bg-red-700 hover:shadow-lg cursor-pointer fixed bottom-2 w-full">
-            <RiLogoutBoxLine className="inline-block mr-2" onClick={() => {}} /> Keluar
+            </li>
+          </Link>
+          <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-red-700 hover:shadow-lg cursor-pointer fixed bottom-2 w-full">
+            <RiLogoutBoxLine className="inline-block mr-2" onClick={() => {}} />{" "}
+            Keluar
           </li>
         </ul>
       </div>

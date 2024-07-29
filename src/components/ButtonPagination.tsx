@@ -10,7 +10,7 @@ const ButtonPagination: React.FC<{ pagination: PaginationProps }> = ({ paginatio
     router.push({ pathname: router.pathname, query: { ...router.query, page } });
   };
 
-  return pagination ? (
+  return pagination && pagination.totalData>0 ? (
     <div className="flex justify-center mt-6">
       <button
         onClick={() => handlePageChange(pagination.currentPage - 1)}

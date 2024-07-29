@@ -43,7 +43,9 @@ const LoginAdmin: React.FC = () => {
               NIK
             </label>
             <input
-              type="text"
+              type="text"               
+              inputMode='numeric'
+              pattern='[0-9]*'
               id="nik"
               value={nik}
               onChange={(e) => setNik(e.target.value)}
