@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import Layout from '@/components/Layout';
+import LayoutDashboard from '@/components/Layout';
 import formatDate from '@/utils/format/formatDate';
 import formatString from '@/utils/format/formatString';
 import { BiCheckCircle, BiXCircle } from 'react-icons/bi';
@@ -46,7 +46,7 @@ const PengaduanPage: React.FC = () => {
     };
 
     return (
-        <Layout>
+        <LayoutDashboard>
             <div className="container mx-auto px-4 sm:px-8">
                 <div className="py-8">
                     <div className="flex justify-between">
@@ -110,7 +110,7 @@ const PengaduanPage: React.FC = () => {
         />
       )}
       {isWaiting && <LoadingState />}
-        </Layout>
+        </LayoutDashboard>
     );
 }
 

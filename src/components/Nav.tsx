@@ -5,8 +5,8 @@ import { FaBars, FaTimes, FaUser } from "react-icons/fa";
 import { GoPeople } from "react-icons/go";
 import { IoNewspaperOutline } from "react-icons/io5";
 import { LiaEnvelopeOpenTextSolid } from "react-icons/lia";
-import { MdOutlineHowToVote } from "react-icons/md";
-import { RiLogoutBoxLine } from "react-icons/ri";
+import { MdArrowRight, MdOutlineHowToVote } from "react-icons/md";
+import { RiAdminLine, RiLogoutBoxLine } from "react-icons/ri";
 
 const Nav: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,14 +19,11 @@ const Nav: React.FC = () => {
     <div className="fixed bg-white md:bg-transparent w-full md:h-full md:w-fit z-50">
       <div className="flex items-center ">
         <button
-          className="p-2 text-white bg-black rounded-md m-4 hover:scale-110 transition-transform duration-300"
+          className=" py-8 text-white bg-black rounded-r-xl hover:scale-110 transition-all duration-300 fixed left-0 top-1/2 hover:bg-gray-900"
           onClick={toggleNavbar}
         >
-          {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-        </button>
-        <div className="md:hidden text-2xl font-bold text-black font-playfair">
-          Di Desa
-        </div>
+          {isOpen? null : <MdArrowRight size={30}/>}          
+        </button>     
       </div>
       <div
         className={`fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm  transition-all duration-300 ${
@@ -35,13 +32,13 @@ const Nav: React.FC = () => {
         onClick={toggleNavbar}
       />
       <div
-        className={`fixed top-0 left-0 h-full min-h-screen w-[30vw] bg-black bg-opacity-80 text-white transform ${
+        className={`fixed top-0 left-0 h-full min-h-screen w-1/2 md:w-1/4 bg-black bg-opacity-80 text-white transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300`}
       >
         <div className="p-4 text-2xl font-bold tracking-wider font-playfair">
           Di Desa
-        </div>
+        </div>       
         <ul className="flex flex-col h-full">
           <Link href="/admin/berita">
             <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
@@ -63,6 +60,11 @@ const Nav: React.FC = () => {
               <LiaEnvelopeOpenTextSolid className="inline-block mr-2" /> Pengaduan Masyarakat
             </li>
           </Link>
+          <Link href="/admin/pengurus">
+            <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
+              <RiAdminLine className="inline-block mr-2" /> Pengurus Desa
+            </li>
+          </Link>
           <Link href="/admin/pemilihan">
             <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
               <MdOutlineHowToVote className="inline-block mr-2" /> Pemilihan
@@ -71,7 +73,7 @@ const Nav: React.FC = () => {
           <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-red-700 hover:shadow-lg cursor-pointer fixed bottom-2 w-full">
             <RiLogoutBoxLine className="inline-block mr-2" onClick={() => {}} />{" "}
             Keluar
-          </li>
+          </li>       
         </ul>
       </div>
     </div>

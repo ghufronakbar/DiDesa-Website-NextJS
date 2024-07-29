@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import Layout from '@/components/Layout';
+import LayoutDashboard from '@/components/Layout';
 import LoadingTable from '@/components/LoadingTable';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
@@ -42,7 +42,7 @@ const JenisUmkmPage: React.FC = () => {
     };
 
     return (
-        <Layout>
+        <LayoutDashboard>
             <div className="container mx-auto px-4 sm:px-8">
                 <div className="py-8">
                     <div className="flex justify-between">
@@ -101,7 +101,7 @@ const JenisUmkmPage: React.FC = () => {
                 />
             )}
             {isWaiting && <LoadingState />}
-        </Layout>
+        </LayoutDashboard>
     );
 }
 

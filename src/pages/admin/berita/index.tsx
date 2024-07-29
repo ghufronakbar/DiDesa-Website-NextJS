@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import Layout from '@/components/Layout';
+import LayoutDashboard from '@/components/LayoutDashboard';
 import formatDate from '@/utils/format/formatDate';
 import formatString from '@/utils/format/formatString';
 import { BiCheckCircle, BiXCircle } from 'react-icons/bi';
@@ -76,7 +76,7 @@ const BeritaPage: React.FC = () => {
     };
 
     return (
-        <Layout>
+        <LayoutDashboard>
             <div className="container mx-auto px-4 sm:px-8">
                 <div className="py-8">
                     <div className="flex justify-between">
@@ -116,8 +116,8 @@ const BeritaPage: React.FC = () => {
                                                     {index + 1}
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div>{item.judul}</div>
-                                                    <div>{formatString(item.subjudul, 25)}</div>
+                                                    <div className='font-semibold'>{item.judul}</div>
+                                                    <div className='text-gray-500 text-sm'>{formatString(item.subjudul, 25)}</div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     {formatDate(item.tanggal)}
@@ -152,7 +152,7 @@ const BeritaPage: React.FC = () => {
         />
       )}
       {isWaiting && <LoadingState />}
-        </Layout>
+        </LayoutDashboard>
     );
 }
 

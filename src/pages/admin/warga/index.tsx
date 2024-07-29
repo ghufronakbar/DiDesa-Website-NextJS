@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import Layout from '@/components/Layout';
+import LayoutDashboard from '@/components/LayoutDashboard';
 import LoadingTable from '@/components/LoadingTable';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
@@ -44,7 +44,7 @@ const WargaPage: React.FC = () => {
     };
 
     return (
-        <Layout>
+        <LayoutDashboard>
             <div className="container mx-auto px-4 sm:px-8">
                 <div className="py-8">
                     <div className="flex justify-between">
@@ -90,8 +90,8 @@ const WargaPage: React.FC = () => {
                                                     <div>{item.namaLengkap}</div>                                                    
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div>{item.nik}</div>
-                                                    <div>{item.kk}</div>
+                                                    <div className='font-semibold'>{item.nik}</div>
+                                                    <div className='text-gray-500 text-sm'>{item.kk}</div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     {item.telepon}
@@ -117,7 +117,7 @@ const WargaPage: React.FC = () => {
         />
       )}
       {isWaiting && <LoadingState />}
-        </Layout>
+        </LayoutDashboard>
     );
 }
 
