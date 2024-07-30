@@ -25,8 +25,8 @@ const SidebarAdmin: React.FC = () => {
           className=" py-8 text-white bg-black rounded-r-xl hover:scale-110 transition-all duration-300 fixed left-0 top-1/2 hover:bg-gray-900"
           onClick={toggleNavbar}
         >
-          {isOpen? null : <MdArrowRight size={30}/>}          
-        </button>     
+          {isOpen ? null : <MdArrowRight size={30} />}
+        </button>
       </div>
       <div
         className={`fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm  transition-all duration-300 ${
@@ -41,11 +41,12 @@ const SidebarAdmin: React.FC = () => {
       >
         <div className="p-4 text-2xl font-bold tracking-wider font-playfair">
           Di Desa
-        </div>       
+        </div>
         <ul className="flex flex-col h-full">
           <Link href="/admin/informasi">
             <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
-              <IoIosInformationCircleOutline className="inline-block mr-2" /> Informasi Desa
+              <IoIosInformationCircleOutline className="inline-block mr-2" />{" "}
+              Informasi Desa
             </li>
           </Link>
           <Link href="/admin/berita">
@@ -75,7 +76,8 @@ const SidebarAdmin: React.FC = () => {
           </Link>
           <Link href="/admin/pengaduan">
             <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
-              <LiaEnvelopeOpenTextSolid className="inline-block mr-2" /> Pengaduan Masyarakat
+              <LiaEnvelopeOpenTextSolid className="inline-block mr-2" />{" "}
+              Pengaduan Masyarakat
             </li>
           </Link>
           <Link href="/admin/pengurus">
@@ -88,10 +90,10 @@ const SidebarAdmin: React.FC = () => {
               <MdOutlineHowToVote className="inline-block mr-2" /> Pemilihan
             </li>
           </Link>
-          <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-red-700 hover:shadow-lg cursor-pointer fixed bottom-2 w-full">
-            <RiLogoutBoxLine className="inline-block mr-2" onClick={() => {}} />{" "}
+          <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-red-700 hover:shadow-lg">
+            <RiLogoutBoxLine className="inline-block mr-2" onClick={() => {}} />
             Keluar
-          </li>       
+          </li>
         </ul>
       </div>
     </div>
