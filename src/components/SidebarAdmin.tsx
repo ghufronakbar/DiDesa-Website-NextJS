@@ -9,6 +9,7 @@ import { LiaEnvelopeOpenTextSolid } from "react-icons/lia";
 import { MdArrowRight, MdOutlineHowToVote } from "react-icons/md";
 import { RiAdminLine, RiLogoutBoxLine } from "react-icons/ri";
 import { TfiCommentAlt } from "react-icons/tfi";
+import { VscGroupByRefType } from "react-icons/vsc";
 
 const SidebarAdmin: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -65,6 +66,11 @@ const SidebarAdmin: React.FC = () => {
           <Link href="/admin/umkm">
             <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
               <AiOutlineShop className="inline-block mr-2" /> UMKM
+            </li>
+          </Link>
+          <Link href="/admin/jenis-umkm">
+            <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
+              <VscGroupByRefType className="inline-block mr-2" /> Jenis UMKM
             </li>
           </Link>
           <Link href="/admin/pengaduan">

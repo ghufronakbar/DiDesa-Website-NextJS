@@ -54,4 +54,9 @@ const editWarga = async (
   return response.data;
 };
 
-export { getAllWarga, deleteWarga, createWarga, editWarga, getWargaById };
+const getAllDataWarga = async () => {
+  const response = await axiosInstance.get("/api/admin/warga/all");
+  return response.data;
+};
+
+export { getAllWarga, deleteWarga, createWarga, editWarga, getWargaById, getAllDataWarga };

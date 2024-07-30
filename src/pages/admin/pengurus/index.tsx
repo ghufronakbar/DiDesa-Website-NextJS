@@ -12,14 +12,19 @@ import { PengurusDesa } from '@/models/PengurusDesa';
 import ErrorTable from '@/components/ErrorTable';
 import ModalConfirmation from '@/components/ModalConfirmation';
 import LoadingState from '@/components/LoadingState';
-import { deletePengurusDesa, getAllPengurusDesa, setAccessPengurusDesa } from '@/services/admin/pengurusDesa';
+import { createPengurusDesa, deletePengurusDesa, getAllPengurusDesa, setAccessPengurusDesa } from '@/services/admin/pengurusDesa';
 import Image from 'next/image';
 import withAdminAuth from '@/utils/withAdminAuth';
+import { getAllDataWarga } from '@/services/admin/warga';
+import ModalContent from '@/components/ModalContent';
+import { Warga } from '@/models/Warga';
 
 const PengurusPage: React.FC = () => {
     const router = useRouter();
     const page = Number(router.query.page) || 1
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [isContentOpen, setIsContentOpen] = useState<boolean>(false);
+    const [jabatan , setJabatan] = useState<string>('');
     const [pengurusDesaAnggotaId, setPengurusDesaAnggotaId] = useState<number>(0);
     const [isWaiting, setIsWaiting] = useState<boolean>(false);
     const { showToast } = useToast();
@@ -28,6 +33,14 @@ const PengurusPage: React.FC = () => {
         queryFn: () => getAllPengurusDesa(page),
         placeholderData: keepPreviousData,
     })
+
+    const { data:dataWarga, isLoading:isLoadingWarga, isFetching:isFetchingWarga, isError:isErrorWarga } = useQuery({
+        queryKey: ['warga/all'],
+        queryFn: () => getAllDataWarga(),
+        placeholderData: keepPreviousData,
+    })
+
+    
 
     const handleAccessAdmin = async (pengurusDesaAnggotaId: number, aksesAdmin: boolean) => {
         setIsWaiting(true);
@@ -61,13 +74,31 @@ const PengurusPage: React.FC = () => {
         }
     };
 
+    const handleCreatePengurus = async () => {
+        if(jabatan === '') return showToast('Jabatan harus diisi', 'error');
+        if(pengurusDesaAnggotaId === 0) return showToast('Warga harus dipilih', 'error');
+        setIsWaiting(true);
+        try {
+            const response = await createPengurusDesa(pengurusDesaAnggotaId, jabatan);
+            showToast(response?.message, 'info');
+            setIsWaiting(false);
+            setIsContentOpen(false);
+            refetch();
+        } catch (error) {
+            console.log(error);
+            const apiError = error as ApiError;
+            setIsWaiting(false);
+            showToast(apiError.response?.data?.message || 'An error occurred', 'error');
+        }
+    }
+
     return (
         <LayoutDashboard>
             <div className="container mx-auto px-4 sm:px-8">
                 <div className="py-8">
                     <div className="flex justify-between">
                         <h1 className="text-4xl font-semibold">Pengurus Desa</h1>
-                        <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" onClick={() => router.push('/admin/pengurus/tambah')}>Tambah Pengurus</button>
+                        <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" disabled={isLoadingWarga || isFetchingWarga} onClick={() => {setIsContentOpen(true)}}>Tambah Pengurus</button>
                     </div>
                     <div className="overflow-x-auto mt-6">
                         <table className="min-w-full divide-y divide-gray-200">
@@ -93,7 +124,7 @@ const PengurusPage: React.FC = () => {
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
-                                {isLoading || isFetching ? <LoadingTable colSpan={6} count={5} />
+                                {isLoading || isFetching || isLoadingWarga || isFetchingWarga ? <LoadingTable colSpan={6} count={5} />
                                     : isError ? <ErrorTable colSpan={6} />
                                         :
                                         data && data?.data?.map((item: PengurusDesa, index: number): JSX.Element => (
@@ -136,7 +167,27 @@ const PengurusPage: React.FC = () => {
                     onClose={() => { setIsModalOpen(false); setPengurusDesaAnggotaId(0) }}
                 />
             )}
-            {isWaiting && <LoadingState />}
+            {isContentOpen && (
+                <ModalContent
+                title='Tambah Pengurus Desa'
+                onClose={() => {setIsContentOpen(false);setJabatan('');setPengurusDesaAnggotaId(0)}}
+                content={
+                    <div className='flex flex-col gap-2'>
+                        <label className='block text-md font-medium text-gray-700'>Warga</label>                        
+                        <select className='w-full p-2 border border-gray-300 rounded-md' value={pengurusDesaAnggotaId} onChange={(e) => setPengurusDesaAnggotaId(parseInt(e.target.value))}>
+                            <option value={0}>Pilih Warga</option>
+                            {dataWarga && dataWarga?.data?.map((item: Warga, index: number): JSX.Element => (
+                                <option key={index} value={item.wargaId}>{item.namaLengkap}</option>                                
+                            ))}
+                        </select>
+                        <label className='mt-2 block text-md font-medium text-gray-700'>Jabatan</label>
+                        <input className="w-full p-2 border border-gray-300 rounded-md" placeholder="Jabatan" value={jabatan} onChange={(e) => setJabatan(e.target.value)}/>
+                        <button className='w-fit h-fit mt-4 bg-indigo-600 text-white rounded-md px-4 py-2 hover:bg-indigo-700 transition-all duration-300' onClick={()=>{handleCreatePengurus()}}>Tambah</button>
+                    </div>
+                }
+                />
+            )}
+            {isWaiting && <LoadingState />}            
         </LayoutDashboard>
     );
 }

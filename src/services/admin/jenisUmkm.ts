@@ -12,4 +12,19 @@ const deleteJenisUmkm = async (jenisUmkmId: number) => {
   return response.data;
 };
 
-export { getAllJenisUmkm, deleteJenisUmkm };
+const createJenisUmkm = async (namaJenisUmkm: string) => {
+  const response = await axiosInstance.post("/api/admin/jenis-umkm", {
+    namaJenisUmkm,
+  });
+  return response.data;
+};
+
+const editJenisUmkm = async (jenisUmkmId: number, namaJenisUmkm: string) => {
+  const response = await axiosInstance.put(
+    `/api/admin/jenis-umkm/${jenisUmkmId}`,
+    { namaJenisUmkm }
+  );
+  return response.data;
+};
+
+export { getAllJenisUmkm, deleteJenisUmkm, createJenisUmkm, editJenisUmkm };
