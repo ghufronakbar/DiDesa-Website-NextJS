@@ -3,12 +3,14 @@ import React, { useState } from "react";
 import { AiOutlineShop } from "react-icons/ai";
 import { FaBars, FaTimes, FaUser } from "react-icons/fa";
 import { GoPeople } from "react-icons/go";
+import { IoIosInformationCircleOutline } from "react-icons/io";
 import { IoNewspaperOutline } from "react-icons/io5";
 import { LiaEnvelopeOpenTextSolid } from "react-icons/lia";
 import { MdArrowRight, MdOutlineHowToVote } from "react-icons/md";
 import { RiAdminLine, RiLogoutBoxLine } from "react-icons/ri";
+import { TfiCommentAlt } from "react-icons/tfi";
 
-const Nav: React.FC = () => {
+const SidebarAdmin: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => {
@@ -40,9 +42,19 @@ const Nav: React.FC = () => {
           Di Desa
         </div>       
         <ul className="flex flex-col h-full">
+          <Link href="/admin/informasi">
+            <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
+              <IoIosInformationCircleOutline className="inline-block mr-2" /> Informasi Desa
+            </li>
+          </Link>
           <Link href="/admin/berita">
             <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
               <IoNewspaperOutline className="inline-block mr-2" /> Berita
+            </li>
+          </Link>
+          <Link href="/admin/komentar">
+            <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
+              <TfiCommentAlt className="inline-block mr-2" /> Komentar
             </li>
           </Link>
           <Link href="/admin/warga">
@@ -80,4 +92,4 @@ const Nav: React.FC = () => {
   );
 };
 
-export default Nav;
+export default SidebarAdmin;

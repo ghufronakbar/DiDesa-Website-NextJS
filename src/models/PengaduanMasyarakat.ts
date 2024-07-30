@@ -7,5 +7,5 @@ export interface PengaduanMasyarakat {
   isi: string;
   foto: string | null;
   tanggal: string;
-  warga?: Warga;
+  warga: Warga;
 }
