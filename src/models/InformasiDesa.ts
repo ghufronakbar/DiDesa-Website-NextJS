@@ -1,4 +1,4 @@
-export interface Informasi {
+export interface InformasiDesa {
   informasiDesaId: number;
   namaDesa: string;
   deskripsi: string;

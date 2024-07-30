@@ -1,3 +1,8 @@
+/**
+ * 
+ * @param dateString - Tanggal dalam format "YYYY-MM-DDTHH:mm:ss.000Z"
+ * @returns String dengan format "Dayname, DD MMMM YYYY"
+ */
 const formatDate = (dateString: string) => {
   const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
   const months = [

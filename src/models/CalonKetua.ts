@@ -9,4 +9,5 @@ export interface CalonKetua {
     vote: number;
   };
   warga: Warga;
+  rank: number;
 }

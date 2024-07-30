@@ -1,3 +1,9 @@
+/**
+ * Mengonversi ISO Date String menjadi string tanggal dalam format "YYYY-MM-DD"
+ * @param isoDateString - Tanggal dalam format "YYYY-MM-DDTHH:mm:ss.000Z"
+ * @return String dengan format "YYYY-MM-DD"
+ */
+
 const formatConvertIsoToNormal = (isoDateString: string): string => {
     const date = new Date(isoDateString);
 

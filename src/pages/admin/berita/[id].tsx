@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import LayoutDashboard from "@/components/LayoutDashboard";
 import Image from "next/image";
-import { createBerita, getBeritaById, editBerita } from "@/services/admin/berita";
+import { getBeritaById, editBerita } from "@/services/admin/berita";
 import { useToast } from "@/components/Toast";
 import LoadingState from "@/components/LoadingState";
 import { ApiError } from "@/models/ApiError";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
-import LoadingSpinner from "@/components/LoadingSpinner";
 import LoadingPage from "@/components/LoadingPage";
 import ModalError from "@/components/ModalError";
 import withAdminAuth from "@/utils/withAdminAuth";

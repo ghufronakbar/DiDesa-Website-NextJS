@@ -6,7 +6,7 @@ export interface PemilihanKetua {
   tanggalSelesai: string;
   judul: string;
   deskripsi: string;
-  status: string;
+  status: "Belum Dimulai" | "Sedang Berlangsung" | "Selesai";
   _count: {
     calonKetua: number;
   };

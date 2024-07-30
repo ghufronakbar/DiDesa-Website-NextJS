@@ -14,9 +14,9 @@ import {
   editInformasiDesa,
   getInformasiDesa,
 } from "@/services/admin/informasiDesa";
-import { Informasi } from "@/models/Informasi";
+import { InformasiDesa } from "@/models/InformasiDesa";
 
-const InformasiDesa: React.FC = () => {
+const InformasiDesaPage: React.FC = () => {
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
   const { showToast } = useToast();
 
@@ -25,7 +25,7 @@ const InformasiDesa: React.FC = () => {
     queryFn: () => getInformasiDesa(),
   });
 
-  const [form, setForm] = useState<Informasi>({
+  const [form, setForm] = useState<InformasiDesa>({
     informasiDesaId: data?.data?.informasiDesaId,
     namaDesa: data?.data?.namaDesa,
     deskripsi: data?.data?.deskripsi,
@@ -158,4 +158,4 @@ const InformasiDesa: React.FC = () => {
   );
 };
 
-export default withAdminAuth(InformasiDesa);
+export default withAdminAuth(InformasiDesaPage);

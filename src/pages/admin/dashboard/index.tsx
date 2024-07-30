@@ -1,8 +1,7 @@
-
-import BeritaPage from "@/pages/admin/berita";
+import InformasiDesaPage from "@/pages/admin/informasi";
 
 const Dashboard = () => {
-    return <BeritaPage/>
+  return <InformasiDesaPage />;
 };
 
 export default Dashboard;
