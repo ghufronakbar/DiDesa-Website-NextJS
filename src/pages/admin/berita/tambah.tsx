@@ -6,6 +6,7 @@ import { useToast } from "@/components/Toast";
 import LoadingState from "@/components/LoadingState";
 import { ApiError } from "@/models/ApiError";
 import { useRouter } from "next/router";
+import withAdminAuth from "@/utils/withAdminAuth";
 
 const TambahBeritaPage: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -146,4 +147,4 @@ const TambahBeritaPage: React.FC = () => {
   );
 };
 
-export default TambahBeritaPage;
+export default withAdminAuth(TambahBeritaPage);

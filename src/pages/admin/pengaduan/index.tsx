@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import LayoutDashboard from '@/components/Layout';
+import LayoutDashboard from '@/components/LayoutDashboard';
 import formatDate from '@/utils/format/formatDate';
 import formatString from '@/utils/format/formatString';
 import { BiCheckCircle, BiXCircle } from 'react-icons/bi';
@@ -15,6 +15,7 @@ import ErrorTable from '@/components/ErrorTable';
 import ModalConfirmation from '@/components/ModalConfirmation';
 import LoadingState from '@/components/LoadingState';
 import { deletePengaduan, getAllPengaduan } from '@/services/admin/pengaduanMasyarakat';
+import withAdminAuth from '@/utils/withAdminAuth';
 
 const PengaduanPage: React.FC = () => {
     const router = useRouter();
@@ -115,4 +116,4 @@ const PengaduanPage: React.FC = () => {
 }
 
 
-export default PengaduanPage;
+export default withAdminAuth(PengaduanPage);

@@ -15,6 +15,7 @@ import ModalConfirmation from '@/components/ModalConfirmation';
 import { deleteUmkm, getAllUmkm, putApproveUmkm } from '@/services/admin/umkm';
 import LoadingState from '@/components/LoadingState';
 import Image from 'next/image';
+import withAdminAuth from '@/utils/withAdminAuth';
 
 const UMKMPage: React.FC = () => {
     const router = useRouter();
@@ -149,4 +150,4 @@ const UMKMPage: React.FC = () => {
 }
 
 
-export default UMKMPage;
+export default withAdminAuth(UMKMPage);

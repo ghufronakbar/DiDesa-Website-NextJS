@@ -7,6 +7,11 @@ const getAllWarga = async (page: number) => {
   return response.data;
 };
 
+const getWargaById = async (wargaId: number) => {
+  const response = await axiosInstance.get(`/api/admin/warga/${wargaId}`);
+  return response.data;
+};
+
 const deleteWarga = async (wargaId: number) => {
   const response = await axiosInstance.delete(`/api/admin/warga/${wargaId}`);
   return response.data;
@@ -30,4 +35,23 @@ const createWarga = async (
   return response.data;
 };
 
-export { getAllWarga, deleteWarga, createWarga };
+const editWarga = async (
+  id: number,
+  namaLengkap: string,
+  nik: string,
+  kk: string,
+  tanggalLahir: string,
+  telepon: string
+) => {
+  const response = await axiosInstance.put(`/api/admin/warga/${id}`, {
+    namaLengkap,
+    nik,
+    kk,
+    tanggalLahir,
+    telepon,
+  });
+
+  return response.data;
+};
+
+export { getAllWarga, deleteWarga, createWarga, editWarga, getWargaById };

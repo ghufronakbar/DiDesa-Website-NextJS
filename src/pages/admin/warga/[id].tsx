@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LayoutDashboard from "@/components/LayoutDashboard";
-import { createWarga } from "@/services/admin/warga";
+import { editWarga, getWargaById } from "@/services/admin/warga";
 import { useToast } from "@/components/Toast";
 import LoadingState from "@/components/LoadingState";
 import { ApiError } from "@/models/ApiError";
 import { useRouter } from "next/router";
+import { useQuery } from "@tanstack/react-query";
+import LoadingPage from "@/components/LoadingPage";
+import ModalError from "@/components/ModalError";
+import formatConvertIsoToNormal from "@/utils/format/formatConvertIsoToNormal";
 import withAdminAuth from "@/utils/withAdminAuth";
 
-const TambahWargaPage: React.FC = () => {
+const EditWargaPage: React.FC = () => {
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
   const { showToast } = useToast();
   const router = useRouter();
-  const [data, setData] = useState({
+  const {id} = router.query
+  const [form, setForm] = useState({
     namaLengkap: "",
     nik: "",
     kk: "",
@@ -19,25 +24,43 @@ const TambahWargaPage: React.FC = () => {
     telepon: "",
   });
 
-  const handleAdd = async () => {
+  const {data, isLoading, isFetching, isError} = useQuery({
+    queryKey: ['warga', id],
+    queryFn: () => router.isReady && id && typeof id === 'string'? getWargaById(Number(id)): null,
+  })
+
+  useEffect(() => {
+    if(data){
+        setForm({
+            namaLengkap: data?.data?.namaLengkap,
+            nik: data?.data?.nik,
+            kk: data?.data?.kk,
+            tanggalLahir: formatConvertIsoToNormal(data?.data?.tanggalLahir),
+            telepon: data?.data?.telepon.slice(2)
+        })
+    }  
+  },[data])
+
+  const handleEdit = async () => {
     if (
-      data.namaLengkap === "" ||
-      data.nik === "" ||
-      data.kk === "" ||
-      data.tanggalLahir === "" ||
-      data.telepon === ""
+      form.namaLengkap === "" ||
+      form.nik === "" ||
+      form.kk === "" ||
+      form.tanggalLahir === "" ||
+      form.telepon === ""
     ) {
       showToast("Semua kolom harus diisi", "error");
       return;
     }
     setIsWaiting(true);
     try {
-      const response = await createWarga(
-        data.namaLengkap,
-        data.nik,
-        data.kk,
-        new Date(data.tanggalLahir).toISOString(),
-        `62${data.telepon}`
+      const response = await editWarga(
+        Number(id),
+        form.namaLengkap,
+        form.nik,
+        form.kk,
+        new Date(form.tanggalLahir).toISOString(),
+        `62${form.telepon}`
       );
       showToast(response?.message, "info");
       setIsWaiting(false);
@@ -56,9 +79,11 @@ const TambahWargaPage: React.FC = () => {
 
   return (
     <LayoutDashboard>
+        {isFetching || isLoading?<LoadingPage/>:null}        
+        {isError?<ModalError push="/admin/berita"/>:null}
       <div className="container mx-auto px-4 sm:px-8">
         <div className="py-8">
-          <h1 className="text-4xl font-semibold mb-8">Tambah Warga</h1>
+          <h1 className="text-4xl font-semibold mb-8">Edit Warga</h1>
           <div className="flex flex-col border rounded-md p-4">
             <div className="mb-4">
               <label
@@ -71,8 +96,9 @@ const TambahWargaPage: React.FC = () => {
                 type="text"
                 id="namaLengkap"
                 className="w-full px-3 py-2 border rounded-md"
+                value={form?.namaLengkap}
                 onChange={(e) =>
-                  setData({ ...data, namaLengkap: e.target.value })
+                  setForm({ ...form, namaLengkap: e.target.value })
                 }
               />
             </div>
@@ -89,7 +115,8 @@ const TambahWargaPage: React.FC = () => {
                   id="nik"
                   inputMode="numeric"
                   className="w-full px-3 py-2 border rounded-md"
-                  onChange={(e) => setData({ ...data, nik: e.target.value })}
+                  value={form?.nik}
+                  onChange={(e) => setForm({ ...form, nik: e.target.value })}
                 />
               </div>
               <div className="md:flex-1">
@@ -104,7 +131,8 @@ const TambahWargaPage: React.FC = () => {
                   id="kk"
                   inputMode="numeric"
                   className="w-full px-3 py-2 border rounded-md"
-                  onChange={(e) => setData({ ...data, kk: e.target.value })}
+                  value={form?.kk}
+                  onChange={(e) => setForm({ ...form, kk: e.target.value })}
                 />
               </div>
             </div>
@@ -120,11 +148,12 @@ const TambahWargaPage: React.FC = () => {
                   type="date"
                   id="tanggalLahir"
                   className="w-full px-3 py-2 border rounded-md"
+                  value={form?.tanggalLahir}
                   onChange={(e) =>
-                    setData({ ...data, tanggalLahir: e.target.value })
+                    setForm({ ...form, tanggalLahir: e.target.value })
                   }
                 />
-              </div>
+              </div>              
               <div className="md:flex-1">
                 <label
                   htmlFor="telepon"
@@ -141,8 +170,9 @@ const TambahWargaPage: React.FC = () => {
                     id="telepon"
                     className="w-full px-3 py-2 border rounded-r-md"
                     inputMode="numeric"
+                    value={form?.telepon}
                     onChange={(e) =>
-                      setData({ ...data, telepon: e.target.value })
+                      setForm({ ...form, telepon: e.target.value })
                     }
                   />
                 </div>
@@ -152,7 +182,7 @@ const TambahWargaPage: React.FC = () => {
           <div className="mt-8">
             <button
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-              onClick={handleAdd}
+              onClick={handleEdit}
             >
               Simpan
             </button>
@@ -164,4 +194,4 @@ const TambahWargaPage: React.FC = () => {
   );
 };
 
-export default withAdminAuth(TambahWargaPage);
+export default withAdminAuth(EditWargaPage);

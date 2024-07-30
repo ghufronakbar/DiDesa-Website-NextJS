@@ -6,7 +6,7 @@ import formatString from '@/utils/format/formatString';
 import { BiCheckCircle, BiXCircle } from 'react-icons/bi';
 import LoadingTable from '@/components/LoadingTable';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { deleteBerita, getAllBerita, putPublikasiBerita } from '@/services/admin/berita';
+import { deleteBerita, getAllBerita, putPrioritasBerita, putPublikasiBerita } from '@/services/admin/berita';
 import { useRouter } from 'next/router';
 import ButtonPagination from '@/components/ButtonPagination';
 import { useToast } from '@/components/Toast';
@@ -15,6 +15,7 @@ import { Berita } from '@/models/Berita';
 import ErrorTable from '@/components/ErrorTable';
 import ModalConfirmation from '@/components/ModalConfirmation';
 import LoadingState from '@/components/LoadingState';
+import withAdminAuth from '@/utils/withAdminAuth';
 
 const BeritaPage: React.FC = () => {
     const router = useRouter();
@@ -47,7 +48,7 @@ const BeritaPage: React.FC = () => {
     const handlePrioritas = async (beritaId: number, prioritas: boolean) => {
         setIsWaiting(true);
         try {
-            const response = await putPublikasiBerita(beritaId, prioritas);
+            const response = await putPrioritasBerita(beritaId, prioritas);
             setIsWaiting(false);
             showToast(response?.message, 'success');
             refetch();
@@ -157,4 +158,4 @@ const BeritaPage: React.FC = () => {
 }
 
 
-export default BeritaPage;
+export default withAdminAuth(BeritaPage);

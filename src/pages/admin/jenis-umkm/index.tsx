@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import LayoutDashboard from '@/components/Layout';
+import LayoutDashboard from '@/components/LayoutDashboard';
 import LoadingTable from '@/components/LoadingTable';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
@@ -12,6 +12,7 @@ import ErrorTable from '@/components/ErrorTable';
 import ModalConfirmation from '@/components/ModalConfirmation';
 import LoadingState from '@/components/LoadingState';
 import { deleteJenisUmkm, getAllJenisUmkm } from '@/services/admin/jenisUmkm';
+import withAdminAuth from '@/utils/withAdminAuth';
 
 const JenisUmkmPage: React.FC = () => {
     const router = useRouter();
@@ -106,4 +107,4 @@ const JenisUmkmPage: React.FC = () => {
 }
 
 
-export default JenisUmkmPage;
+export default withAdminAuth(JenisUmkmPage);

@@ -13,6 +13,7 @@ import ModalConfirmation from '@/components/ModalConfirmation';
 import LoadingState from '@/components/LoadingState';
 import { deleteWarga, getAllWarga } from '@/services/admin/warga';
 import Image from 'next/image';
+import withAdminAuth from '@/utils/withAdminAuth';
 
 const WargaPage: React.FC = () => {
     const router = useRouter();
@@ -122,4 +123,4 @@ const WargaPage: React.FC = () => {
 }
 
 
-export default WargaPage;
+export default withAdminAuth(WargaPage);

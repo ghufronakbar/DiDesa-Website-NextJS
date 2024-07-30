@@ -8,6 +8,9 @@ import { ApiError } from "@/models/ApiError";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import LoadingPage from "@/components/LoadingPage";
+import ModalError from "@/components/ModalError";
+import withAdminAuth from "@/utils/withAdminAuth";
 
 const EditBeritaPage: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -76,8 +79,8 @@ const EditBeritaPage: React.FC = () => {
 
   return (
     <LayoutDashboard>
-        {isFetching || isLoading?<div className="h-full w-full flex justify-center items-center bg-white bg-opacity-50 absolute z-40  backdrop-blur-sm"><LoadingSpinner/></div>:null}        
-        {isError?<div className="h-full w-screen flex justify-center items-center bg-white bg-opacity-50 absolute z-40  backdrop-blur-sm text-black"><div>Sepertinya Terjadi Kesalahan</div></div>:null}
+        {isFetching || isLoading?<LoadingPage/>:null}        
+        {isError?<ModalError push="/admin/berita"/>:null}
       <div className="container mx-auto px-4 sm:px-8">
         <div className="py-8">
           <h1 className="text-4xl font-semibold mb-8">Edit Berita</h1>
@@ -172,4 +175,4 @@ const EditBeritaPage: React.FC = () => {
   );
 };
 
-export default EditBeritaPage;
+export default withAdminAuth(EditBeritaPage);
