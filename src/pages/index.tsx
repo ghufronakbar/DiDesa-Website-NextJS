@@ -1,4 +1,3 @@
-import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -281,12 +280,7 @@ const Navbar = () => {
 
 const DiDesa = () => {
     return (
-        <>
-            <Head>
-                <title>DiDesa</title>
-                <meta name="description" content="Digitalisasi Desa" />
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+        <>         
             <main>
                 <Navbar />
                 <Hero />
