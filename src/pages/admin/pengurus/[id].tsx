@@ -73,7 +73,7 @@ const EditPengurusPage: React.FC = () => {
 
     return (
         <LayoutDashboard>            
-            {isError ? <ModalError push="/admin/berita" /> : null}
+            {isError ? <ModalError push="/admin/pengurus" /> : null}
             <div className="container mx-auto px-4 sm:px-8">
                 <div className="py-8">
 

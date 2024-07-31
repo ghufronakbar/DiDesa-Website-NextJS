@@ -31,7 +31,7 @@ const editPemilihan = async (
   pemilihanKetuaId: number,
   judul: string,
   deskripsi: string,
-  tanngalMulai: string,
+  tanggalMulai: string,
   tanggalSelesai: string
 ) => {
   const response = await axiosInstance.put(
@@ -39,7 +39,7 @@ const editPemilihan = async (
     {
       judul,
       deskripsi,
-      tanngalMulai,
+      tanggalMulai,
       tanggalSelesai,
     }
   );
