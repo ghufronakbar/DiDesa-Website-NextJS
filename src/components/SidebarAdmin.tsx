@@ -10,13 +10,21 @@ import { MdArrowRight, MdOutlineHowToVote } from "react-icons/md";
 import { RiAdminLine, RiLogoutBoxLine } from "react-icons/ri";
 import { TfiCommentAlt } from "react-icons/tfi";
 import { VscGroupByRefType } from "react-icons/vsc";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const SidebarAdmin: React.FC = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
+
+  const handleLogout=()=>{
+    router.push('/admin/login');
+    Cookies.remove('d873670505a04af075d077431f094515')
+  }
 
   return (
     <div className="fixed bg-white md:bg-transparent w-full md:h-full md:w-fit z-50">
@@ -90,8 +98,8 @@ const SidebarAdmin: React.FC = () => {
               <MdOutlineHowToVote className="inline-block mr-2" /> Pemilihan
             </li>
           </Link>
-          <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-red-700 hover:shadow-lg">
-            <RiLogoutBoxLine className="inline-block mr-2" onClick={() => {}} />
+          <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-red-700 hover:shadow-lg cursor-pointer" onClick={() => {handleLogout()}}>
+            <RiLogoutBoxLine className="inline-block mr-2" />
             Keluar
           </li>
         </ul>
