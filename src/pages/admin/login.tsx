@@ -5,6 +5,7 @@ import axiosInstance from '@/utils/axiosInstance';
 import { useToast } from '@/components/Toast'; 
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import LoadingSpinner from '@/components/LoadingSpinner'; 
+import Cookies from 'js-cookie';
 
 const LoginAdmin: React.FC = () => {
   const [nik, setNik] = useState<string>('');
@@ -19,8 +20,8 @@ const LoginAdmin: React.FC = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      showToast(data.message, 'success');
-      localStorage.setItem('token', data.token);
+      showToast(data.message, 'success');      
+      Cookies.set('d873670505a04af075d077431f094515', data.token, { expires: 1 });
       router.push('/admin/dashboard');
     },
     onError: () => {

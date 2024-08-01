@@ -1,9 +1,9 @@
-// utils/withAdminAuth.tsx
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import jwt from 'jsonwebtoken';
 import { NextPage } from 'next';
 import { useToast } from '@/components/Toast';
+import Cookies from 'js-cookie';
 
 const withAdminAuth = (WrappedComponent: NextPage) => {
   const AdminAuthHOC: NextPage = (props) => {
@@ -11,7 +11,7 @@ const withAdminAuth = (WrappedComponent: NextPage) => {
     const { showToast } = useToast();
 
     useEffect(() => {
-      const token = localStorage.getItem('token');
+      const token = Cookies.get('d873670505a04af075d077431f094515')
       if (!token) {
         showToast('Anda harus login untuk mengakses halaman ini.', 'error');
         router.replace('/admin/login');
