@@ -124,16 +124,11 @@ const UMKM = () => {
               data.data.map((item: Umkm, index: number) => (
                 <CardUMKM
                   umkmId={item.umkmId}
-                  approve={item.approve}
                   gambar={item.gambar}
                   nama={item.nama}
-                  status={item.status}
                   lokasi={item.lokasi}
-                  jenisUmkmId={item.jenisUmkmId}
-                  jenisUmkm={item.jenisUmkm}
+                  jenisUmkm={item.jenisUmkm.namaJenisUmkm}
                   deskripsi={item.deskripsi}
-                  wargaId={item.wargaId}
-                  isEditable={item.isEditable}
                   key={index}
                 />
               ))

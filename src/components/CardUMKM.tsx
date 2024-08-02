@@ -2,6 +2,15 @@ import { Umkm } from "@/models/Umkm";
 import Image from "next/image";
 import Link from "next/link";
 
+interface CardUMKMProps {
+  umkmId: number;
+  deskripsi: string;
+  gambar: string;
+  jenisUmkm: string;
+  lokasi: string;
+  nama: string;
+}
+
 const CardUMKM = ({
   umkmId,
   deskripsi,
@@ -9,7 +18,7 @@ const CardUMKM = ({
   jenisUmkm,
   lokasi,
   nama,
-}: Umkm) => {
+}: CardUMKMProps) => {
   return (
     <Link href={`/umkm/${umkmId}?umkm=${encodeURIComponent(nama)}`} passHref>
       <div
@@ -30,7 +39,7 @@ const CardUMKM = ({
               {nama}
             </div>
             <div className="bg-primary text-white text-xs px-2 py-1 rounded-full inline-block mt-2 font-rubik uppercase">
-              {jenisUmkm.namaJenisUmkm}
+              {jenisUmkm}
             </div>
             <div className="text-sm mt-2 line-clamp-3 font-rubik text-black">
               {deskripsi}
