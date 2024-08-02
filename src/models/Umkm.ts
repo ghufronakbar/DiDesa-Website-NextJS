@@ -12,5 +12,6 @@ export interface Umkm {
   status: boolean;
   wargaId: number;
   jenisUmkm: JenisUmkm;
-  warga: Warga;
+  warga?: Warga;
+  isEditable?: boolean;
 }

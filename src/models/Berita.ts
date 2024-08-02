@@ -1,3 +1,5 @@
+import { Komentar } from "./Komentar";
+
 export interface Berita {
   beritaId: number;
   judul: string;
@@ -7,4 +9,8 @@ export interface Berita {
   gambar: string;
   publikasi: boolean;
   prioritas: boolean;
+  _count?: {
+    komentar: number;
+  };
+  komentar?: Komentar[];
 }
