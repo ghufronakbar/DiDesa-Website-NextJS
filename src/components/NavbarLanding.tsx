@@ -1,13 +1,11 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const NavbarUser = () => {
+const NavbarLanding = () => {
   const [showNavbar, setShowNavbar] = useState<boolean>(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>("");
-  const router = useRouter();
 
   useEffect(() => {
     let lastScrollTop = 0;
@@ -53,22 +51,61 @@ const NavbarUser = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const path = router.asPath;
-
   return (
     <nav
       className={`fixed w-full z-50 ${
         showNavbar ? "top-0" : "-top-20"
-      } transition-top duration-300 bg-white text-black shadow-md border-b border-gray-300 ease-in-out
+      } transition-top duration-300 ${
+        isScrolled
+          ? "bg-white text-black shadow-md"
+          : isMobileMenuOpen
+          ? "bg-white text-black shadow-md"
+          : "bg-transparent text-white"
       }`}
     >
       <div className="container mx-auto flex justify-between items-center p-4 font-rubik">
         <div className="text-xl font-bold font-playfair">DiDesa</div>
         <div className="hidden md:flex space-x-4">
-         {NavList.map((item) => (
-           <NavDekstop key={item.name} href={item.href} name={item.name} isActive={path === item.href} />
-         ))} 
-         
+          <Link
+            href="#hero"
+            className={`font-rubik transition-colors duration-300 ${
+              activeSection === "hero"
+                ? "underline underline-offset-8"
+                : "underline-offset-4"
+            } hover:text-primary`}
+          >
+            Beranda
+          </Link>
+          <Link
+            href="#berita"
+            className={`font-rubik transition-colors duration-300 ${
+              activeSection === "berita"
+                ? "underline underline-offset-8"
+                : "underline-offset-4"
+            } hover:text-primary`}
+          >
+            Berita
+          </Link>
+          <Link
+            href="#umkm"
+            className={`font-rubik transition-colors duration-300 ${
+              activeSection === "umkm"
+                ? "underline underline-offset-8"
+                : "underline-offset-4"
+            } hover:text-primary`}
+          >
+            UMKM
+          </Link>
+          <Link
+            href="#pemilihan"
+            className={`font-rubik transition-colors duration-300 ${
+              activeSection === "pemilihan"
+                ? "underline underline-offset-8"
+                : "underline-offset-4"
+            } hover:text-primary`}
+          >
+            Pemilihan
+          </Link>
         </div>
         <div className="md:hidden">
           <button onClick={handleMenuToggle} className="focus:outline-none">
@@ -78,7 +115,7 @@ const NavbarUser = () => {
                   ? "text-black"
                   : isMobileMenuOpen
                   ? "text-black"
-                  : "text-black"
+                  : "text-white"
               }`}
               fill="none"
               stroke="currentColor"
@@ -103,59 +140,38 @@ const NavbarUser = () => {
         <div
           className={`md:hidden bg-white shadow-md transition-all duration-300 `}
         >
-          {NavList.map((item) => (
-            <NavMobile
-              key={item.name}
-              href={item.href}
-              name={item.name}
-              onClick={handleMenuToggle}
-            />
-          ))}
+          <Link
+            href="#hero"
+            className="block text-black hover:text-primary font-rubik transition-colors duration-300 p-4"
+            onClick={handleMenuToggle}
+          >
+            Beranda
+          </Link>
+          <Link
+            href="#berita"
+            className="block text-black hover:text-primary font-rubik transition-colors duration-300 p-4"
+            onClick={handleMenuToggle}
+          >
+            Berita
+          </Link>
+          <Link
+            href="#umkm"
+            className="block text-black hover:text-primary font-rubik transition-colors duration-300 p-4"
+            onClick={handleMenuToggle}
+          >
+            UMKM
+          </Link>
+          <Link
+            href="#pemilihan"
+            className="block text-black hover:text-primary font-rubik transition-colors duration-300 p-4"
+            onClick={handleMenuToggle}
+          >
+            Pemilihan
+          </Link>
         </div>
       )}
     </nav>
   );
 };
 
-interface NavItemProps {
-  href: string;
-  name: string;
-  onClick?: () => void;
-  isActive?: boolean;
-}
-
-const NavList = [
-  { name: "Beranda", href: "/" },
-  { name: "Berita", href: "/berita" },
-  { name: "UMKM", href: "/umkm" },
-  { name: "Pemilihan", href: "/pemilihan" },
-];
-
-const NavMobile = ({ href, name, onClick }: NavItemProps) => {
-  return (
-    <Link
-      href={href}
-      className="block text-black hover:text-primary font-rubik transition-colors duration-300 p-4"
-      onClick={onClick}
-    >
-      {name}
-    </Link>
-  );
-};
-
-const NavDekstop = ({ href, name, isActive }: NavItemProps) => {
-  return (
-    <Link
-      href={href}
-      className={`font-rubik transition-colors duration-300 ${
-        isActive
-          ? "underline underline-offset-8"
-          : "underline-offset-4"
-      } hover:text-primary`}
-    >
-      {name}
-    </Link>
-  );
-};
-
-export default NavbarUser;
+export default NavbarLanding;

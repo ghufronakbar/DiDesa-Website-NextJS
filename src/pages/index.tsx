@@ -1,6 +1,7 @@
 import CardBerita from "@/components/CardBerita";
 import CardUMKM from "@/components/CardUMKM";
 import ErrorCard from "@/components/ErrorCard";
+import NavbarLanding from "@/components/NavbarLanding";
 import NavbarUser from "@/components/NavbarUser";
 import SkeletonCardBerita from "@/components/SkeletonCardBerita";
 import SkeletonCardUMKM from "@/components/SkeletonCardUMKM";
@@ -51,7 +52,7 @@ const BeritaPopuler = () => {
           </div>
         </div>
         <div className="horizontal-scroll mt-4">
-          <div className="scroll-container px-28">
+          <div className="scroll-container lg:px-28 md:px-20 px-8">
             {isLoading || isFetching ? (
               <SkeletonCardBerita count={15} />
             ) : isError ? (
@@ -114,7 +115,7 @@ const UMKM = () => {
         </div>
         {/* CONTAINER CARD */}
         <div className="horizontal-scroll mt-4">
-          <div className="scroll-container px-28">
+          <div className="scroll-container lg:px-28 md:px-20 px-8">
             {isLoading || isFetching ? (
               <SkeletonCardUMKM count={15} />
             ) : isError ? (
@@ -214,7 +215,7 @@ const DiDesa = () => {
   return (
     <>
       <main>
-        <NavbarUser />
+        <NavbarLanding />
         <HeroLandingPage />
         <BeritaPopuler />
         <UMKM />

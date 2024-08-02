@@ -7,7 +7,7 @@ const SkeletonCardUMKM: React.FC<SkeletonCardProps> = ({ count }) => {
     <>
       {Array.from({ length: count }).map((_, index) => (
         <div
-          className="relative w-60 h-96 rounded-2xl overflow-hidden shadow-lg flex-shrink-0 ml-2 animate-pulse"
+          className="relative md:w-[18vw] md:h-[25vw] w-[40vw] h-[66vw] rounded-2xl overflow-hidden shadow-lg flex-shrink-0 ml-2 animate-pulse"
           key={index}
         >
           <div className="bg-gray-300 w-full h-full rounded-2xl" />
