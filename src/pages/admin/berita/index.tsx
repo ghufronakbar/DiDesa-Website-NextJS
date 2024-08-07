@@ -28,6 +28,7 @@ const BeritaPage: React.FC = () => {
         queryKey: ['berita', router.query.page],
         queryFn: () => getAllBerita(page),
         placeholderData: keepPreviousData,
+        refetchOnWindowFocus: false,
     })
 
     const handlePublikasi = async (beritaId: number, publikasi: boolean) => {

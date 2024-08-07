@@ -34,6 +34,7 @@ const JenisUmkmPage: React.FC = () => {
         queryKey: ['jenis-umkm'],
         queryFn: () => getAllJenisUmkm(),
         placeholderData: keepPreviousData,
+        refetchOnWindowFocus: false,
     })
 
     const handleDelete = async (jenisUmkmId: number) => {

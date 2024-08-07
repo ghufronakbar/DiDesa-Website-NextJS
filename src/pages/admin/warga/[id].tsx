@@ -27,6 +27,7 @@ const EditWargaPage: React.FC = () => {
   const {data, isLoading, isFetching, isError} = useQuery({
     queryKey: ['warga', id],
     queryFn: () => router.isReady && id && typeof id === 'string'? getWargaById(Number(id)): null,
+    refetchOnWindowFocus: false,
   })
 
   useEffect(() => {

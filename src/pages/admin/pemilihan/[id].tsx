@@ -66,6 +66,7 @@ const EditPemilihanPage: React.FC = () => {
     const { data, isLoading, isFetching, isError, refetch } = useQuery({
         queryKey: ['pemilihan', id],
         queryFn: () => router.isReady && id && typeof id === 'string' ? getPemilihanById(Number(id)) : null,
+        refetchOnWindowFocus: false,
     });
 
     const { data: dataWarga, isLoading: isLoadingWarga, isFetching: isFetchingWarga, isError: isErrorWarga } = useQuery({

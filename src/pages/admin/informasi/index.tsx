@@ -1,14 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import LayoutDashboard from "@/components/LayoutDashboard";
 import { useToast } from "@/components/Toast";
 import LoadingState from "@/components/LoadingState";
-import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import LoadingPage from "@/components/LoadingPage";
 import ModalError from "@/components/ModalError";
 import withAdminAuth from "@/utils/withAdminAuth";
-import Image from "next/image";
-import { FaRegEdit } from "react-icons/fa";
 import { ApiError } from "@/models/ApiError";
 import {
   editInformasiDesa,
@@ -23,12 +20,14 @@ const InformasiDesaPage: React.FC = () => {
   const { data, isLoading, isFetching, isError } = useQuery({
     queryKey: ["informasi-desa"],
     queryFn: () => getInformasiDesa(),
+    refetchOnWindowFocus: false,
   });
 
   const [form, setForm] = useState<InformasiDesa>({
     informasiDesaId: data?.data?.informasiDesaId,
     namaDesa: data?.data?.namaDesa,
     deskripsi: data?.data?.deskripsi,
+    luasWilayah: data?.data?.luasWilayah,
     lahanPertanian: data?.data?.lahanPertanian,
     lahanPeternakan: data?.data?.lahanPeternakan,
   });
@@ -39,6 +38,7 @@ const InformasiDesaPage: React.FC = () => {
         informasiDesaId: data?.data?.informasiDesaId,
         namaDesa: data?.data?.namaDesa,
         deskripsi: data?.data?.deskripsi,
+        luasWilayah: data?.data?.luasWilayah,
         lahanPertanian: data?.data?.lahanPertanian,
         lahanPeternakan: data?.data?.lahanPeternakan,
       });
@@ -51,6 +51,7 @@ const InformasiDesaPage: React.FC = () => {
       const response = await editInformasiDesa(
         form.namaDesa,
         form.deskripsi,
+        form.luasWilayah,
         form.lahanPertanian,
         form.lahanPeternakan
       );
@@ -105,6 +106,21 @@ const InformasiDesaPage: React.FC = () => {
                   value={form?.deskripsi}
                   onChange={(e) =>
                     setForm({ ...form, deskripsi: e.target.value })
+                  }
+                />
+              </div>
+              <div className="flex-1">
+                <label className="block text-gray-700 font-medium mb-2">
+                  Luas Wilayah
+                </label>
+                <input
+                  className="w-full px-3 py-2 border rounded-md"
+                  type="number"
+                  inputMode="numeric"
+                  placeholder="Luas Lahan Pertanian"
+                  value={form?.luasWilayah}
+                  onChange={(e) =>
+                    setForm({ ...form, luasWilayah: Number(e.target.value) })
                   }
                 />
               </div>

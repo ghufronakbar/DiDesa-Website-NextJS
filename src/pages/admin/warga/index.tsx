@@ -26,6 +26,7 @@ const WargaPage: React.FC = () => {
         queryKey: ['warga', router.query.page],
         queryFn: () => getAllWarga(page),
         placeholderData: keepPreviousData,
+        refetchOnWindowFocus: false,
     })
     
     const handleDelete = async (wargaId: number) => {

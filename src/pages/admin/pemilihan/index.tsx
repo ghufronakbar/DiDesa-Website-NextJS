@@ -30,6 +30,7 @@ const PemilihanPage: React.FC = () => {
         queryKey: ['pemilihan'],
         queryFn: () => getAllPemilihan(),
         placeholderData: keepPreviousData,
+        refetchOnWindowFocus: false,
     })
     type Form = {
         judul: string;

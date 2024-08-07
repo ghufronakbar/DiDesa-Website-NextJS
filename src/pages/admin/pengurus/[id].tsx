@@ -24,6 +24,7 @@ const EditPengurusPage: React.FC = () => {
     const { data, isLoading, isFetching, isError } = useQuery({
         queryKey: ['pengurus', id],
         queryFn: () => router.isReady && id && typeof id === 'string' ? getPengurusDesaById(Number(id)) : null,
+        refetchOnWindowFocus: false,
     });
 
     useEffect(() => {

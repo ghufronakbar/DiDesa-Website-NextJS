@@ -47,6 +47,7 @@ const PengaduanPage: React.FC = () => {
     queryKey: ["pengaduan-masyarakat", router.query.page],
     queryFn: () => getAllPengaduan(page),
     placeholderData: keepPreviousData,
+    refetchOnWindowFocus: false,
   });
 
   const handleDelete = async (pengaduanMasyarakatId: number) => {

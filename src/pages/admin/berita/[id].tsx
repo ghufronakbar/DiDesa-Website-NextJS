@@ -27,6 +27,7 @@ const EditBeritaPage: React.FC = () => {
   const {data,isLoading,isFetching,isError} = useQuery({
       queryKey: ['berita', id],
       queryFn: () => router.isReady && id && typeof id === 'string'? getBeritaById(Number(id)): null,
+      refetchOnWindowFocus: false,
     })
     
     useEffect(() => {

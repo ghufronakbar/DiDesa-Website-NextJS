@@ -32,6 +32,7 @@ const PengurusPage: React.FC = () => {
         queryKey: ['pengurus-desa', router.query.page],
         queryFn: () => getAllPengurusDesa(page),
         placeholderData: keepPreviousData,
+        refetchOnWindowFocus: false,
     })
 
     const { data:dataWarga, isLoading:isLoadingWarga, isFetching:isFetchingWarga, isError:isErrorWarga } = useQuery({

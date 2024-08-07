@@ -38,6 +38,7 @@ const KomentarPage: React.FC = () => {
         queryKey: ['komentar', router.query.page],
         queryFn: () => getAllKomentar(page),
         placeholderData: keepPreviousData,
+        refetchOnWindowFocus: false,
     })
 
     const handleDelete = async (komentarId: number) => {
