@@ -1,3 +1,4 @@
+import { COOKIES_KEY } from "@/constant/keyStore";
 import axios from "axios";
 import Cookies from "js-cookie";
 const axiosInstance = axios.create({
@@ -8,7 +9,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = Cookies.get("d873670505a04af075d077431f094515");
+    const token = Cookies.get(COOKIES_KEY);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

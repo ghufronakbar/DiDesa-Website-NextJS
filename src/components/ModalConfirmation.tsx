@@ -15,7 +15,7 @@ const ModalConfirmation: React.FC<ModalConfirmationProps> = ({ title, message, o
         <button className="absolute top-2 right-2 text-gray-500 hover:text-gray-700" onClick={onClose}>
           <AiOutlineClose size={24} />
         </button>
-        <h2 className="text-2xl font-semibold mb-6">{title}</h2>
+        <h2 className="text-2xl font-semibold mb-6 text-black">{title}</h2>
         <p className="text-gray-700 mb-10">{message}</p>
         <div className="flex justify-end">
           <button

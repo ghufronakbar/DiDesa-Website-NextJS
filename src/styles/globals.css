@@ -94,3 +94,11 @@ body {
     text-wrap: balance;
   }
 }
+
+.hide-scrollbar {
+  scrollbar-color: transparent transparent; 
+}
+
+hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

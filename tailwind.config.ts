@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       fontSize: {
-        '2xs': '0.625rem', 
+        "2xs": "0.625rem",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -18,9 +18,9 @@ const config: Config = {
         didesa: "url('/images/wallpaper.jpg')",
       },
       colors: {
-        primary: "#FF7757",
-        secondary: "#331811",
-        tertiary: "#FFF2E9",
+        primary: "#71CFB9",
+        secondary: "#FAC441",
+        tertiary: "#556080",
       },
       fontFamily: {
         bebas: ["Bebas Neue", "sans-serif"],

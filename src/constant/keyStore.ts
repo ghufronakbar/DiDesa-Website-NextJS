@@ -1,0 +1,3 @@
+const COOKIES_KEY = "d873670505a04af075d077431f094515";
+
+export { COOKIES_KEY };

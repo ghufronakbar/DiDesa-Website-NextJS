@@ -1,8 +1,8 @@
 import CardBerita from "@/components/CardBerita";
 import CardUMKM from "@/components/CardUMKM";
 import ErrorCard from "@/components/ErrorCard";
+import Footer from "@/components/Footer";
 import NavbarLanding from "@/components/NavbarLanding";
-import NavbarUser from "@/components/NavbarUser";
 import SkeletonCardBerita from "@/components/SkeletonCardBerita";
 import SkeletonCardUMKM from "@/components/SkeletonCardUMKM";
 import SkeletonPemilihan from "@/components/SkeletonPemilihan";
@@ -28,7 +28,7 @@ const BeritaPopuler = () => {
   });
   return (
     <>
-      <section id="berita" className="w-full bg-white">
+      <section id="berita" className="w-full bg-gray-100">
         <div className="w-full h-full pt-32 lg:px-32 md:px-20 px-8 gap-2">
           <div className="w-full h-full flex flex-col md:flex-row justify-between gap-4">
             <div className="w-full h-full flex flex-col gap-2">
@@ -41,13 +41,18 @@ const BeritaPopuler = () => {
                 sumber terpercaya di desa.
               </div>
             </div>
-            <div className="flex flex-row gap-4">
-              <div className="w-fit h-fit p-2 rounded-lg focus:outline-none bg-secondary text-white hover:bg-primary transition-colors duration-300">
-                <MdOutlineNavigateNext className="w-6 h-6 rotate-180" />
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-row gap-4">
+                <div className="w-fit h-fit p-2 rounded-lg focus:outline-none bg-secondary text-white hover:bg-primary transition-colors duration-300">
+                  <MdOutlineNavigateNext className="w-6 h-6 rotate-180" />
+                </div>
+                <div className="w-fit h-fit p-2 rounded-lg focus:outline-none bg-primary text-white hover:bg-secondary transition-colors duration-300">
+                  <MdOutlineNavigateNext className="w-6 h-6" />
+                </div>
               </div>
-              <div className="w-fit h-fit p-2 rounded-lg focus:outline-none bg-primary text-white hover:bg-secondary transition-colors duration-300">
-                <MdOutlineNavigateNext className="w-6 h-6" />
-              </div>
+              <Link className="font-rubik text-gray-500" href={"/berita"}>
+                Lihat Semua
+              </Link>
             </div>
           </div>
         </div>
@@ -90,7 +95,7 @@ const UMKM = () => {
   });
   return (
     <>
-      <section id="umkm" className="w-full bg-white">
+      <section id="umkm" className="w-full bg-gray-100">
         <div className="w-full h-full pt-16 lg:px-32 md:px-20 px-8 gap-2">
           <div className="w-full h-full flex flex-col md:flex-row-reverse justify-between gap-4">
             <div className="w-full h-full flex flex-col gap-2 self-end text-end ">
@@ -103,13 +108,18 @@ const UMKM = () => {
                 pemasaran digital yang efektif.
               </div>
             </div>
-            <div className="flex flex-row gap-4 self-end">
-              <div className="w-fit h-fit p-2 rounded-lg focus:outline-none bg-secondary text-white hover:bg-primary transition-colors duration-300">
-                <MdOutlineNavigateNext className="w-6 h-6 rotate-180" />
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-row gap-4">
+                <div className="w-fit h-fit p-2 rounded-lg focus:outline-none bg-secondary text-white hover:bg-primary transition-colors duration-300">
+                  <MdOutlineNavigateNext className="w-6 h-6 rotate-180" />
+                </div>
+                <div className="w-fit h-fit p-2 rounded-lg focus:outline-none bg-primary text-white hover:bg-secondary transition-colors duration-300">
+                  <MdOutlineNavigateNext className="w-6 h-6" />
+                </div>
               </div>
-              <div className="w-fit h-fit p-2 rounded-lg focus:outline-none bg-primary text-white hover:bg-secondary transition-colors duration-300">
-                <MdOutlineNavigateNext className="w-6 h-6" />
-              </div>
+              <Link className="font-rubik text-gray-500" href={"/umkm"}>
+                Lihat Semua
+              </Link>
             </div>
           </div>
         </div>
@@ -153,7 +163,7 @@ const Pemilihan = () => {
       {isLoading || isFetching ? (
         <SkeletonPemilihan />
       ) : isError ? null : data && data.data ? (
-        <section id="pemilihan" className="w-full pt-16 pb-40 bg-white">
+        <section id="pemilihan" className="w-full pt-16 pb-40 bg-gray-100">
           <div className="w-full h-full lg:px-32 md:px-20 px-8 gap-2">
             <div className="w-full h-full flex flex-col md:flex-row justify-between gap-4">
               <div className="w-full h-full flex flex-col gap-2">
@@ -201,15 +211,6 @@ const Pemilihan = () => {
   );
 };
 
-const Footer = () => {
-  return (
-    <footer className="bg-secondary py-8">
-      <div className="container mx-auto text-center text-white font-playfair">
-        <p>&copy; 2024 DiDesa. All rights reserved.</p>
-      </div>
-    </footer>
-  );
-};
 
 const DiDesa = () => {
   return (

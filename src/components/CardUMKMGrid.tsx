@@ -10,7 +10,7 @@ interface CardUMKMProps {
   nama: string;
 }
 
-const CardUMKM = ({
+const CardUMKMGrid = ({
   umkmId,
   deskripsi,
   gambar,
@@ -21,15 +21,15 @@ const CardUMKM = ({
   return (
     <Link href={`/umkm/${umkmId}?umkm=${encodeURIComponent(nama)}`} passHref>
       <div
-        className={`w-[50vw] h-[80vw] sm:w-[30vw] sm:h-[50vw] md:w-[25vw] md:h-[44vw] lg:w-[30vw] lg:h-[40vw] xl:w-[20vw] xl:h-[30vw] rounded-2xl overflow-hidden shadow-lg flex-shrink-0 bg-white hover:scale-105  transition-transform duration-300 ml-2`}
+        className={`w-full h-96 rounded-2xl overflow-hidden shadow-lg flex flex-col bg-white hover:scale-105 transition-transform duration-300`}
       >
-        <div className="relative h-2/5">
+        <div className="h-2/5">
           <Image
             src={gambar}
             alt={nama}
-            layout="fill"
-            objectFit="cover"
-            className="rounded-t-2xl"
+            width={500}
+            height={500}            
+            className="object-cover rounded-t-2xl w-full h-48"
           />
         </div>
         <div className="p-4 h-3/5 flex flex-col justify-between bg-white">
@@ -45,7 +45,9 @@ const CardUMKM = ({
             </div>
           </div>
           <div className="flex justify-between items-center mt-4">
-            <div className="md:text-xs text-2xs text-gray-600 font-rubik">{lokasi}</div>
+            <div className="md:text-xs text-2xs text-gray-600 font-rubik">
+              {lokasi}
+            </div>
             <button className="bg-primary text-white text-xs md:px-4 md:py-2 px-2 py-1 rounded-lg font-rubik">
               Detail
             </button>
@@ -56,4 +58,4 @@ const CardUMKM = ({
   );
 };
 
-export default CardUMKM;
+export default CardUMKMGrid;

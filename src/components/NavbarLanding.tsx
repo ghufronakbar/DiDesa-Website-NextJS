@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import ProfileButton from "./ProfileButton";
 
 const NavbarLanding = () => {
   const [showNavbar, setShowNavbar] = useState<boolean>(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [isScrolled, setIsScrolled] = useState<boolean>(true);
   const [activeSection, setActiveSection] = useState<string>("");
 
   useEffect(() => {
@@ -63,9 +64,9 @@ const NavbarLanding = () => {
           : "bg-transparent text-white"
       }`}
     >
-      <div className="container mx-auto flex justify-between items-center p-4 font-rubik">
+      <div className="mx-auto flex justify-between items-center p-4 font-rubik">
         <div className="text-xl font-bold font-playfair">DiDesa</div>
-        <div className="hidden md:flex space-x-4">
+        <div className="hidden md:flex space-x-4 items-center">
           <Link
             href="#hero"
             className={`font-rubik transition-colors duration-300 ${
@@ -106,6 +107,7 @@ const NavbarLanding = () => {
           >
             Pemilihan
           </Link>
+          <ProfileButton />
         </div>
         <div className="md:hidden">
           <button onClick={handleMenuToggle} className="focus:outline-none">
@@ -168,6 +170,7 @@ const NavbarLanding = () => {
           >
             Pemilihan
           </Link>
+          <ProfileButton />
         </div>
       )}
     </nav>

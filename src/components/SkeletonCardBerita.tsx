@@ -7,7 +7,7 @@ const SkeletonCardBerita: React.FC<SkeletonCardProps> = ({ count }) => {
     <>
       {Array.from({ length: count }).map((_, index) => (
         <div
-          className="relative md:w-[18vw] md:h-[25vw] w-[40vw] h-[60vw] rounded-2xl overflow-hidden shadow-lg flex-shrink-0 ml-2 animate-pulse"
+          className="relative w-[50vw] h-[80vw] sm:w-[30vw] sm:h-[50vw] md:w-[25vw] md:h-[44vw] lg:w-[30vw] lg:h-[40vw] xl:w-[20vw] xl:h-[30vw] rounded-2xl overflow-hidden shadow-lg flex-shrink-0 ml-2 animate-pulse"
           key={index}
         >
           <div className="bg-gray-300 w-full h-full rounded-2xl" />

@@ -9,4 +9,5 @@ export interface Komentar {
     beritaId: number;
     warga: Warga;
     berita: Berita;
+    isDeleteable: boolean;
 }

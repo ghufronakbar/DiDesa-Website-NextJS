@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
-      <body className="font-montserrat">
+      <body className="font-montserrat bg-gray-100 hide-scrollbar">
         <Main />
         <NextScript />
       </body>

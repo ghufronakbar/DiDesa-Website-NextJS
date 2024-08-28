@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import ProfileButton from "./ProfileButton";
 
 const NavbarUser = () => {
   const [showNavbar, setShowNavbar] = useState<boolean>(true);
@@ -62,13 +63,13 @@ const NavbarUser = () => {
       } transition-top duration-300 bg-white text-black shadow-md border-b border-gray-300 ease-in-out
       }`}
     >
-      <div className="container mx-auto flex justify-between items-center p-4 font-rubik">
+      <div className="mx-auto flex justify-between items-center p-4 font-rubik">
         <div className="text-xl font-bold font-playfair">DiDesa</div>
-        <div className="hidden md:flex space-x-4">
+        <div className="hidden md:flex space-x-4 items-center">
          {NavList.map((item) => (
            <NavDekstop key={item.name} href={item.href} name={item.name} isActive={path === item.href} />
          ))} 
-         
+         <ProfileButton />
         </div>
         <div className="md:hidden">
           <button onClick={handleMenuToggle} className="focus:outline-none">
@@ -111,6 +112,7 @@ const NavbarUser = () => {
               onClick={handleMenuToggle}
             />
           ))}
+          <ProfileButton />
         </div>
       )}
     </nav>
