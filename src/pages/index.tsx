@@ -158,11 +158,14 @@ const Pemilihan = () => {
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 60,
   });
+
+  if (isLoading || isFetching) {
+    return null;
+  }
+
   return (
     <>
-      {isLoading || isFetching ? (
-        <SkeletonPemilihan />
-      ) : isError ? null : data && data.data ? (
+      {isError ? null : data && data.data ? (
         <section id="pemilihan" className="w-full pt-16 pb-40 bg-gray-100">
           <div className="w-full h-full lg:px-32 md:px-20 px-8 gap-2">
             <div className="w-full h-full flex flex-col md:flex-row justify-between gap-4">
@@ -194,9 +197,12 @@ const Pemilihan = () => {
                 <div className="font-playfair text-black lg:text-4xl md:text-3xl text-2xl">
                   {data.data.judul}
                 </div>
-                <div className="font-rubik text-black text-base">
-                  {data.data.deskripsi}
-                </div>
+                <div
+                  className="font-rubik text-black text-base"
+                  dangerouslySetInnerHTML={{
+                    __html: data?.data?.deskripsi.replace(/\n/g, "<br />"),
+                  }}
+                ></div>
                 <Link href={"/pemilihan"} passHref>
                   <div className="font-rubik text-primary text-sm md:text-base">
                     Lihat Selengkapnya &rarr;
@@ -210,7 +216,6 @@ const Pemilihan = () => {
     </>
   );
 };
-
 
 const DiDesa = () => {
   return (

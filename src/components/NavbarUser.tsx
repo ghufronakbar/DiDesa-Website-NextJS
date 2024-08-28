@@ -64,12 +64,20 @@ const NavbarUser = () => {
       }`}
     >
       <div className="mx-auto flex justify-between items-center p-4 font-rubik">
-        <div className="text-xl font-bold font-playfair">DiDesa</div>
+        <Link className="text-xl font-bold font-poppins" href={"/"} prefetch={false}>
+          <span className="text-primary">Di</span>
+          <span className="text-secondary">Desa</span>
+        </Link>{" "}
         <div className="hidden md:flex space-x-4 items-center">
-         {NavList.map((item) => (
-           <NavDekstop key={item.name} href={item.href} name={item.name} isActive={path === item.href} />
-         ))} 
-         <ProfileButton />
+          {NavList.map((item) => (
+            <NavDekstop
+              key={item.name}
+              href={item.href}
+              name={item.name}
+              isActive={path === item.href}
+            />
+          ))}
+          <ProfileButton />
         </div>
         <div className="md:hidden">
           <button onClick={handleMenuToggle} className="focus:outline-none">
@@ -150,9 +158,7 @@ const NavDekstop = ({ href, name, isActive }: NavItemProps) => {
     <Link
       href={href}
       className={`font-rubik transition-colors duration-300 ${
-        isActive
-          ? "underline underline-offset-8"
-          : "underline-offset-4"
+        isActive ? "underline underline-offset-8" : "underline-offset-4"
       } hover:text-primary`}
     >
       {name}

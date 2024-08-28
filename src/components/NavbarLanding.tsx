@@ -5,7 +5,7 @@ import ProfileButton from "./ProfileButton";
 const NavbarLanding = () => {
   const [showNavbar, setShowNavbar] = useState<boolean>(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-  const [isScrolled, setIsScrolled] = useState<boolean>(true);
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>("");
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const NavbarLanding = () => {
       }`}
     >
       <div className="mx-auto flex justify-between items-center p-4 font-rubik">
-        <div className="text-xl font-bold font-playfair">DiDesa</div>
+        <div className="text-xl font-bold font-poppins"><span className="text-primary">Di</span><span className="text-secondary">Desa</span></div>
         <div className="hidden md:flex space-x-4 items-center">
           <Link
             href="#hero"

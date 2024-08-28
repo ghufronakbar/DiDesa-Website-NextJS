@@ -156,7 +156,7 @@ const ListKomentar = ({
   return (
     <>
       <div className="w-full h-[400px] flex flex-col gap-4 relative px-4 py-2">
-        <div className="w-full h-full flex flex-col gap-4 overflow-y-scroll relative">
+        <div className="w-full h-[300px] flex flex-col gap-4 overflow-y-scroll relative px-2 py-4 border border-gray-300 rounded-md">
           {komentar?.length === 0 && (
             <div className="font-rubik text-gray-500">Belum Ada Komentar</div>
           )}
