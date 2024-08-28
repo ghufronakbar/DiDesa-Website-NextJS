@@ -11,11 +11,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     );
     res.setHeader("Content-Type", "application/vnd.android.package-archive");
     const fileStream = fs.createReadStream(filePath);
-    fileStream.pipe(res);
-
-    setTimeout(() => {
-      return res.status(300).redirect("/");
-    }, 3000);
+    fileStream.pipe(res);    
   } else {
     res.status(404).json({ error: "File not found" });
   }
