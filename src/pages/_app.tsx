@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>DiDesa</title>
         <meta name="description" content="Digitalisasi Desa" />
-        <link rel="icon" href="/icon.png" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <ToastProvider>
         <Component {...pageProps} />

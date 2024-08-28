@@ -52,7 +52,7 @@ const HeroLandingPage = () => {
             <div className="w-fit mx-auto">
               <Link
                 href={
-                  "https://play.google.com/store/apps/details?id=com.didesa"
+                  "/api/download"
                 }
                 target="_blank"
               >
