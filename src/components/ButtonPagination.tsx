@@ -25,7 +25,7 @@ const ButtonPagination: React.FC<{ pagination: PaginationProps }> = ({ paginatio
           onClick={() => handlePageChange(index + 1)}
           className={`px-4 py-2 mx-1 rounded-md hover:bg-gray-400 ${
             pagination.currentPage === index + 1
-              ? 'bg-blue-500 text-white'
+              ? 'bg-primary text-white'
               : 'bg-gray-300 text-black'
           }`}
         >

@@ -100,7 +100,7 @@ const UMKMPage: React.FC = () => {
           <div className="flex justify-between">
             <h1 className="text-4xl font-semibold">UMKM</h1>
             <button
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+              className="bg-primary text-white px-4 py-2 rounded-md hover:bg-blue-600"
               onClick={() => router.push("/admin/jenis-umkm")}
             >
               Kelola Jenis UMKM
@@ -179,7 +179,7 @@ const UMKMPage: React.FC = () => {
                           </div>
                         </td>
                         <td className="px-6 py-4 flex justify-center">
-                          <div className="w-fit h-fit bg-blue-500 px-2 py-1 rounded-lg text-xs text-white self-center">
+                          <div className="w-fit h-fit bg-primary px-2 py-1 rounded-lg text-xs text-white self-center">
                             {item.jenisUmkm.namaJenisUmkm}
                           </div>
                         </td>

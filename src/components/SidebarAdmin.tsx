@@ -12,6 +12,7 @@ import { TfiCommentAlt } from "react-icons/tfi";
 import { VscGroupByRefType } from "react-icons/vsc";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import { COOKIES_KEY } from "@/constant/keyStore";
 
 const SidebarAdmin: React.FC = () => {
   const router = useRouter();
@@ -21,90 +22,117 @@ const SidebarAdmin: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleLogout=()=>{
-    router.push('/admin/login');
-    Cookies.remove('d873670505a04af075d077431f094515')
-  }
+  const handleLogout = () => {
+    router.push("/admin/login");
+    Cookies.remove(COOKIES_KEY);
+  };
 
   return (
     <div className="fixed bg-white md:bg-transparent w-full md:h-full md:w-fit z-50">
       <div className="flex items-center ">
         <button
-          className=" py-8 text-white bg-black rounded-r-xl hover:scale-110 transition-all duration-300 fixed left-0 top-1/2 hover:bg-gray-900"
+          className=" py-8 text-primary hover:text-white bg-white rounded-r-xl hover:scale-110 transition-all duration-300 fixed left-0 top-1/3 hover:bg-primary border-2"
           onClick={toggleNavbar}
         >
           {isOpen ? null : <MdArrowRight size={30} />}
         </button>
       </div>
       <div
-        className={`fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm  transition-all duration-300 ${
+        className={`fixed inset-0 bg-tertiary bg-opacity-50 backdrop-blur-sm  transition-all duration-300 ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={toggleNavbar}
       />
       <div
-        className={`fixed top-0 left-0 h-full min-h-screen w-1/2 md:w-1/4 bg-black bg-opacity-80 text-white transform ${
+        className={`fixed top-0 left-0 h-full min-h-screen w-1/2 lg:w-1/3 xl:w-1/4 bg-white text-black transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300`}
       >
-        <div className="p-4 text-2xl font-bold tracking-wider font-playfair">
-          Di Desa
-        </div>
+        
+        <div className="p-4 text-xl font-bold font-poppins"><span className="text-primary">Di</span><span className="text-secondary">Desa</span></div>
+        
         <ul className="flex flex-col h-full">
-          <Link href="/admin/informasi">
-            <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
-              <IoIosInformationCircleOutline className="inline-block mr-2" />{" "}
-              Informasi Desa
-            </li>
-          </Link>
-          <Link href="/admin/berita">
-            <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
-              <IoNewspaperOutline className="inline-block mr-2" /> Berita
-            </li>
-          </Link>
-          <Link href="/admin/komentar">
-            <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
-              <TfiCommentAlt className="inline-block mr-2" /> Komentar
-            </li>
-          </Link>
-          <Link href="/admin/warga">
-            <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
-              <GoPeople className="inline-block mr-2" /> Warga
-            </li>
-          </Link>
-          <Link href="/admin/umkm">
-            <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
-              <AiOutlineShop className="inline-block mr-2" /> UMKM
-            </li>
-          </Link>
-          <Link href="/admin/jenis-umkm">
-            <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
-              <VscGroupByRefType className="inline-block mr-2" /> Jenis UMKM
-            </li>
-          </Link>
-          <Link href="/admin/pengaduan">
-            <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
-              <LiaEnvelopeOpenTextSolid className="inline-block mr-2" />{" "}
-              Pengaduan Masyarakat
-            </li>
-          </Link>
-          <Link href="/admin/pengurus">
-            <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
-              <RiAdminLine className="inline-block mr-2" /> Pengurus Desa
-            </li>
-          </Link>
-          <Link href="/admin/pemilihan">
-            <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg">
-              <MdOutlineHowToVote className="inline-block mr-2" /> Pemilihan
-            </li>
-          </Link>
-          <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-red-700 hover:shadow-lg cursor-pointer" onClick={() => {handleLogout()}}>
-            <RiLogoutBoxLine className="inline-block mr-2" />
+          {menutItem.map((item) => (
+            <MenuSidebar key={item.name} item={item} />
+          ))}
+          <li
+            className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-secondary hover:text-white hover:shadow-lg cursor-pointer"
+            onClick={() => {
+              handleLogout();
+            }}
+          >
+            <RiLogoutBoxLine className={classNameIcon} />
             Keluar
           </li>
         </ul>
       </div>
     </div>
+  );
+};
+
+const classNameIcon = "inline-block mr-2";
+
+type MenuItem = {
+  name: string;
+  href: string;
+  icon: React.ReactNode;
+};
+
+const menutItem: MenuItem[] = [
+  {
+    name: "Informasi Desa",
+    href: "/admin/informasi",
+    icon: <IoIosInformationCircleOutline className={classNameIcon} />,
+  },
+  {
+    name: "Berita",
+    href: "/admin/berita",
+    icon: <IoNewspaperOutline className={classNameIcon} />,
+  },
+  {
+    name: "Komentar",
+    href: "/admin/komentar",
+    icon: <TfiCommentAlt className={classNameIcon} />,
+  },
+  {
+    name: "Warga",
+    href: "/admin/warga",
+    icon: <GoPeople className={classNameIcon} />,
+  },
+  {
+    name: "UMKM",
+    href: "/admin/umkm",
+    icon: <AiOutlineShop className={classNameIcon} />,
+  },
+  {
+    name: "Jenis UMKM",
+    href: "/admin/jenis-umkm",
+    icon: <VscGroupByRefType className={classNameIcon} />,
+  },
+  {
+    name: "Pengaduan Masyarakat",
+    href: "/admin/pengaduan",
+    icon: <LiaEnvelopeOpenTextSolid className={classNameIcon} />,
+  },
+  {
+    name: "Pengurus Desa",
+    href: "/admin/pengurus",
+    icon: <RiAdminLine className={classNameIcon} />,
+  },
+  {
+    name: "Pemilihan",
+    href: "/admin/pemilihan",
+    icon: <MdOutlineHowToVote className={classNameIcon} />,
+  },
+];
+
+const MenuSidebar = ({ item }: { item: MenuItem }) => {
+  return (
+    <Link href={item.href}>
+      <li className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-primary hover:text-white hover:shadow-lg">
+        {item.icon} {item.name}
+      </li>
+    </Link>
   );
 };
 

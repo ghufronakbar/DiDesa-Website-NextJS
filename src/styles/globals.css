@@ -51,7 +51,7 @@ body {
   width: 26px;
   height: 26px;
   border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid #e50914;
+  border-top: 4px solid #71CFB9;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

@@ -87,7 +87,7 @@ const PemilihanPage: React.FC = () => {
                 <div className="py-8">
                     <div className="flex justify-between">
                         <h1 className="text-4xl font-semibold">Pemilihan</h1>
-                        <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" onClick={() => {setIsContentOpen(true)}}>Tambah Pemilihan</button>
+                        <button className="bg-primary text-white px-4 py-2 rounded-md hover:bg-blue-600" onClick={() => {setIsContentOpen(true)}}>Tambah Pemilihan</button>
                     </div>
                     <div className="overflow-x-auto mt-6">
                         <table className="min-w-full divide-y divide-gray-200">
@@ -128,7 +128,7 @@ const PemilihanPage: React.FC = () => {
                                                 <td className="px-6 py-4 whitespace-nowrap ">  
                                                     {item.calonKetua.length === 0 && <p className='w-fit h-fit bg-gray-500 px-2 py-1 rounded-lg text-xs text-white self-center m-1'>Belum ada partisipan</p>}                                              
                                                     {item.calonKetua.map((c: CalonKetua, i: number): JSX.Element => (
-                                                        <div className="w-fit h-fit bg-blue-500 px-2 py-1 rounded-lg text-xs text-white self-center m-1" key={i}>
+                                                        <div className="w-fit h-fit bg-primary px-2 py-1 rounded-lg text-xs text-white self-center m-1" key={i}>
                                                            {c.warga.namaLengkap} {": "+c._count.vote}
                                                         </div>
                                                     ))}

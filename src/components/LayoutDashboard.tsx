@@ -15,7 +15,7 @@ const LayoutDashboard: React.FC<LayoutProps> = ({ children }) => {
         <link rel="icon" href="/icon.png" />
       </Head>
       <SidebarAdmin />
-      <main className="flex-1 bg-gray-100 px-6 pb-6 pt-20 md:pt-8 text-black font-poppins">
+      <main className="flex-1 bg-gray-100 px-6 pb-6 pt-20 md:pt-8 text-black font-poppins w-full">
         {children}
       </main>
     </div>

@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { NextPage } from "next";
 import { useToast } from "@/components/Toast";
 import Cookies from "js-cookie";
+import { COOKIES_KEY } from "@/constant/keyStore";
 
 const withAdminAuth = (WrappedComponent: NextPage) => {
   const AdminAuthHOC: NextPage = (props) => {
@@ -12,7 +13,7 @@ const withAdminAuth = (WrappedComponent: NextPage) => {
 
     useEffect(() => {
       if (router.isReady) {
-        const token = Cookies.get("d873670505a04af075d077431f094515");
+        const token = Cookies.get(COOKIES_KEY);
         if (!token) {
           showToast("Anda harus login untuk mengakses halaman ini.", "error");
           router.replace("/admin/login");

@@ -99,7 +99,7 @@ const PengurusPage: React.FC = () => {
                 <div className="py-8">
                     <div className="flex justify-between">
                         <h1 className="text-4xl font-semibold">Pengurus Desa</h1>
-                        <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" disabled={isLoadingWarga || isFetchingWarga} onClick={() => {setIsContentOpen(true)}}>Tambah Pengurus</button>
+                        <button className="bg-primary text-white px-4 py-2 rounded-md hover:bg-blue-600" disabled={isLoadingWarga || isFetchingWarga} onClick={() => {setIsContentOpen(true)}}>Tambah Pengurus</button>
                     </div>
                     <div className="overflow-x-auto mt-6">
                         <table className="min-w-full divide-y divide-gray-200">

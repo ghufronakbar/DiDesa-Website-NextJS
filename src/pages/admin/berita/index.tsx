@@ -83,7 +83,7 @@ const BeritaPage: React.FC = () => {
                 <div className="py-8">
                     <div className="flex justify-between">
                         <h1 className="text-4xl font-semibold">Berita</h1>
-                        <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" onClick={() => router.push('/admin/berita/tambah')}>Tambah Berita</button>
+                        <button className="bg-primary text-white px-4 py-2 rounded-md hover:bg-blue-600" onClick={() => router.push('/admin/berita/tambah')}>Tambah Berita</button>
                     </div>
                     <div className="overflow-x-auto mt-6">
                         <table className="min-w-full divide-y divide-gray-200">

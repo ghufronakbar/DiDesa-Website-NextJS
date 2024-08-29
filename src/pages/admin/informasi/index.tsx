@@ -99,9 +99,9 @@ const InformasiDesaPage: React.FC = () => {
                 <label className="block text-gray-700 font-medium mb-2">
                   Deskripsi
                 </label>
-                <input
+                <textarea
                   className="w-full px-3 py-2 border rounded-md"
-                  type="text"
+                  rows={5}
                   placeholder="Deskripsi Informasi Desa"
                   value={form?.deskripsi}
                   onChange={(e) =>
@@ -158,7 +158,7 @@ const InformasiDesaPage: React.FC = () => {
                 />
               </div>
               <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 w-fit h-fit self-center mt-4"
+                className="bg-primary text-white px-4 py-2 rounded-md hover:bg-blue-600 w-fit h-fit self-center mt-4"
                 onClick={() => {
                   handleConfirm();
                 }}

@@ -172,7 +172,7 @@ const EditPemilihanPage: React.FC = () => {
                         <div className="w-full flex gap-2 flex-col">
                             <div className="flex flex-row gap-6 items-center justify-between mb-2">
                                 <h2 className="text-2xl font-semibold ">Calon Ketua</h2>
-                                {data?.data?.status !== "Belum Dimulai" ? null : <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" onClick={() => setIsContentOpen(true)}>Tambah Partisipan</button>}
+                                {data?.data?.status !== "Belum Dimulai" ? null : <button className="bg-primary text-white px-4 py-2 rounded-md hover:bg-blue-600" onClick={() => setIsContentOpen(true)}>Tambah Partisipan</button>}
                             </div>
                             {data?.data?.calonKetua.length === 0 ? <p className="text-gray-500">Belum ada calon ketua</p> : null}
                             {data?.data?.calonKetua.map((item: CalonKetua) => (
@@ -182,7 +182,7 @@ const EditPemilihanPage: React.FC = () => {
                                         <div className="flex flex-col justify-center w-full">
                                             <div className="flex flex-row gap-2 items-center">
                                                 <h1 className="text-lg font-semibold  h-fit">{item.warga.namaLengkap}</h1>
-                                                <div className={`text-xs font-medium text-white w-fit h-fit px-2 py-1 rounded-lg bg-blue-500`}>{item._count.vote}</div>
+                                                <div className={`text-xs font-medium text-white w-fit h-fit px-2 py-1 rounded-lg bg-primary`}>{item._count.vote}</div>
                                             </div>
                                             <div className="flex flex-row gap-2 items-center ">
                                                 <div className="text-sm text-gray-700 bg-transparent line-clamp-3">{item.deskripsi}</div>
@@ -251,7 +251,7 @@ const EditPemilihanPage: React.FC = () => {
                                 />
                             </div>
                             {data?.data?.status !== "Belum Dimulai" ? null : <button
-                                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 w-fit h-fit self-center mt-4"
+                                className="bg-primary text-white px-4 py-2 rounded-md hover:bg-blue-600 w-fit h-fit self-center mt-4"
                                 onClick={() => { handleConfirm() }}
                             >
                                 Edit

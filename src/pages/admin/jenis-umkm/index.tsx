@@ -88,7 +88,7 @@ const JenisUmkmPage: React.FC = () => {
                 <div className="py-8">
                     <div className="flex justify-between">
                         <h1 className="text-4xl font-semibold">Jenis Umkm</h1>
-                        <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" onClick={() => {setIsContentOpen(true)}}>Tambah Jenis UMKM</button>
+                        <button className="bg-primary text-white px-4 py-2 rounded-md hover:bg-blue-600" onClick={() => {setIsContentOpen(true)}}>Tambah Jenis UMKM</button>
                     </div>
                     <div className="overflow-x-auto mt-6">
                         <table className="min-w-full divide-y divide-gray-200">
