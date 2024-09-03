@@ -1,3 +1,4 @@
+import { Umkm } from "@/models/Umkm";
 import axiosInstance from "@/utils/axiosInstance";
 
 const getUmkm = async (limit: number, q: number, search: string) => {
@@ -16,4 +17,9 @@ const getJenisUmkm = async () => {
   return response.data;
 };
 
-export { getUmkm, getJenisUmkm };
+const getDetailUmkm = async (id: number): Promise<Umkm> => {
+  const response = await axiosInstance.get(`/api/user/umkm/${id}`);
+  return response.data.data;
+};
+
+export { getUmkm, getJenisUmkm, getDetailUmkm };

@@ -1,27 +1,20 @@
-import CardBerita from "@/components/CardBerita";
-import CardBeritaGrid from "@/components/CardBeritaGrid";
-import ErrorCard from "@/components/ErrorCard";
 import Footer from "@/components/Footer";
 import LoadingPage from "@/components/LoadingPage";
 import ModalConfirmation from "@/components/ModalConfirmation";
 import NavbarUser from "@/components/NavbarUser";
-import SkeletonCardBerita from "@/components/SkeletonCardBerita";
-import SkeletonCardGrid from "@/components/SkeletonCardGrid";
 import { useToast } from "@/components/Toast";
 import { IMAGE_PLACEHOLDER } from "@/constant/imagePlaceholder";
 import { ApiError } from "@/models/ApiError";
-import { Berita } from "@/models/Berita";
 import { Komentar } from "@/models/Komentar";
 import { addKomentar, deleteKomentar } from "@/services/user/berita";
-import { getBerita, getDetailBerita } from "@/services/user/berita";
-import useDebounce from "@/utils/useDebounce";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { getDetailBerita } from "@/services/user/berita";
+import formatDate from "@/utils/format/formatDate";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { CiSearch } from "react-icons/ci";
-import { FaDeleteLeft } from "react-icons/fa6";
+import { useState } from "react";
 import { MdOutlineDelete } from "react-icons/md";
+import { MetaData } from "../_app";
 
 const DetailBeritaPage = () => {
   const router = useRouter();
@@ -30,9 +23,7 @@ const DetailBeritaPage = () => {
   const { data, isLoading, isFetching, isError, refetch } = useQuery({
     queryKey: ["a", id],
     queryFn: () => getDetailBerita(id),
-    refetchOnWindowFocus: false,
-    // staleTime: 1000 * 60 * 60,
-    // placeholderData: keepPreviousData,
+    refetchOnWindowFocus: false,    
   });
 
   if (isLoading || isFetching) {
@@ -46,6 +37,7 @@ const DetailBeritaPage = () => {
   return (
     <>
       <NavbarUser />
+      <MetaData title={data?.judul || "DiDesa"} description={data?.subjudul || "Digitalisasi Desa"} />
       {data && (
         <section id="berita" className="w-full min-h-screen bg-gray-100">
           <div className="w-full h-full py-20 lg:px-32 md:px-20 px-8 gap-2">
@@ -69,6 +61,9 @@ const DetailBeritaPage = () => {
                   height={400}
                   className="w-full h-auto object-cover rounded-md"
                 />
+                  <span className="font-rubik text-gray-500 text-sm font-base -mt-2">
+                    {formatDate(data?.tanggal)}
+                  </span>
                 <div className="w-full h-fit hidden md:flex md:flex-col gap-2">
                   <span className="font-rubik text-black text-lg font-semibold">
                     Komentar
@@ -156,7 +151,7 @@ const ListKomentar = ({
   return (
     <>
       <div className="w-full h-[400px] flex flex-col gap-4 relative px-4 py-2">
-        <div className="w-full h-[300px] flex flex-col gap-4 overflow-y-scroll relative px-2 py-4 border border-gray-300 rounded-md">
+        <div className="w-full h-[300px] flex flex-col gap-4 overflow-y-scroll relative px-2 py-4 rounded-md">
           {komentar?.length === 0 && (
             <div className="font-rubik text-gray-500">Belum Ada Komentar</div>
           )}

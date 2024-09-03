@@ -1,3 +1,6 @@
+import { PengaduanMasyarakat } from "./PengaduanMasyarakat";
+import { Umkm } from "./Umkm";
+
 export interface Warga {
   wargaId: number;
   nik: string;
@@ -6,4 +9,6 @@ export interface Warga {
   tanggalLahir: string;
   telepon: string;
   foto: string;
+  umkm?: Umkm[];
+  pengaduanMasyarakat?: PengaduanMasyarakat[];
 }

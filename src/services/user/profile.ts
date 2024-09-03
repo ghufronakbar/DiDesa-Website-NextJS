@@ -14,6 +14,7 @@ type LoginResponse = ApiSuccessUser & {
 const getProfile = async (): Promise<ProfileResponse> => {
   try {
     const response = await axiosInstance.get("/api/user/account/profile");
+    console.log(response.data);
     return response.data;
   } catch (error) {
     throw error;
