@@ -7,8 +7,8 @@ const NavbarUser = () => {
   const [showNavbar, setShowNavbar] = useState<boolean>(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
-  const [activeSection, setActiveSection] = useState<string>("");
   const router = useRouter();
+  const path = router.pathname;
 
   useEffect(() => {
     let lastScrollTop = 0;
@@ -26,22 +26,6 @@ const NavbarUser = () => {
       } else {
         setIsScrolled(false);
       }
-
-      // Update active section
-      const sections = ["hero", "berita", "umkm", "pemilihan"];
-      let currentSection = "";
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (
-          element &&
-          scrollTop >= element.offsetTop - 100 &&
-          scrollTop < element.offsetTop + element.offsetHeight
-        ) {
-          currentSection = section;
-          break;
-        }
-      }
-      setActiveSection(currentSection);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -54,8 +38,6 @@ const NavbarUser = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const path = router.asPath;
-
   return (
     <nav
       className={`fixed w-full z-50 ${
@@ -64,7 +46,11 @@ const NavbarUser = () => {
       }`}
     >
       <div className="mx-auto flex justify-between items-center p-4 font-rubik">
-        <Link className="text-xl font-bold font-poppins" href={"/"} prefetch={false}>
+        <Link
+          className="text-xl font-bold font-poppins"
+          href={"/"}
+          prefetch={false}
+        >
           <span className="text-primary">Di</span>
           <span className="text-secondary">Desa</span>
         </Link>{" "}
@@ -74,7 +60,7 @@ const NavbarUser = () => {
               key={item.name}
               href={item.href}
               name={item.name}
-              isActive={path === item.href}
+              isActive={path.includes(item.href)}
             />
           ))}
           <ProfileButton />
