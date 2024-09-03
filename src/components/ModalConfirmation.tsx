@@ -19,12 +19,12 @@ const ModalConfirmation: React.FC<ModalConfirmationProps> = ({ title, message, o
         <p className="text-gray-700 mb-10">{message}</p>
         <div className="flex justify-end">
           <button
-            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 mr-2"
+            className="bg-secondary text-white px-4 py-2 rounded-md hover:bg-primary transition-all duration-300 mr-2"
             onClick={onConfirm}
           >
             Confirm
           </button>
-          <button className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400" onClick={onClose}>
+          <button className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 hover:text-white transition-all duration-300" onClick={onClose}>
             Cancel
           </button>
         </div>

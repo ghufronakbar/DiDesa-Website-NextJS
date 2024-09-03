@@ -20,16 +20,21 @@ type ToastProps = {
   text: string;
   status: 'success' | 'error' | 'info';
   onClose: () => void;
+  index: number;
 };
 
-const Toast: React.FC<ToastProps> = ({ text, status, onClose }) => {
-  const iconClasses = 'mr-3';
+const Toast: React.FC<ToastProps> = ({ text, status, onClose, index }) => {
+  const iconClasses = 'mr-3 text-xl';
 
-  const statusClasses = classNames({
-    'bg-green-100 border-green-500 text-green-700': status === 'success',
-    'bg-red-100 border-red-500 text-red-700': status === 'error',
-    'bg-blue-100 border-blue-500 text-blue-700': status === 'info',
-  });
+  const statusClasses = classNames(
+    'flex items-center p-4 rounded-lg shadow-lg mb-4 transition-transform duration-300 transform-gpu',
+    {
+      'bg-primary text-white': status === 'success',
+      'bg-secondary text-white': status === 'error',
+      'bg-primary text-white ': status === 'info',
+    },
+    'animate-bounce-in-right',    
+  );
 
   const icon = {
     success: <AiOutlineCheckCircle className={iconClasses} />,
@@ -38,10 +43,10 @@ const Toast: React.FC<ToastProps> = ({ text, status, onClose }) => {
   }[status];
 
   return (
-    <div className={`flex items-center border-l-4 p-4 rounded shadow-lg mb-4 ${statusClasses}`}>
+    <div className={statusClasses}>
       {icon}
       <div className="flex-1">{text}</div>
-      <button onClick={onClose} className="text-lg text-gray-700 ml-4">
+      <button onClick={onClose} className="text-lg text-gray-200 hover:text-gray-400 transition-colors ml-4">        
         <AiOutlineClose />
       </button>
     </div>
@@ -57,7 +62,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
 
   const showToast = (text: string, status: 'success' | 'error' | 'info') => {
     const id = Date.now();
-    setToasts([...toasts, { id, text, status }]);
+    setToasts((prevToasts) => [...prevToasts, { id, text, status }]);
     setTimeout(() => {
       setToasts((currentToasts) => currentToasts.filter((toast) => toast.id !== id));
     }, 5000);
@@ -70,9 +75,15 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      <div className="fixed bottom-4 right-4 z-50">
-        {toasts.map((toast) => (
-          <Toast key={toast.id} text={toast.text} status={toast.status} onClose={() => removeToast(toast.id)} />
+      <div className="fixed bottom-6 right-6 z-50 space-y-2">
+        {toasts.map((toast, index) => (
+          <Toast
+            key={toast.id}
+            text={toast.text}
+            status={toast.status}
+            onClose={() => removeToast(toast.id)}
+            index={index}
+          />
         ))}
       </div>
     </ToastContext.Provider>

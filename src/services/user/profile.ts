@@ -1,6 +1,8 @@
+import { COOKIES_KEY } from "@/constant/keyStore";
 import { ApiSuccessUser } from "@/models/ApiSuccessUser";
 import { Warga } from "@/models/Warga";
 import axiosInstance from "@/utils/axiosInstance";
+import Cookies from "js-cookie";
 
 type ProfileResponse = ApiSuccessUser & {
   data: Warga;
@@ -13,8 +15,7 @@ type LoginResponse = ApiSuccessUser & {
 
 const getProfile = async (): Promise<ProfileResponse> => {
   try {
-    const response = await axiosInstance.get("/api/user/account/profile");
-    console.log(response.data);
+    const response = await axiosInstance.get("/api/user/account/profile");    
     return response.data;
   } catch (error) {
     throw error;
@@ -32,4 +33,14 @@ const loginUser = async (
   return response.data;
 };
 
-export { getProfile, loginUser };
+const logoutUser = async () => {
+  Cookies.remove(COOKIES_KEY);
+  try {
+    await getProfile();    
+  } catch (error) {    
+  } finally {
+    window.location.reload();
+  }
+};
+
+export { getProfile, loginUser, logoutUser };

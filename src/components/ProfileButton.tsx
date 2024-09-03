@@ -1,9 +1,10 @@
 import { PROFILE_PLACEHOLDER } from "@/constant/imagePlaceholder";
-import { getProfile } from "@/services/user/profile";
+import { getProfile, logoutUser } from "@/services/user/profile";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { CgLogOut, CgProfile } from "react-icons/cg";
 
 const ProfileButton = () => {
   const { data, isLoading, isFetching, isError } = useQuery({
@@ -37,7 +38,9 @@ const ProfileButton = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Link href={!data || isError || data?.status !== 200 ? "/login" : "/profile"}>
+      <Link
+        href={!data || isError || data?.status !== 200 ? "/login" : "/profile"}
+      >
         {data && !isError && data?.status === 200 ? (
           <>
             <Image
@@ -66,17 +69,35 @@ const ProfileButton = () => {
           </>
         )}
       </Link>
+      {data && !isError && data?.status === 200 ? (
+        <div className="block md:hidden text-black hover:text-primary font-rubik transition-colors duration-300 p-4" onClick={()=>{logoutUser()}}>
+          Logout
+        </div>
+      ) : null}
 
       {/* Tooltip */}
       {isHovered && data && !isError && data?.status === 200 && (
-        <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg py-2">
-          <Link href="/profile" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-            Profile
-          </Link>
-          <Link href="/logout" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-            Logout
-          </Link>
-        </div>
+        <>          
+          <div className="hidden md:block absolute right-0 w-32 h-12 bg-transparent"></div>
+
+          {/* Actual Tooltip */}
+          <div className="hidden md:block absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg py-2 z-10">
+            <Link
+              href="/profile"
+              className="px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+            >
+              <CgProfile />
+              <span>Profile</span>
+            </Link>
+            <div
+            onClick={()=>{logoutUser()}}              
+              className="px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center gap-2 cursor-pointer"
+            >
+              <CgLogOut />
+              <span>Logout</span>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );

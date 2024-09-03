@@ -14,4 +14,5 @@ export interface Umkm {
   jenisUmkm: JenisUmkm;
   warga: Warga;
   isEditable?: boolean;
+  urlMap: string;
 }

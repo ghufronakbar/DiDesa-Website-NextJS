@@ -20,7 +20,7 @@ const HeroLandingPage = () => {
 
   return (
     <>
-      <section id="hero" className="w-full h-screen bg-didesa bg-cover bg-fixed bg-no-repeat bg-center">
+      <section id="beranda" className="w-full h-screen bg-didesa bg-cover bg-fixed bg-no-repeat bg-center">
         <div className="w-full h-full pt-32 lg:px-32 md:px-20 px-8 gap-2 bg-black bg-opacity-25 backdrop-blur-sm">
           <div className="w-full flex flex-col gap-2">
             <div className="font-playfair text-white lg:text-6xl md:text-5xl text-4xl md:max-w-[40vw] drop-shadow-lg">

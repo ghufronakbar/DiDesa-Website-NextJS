@@ -1,11 +1,11 @@
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import ProfileButton from "./ProfileButton";
+import { NavList } from "./NavbarUser";
 
 const NavbarLanding = () => {
   const [showNavbar, setShowNavbar] = useState<boolean>(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [isScrolled, setIsScrolled] = useState<boolean>(true);
   const [activeSection, setActiveSection] = useState<string>("");
 
   useEffect(() => {
@@ -25,8 +25,7 @@ const NavbarLanding = () => {
         setIsScrolled(false);
       }
 
-      // Update active section
-      const sections = ["hero", "berita", "umkm", "pemilihan"];
+      const sections: string[] = NavList.map((item) => item.name.toLowerCase());
       let currentSection = "";
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -52,6 +51,13 @@ const NavbarLanding = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const handleScroll = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <nav
       className={`fixed w-full z-50 ${
@@ -65,48 +71,24 @@ const NavbarLanding = () => {
       }`}
     >
       <div className="mx-auto flex justify-between items-center p-4 font-rubik">
-        <div className="text-xl font-bold font-poppins"><span className="text-primary">Di</span><span className="text-secondary">Desa</span></div>
+        <div className="text-xl font-bold font-poppins">
+          <span className="text-primary">Di</span>
+          <span className="text-secondary">Desa</span>
+        </div>
         <div className="hidden md:flex space-x-4 items-center">
-          <Link
-            href="#hero"
-            className={`font-rubik transition-colors duration-300 ${
-              activeSection === "hero"
-                ? "underline underline-offset-8"
-                : "underline-offset-4"
-            } hover:text-primary`}
-          >
-            Beranda
-          </Link>
-          <Link
-            href="#berita"
-            className={`font-rubik transition-colors duration-300 ${
-              activeSection === "berita"
-                ? "underline underline-offset-8"
-                : "underline-offset-4"
-            } hover:text-primary`}
-          >
-            Berita
-          </Link>
-          <Link
-            href="#umkm"
-            className={`font-rubik transition-colors duration-300 ${
-              activeSection === "umkm"
-                ? "underline underline-offset-8"
-                : "underline-offset-4"
-            } hover:text-primary`}
-          >
-            UMKM
-          </Link>
-          <Link
-            href="#pemilihan"
-            className={`font-rubik transition-colors duration-300 ${
-              activeSection === "pemilihan"
-                ? "underline underline-offset-8"
-                : "underline-offset-4"
-            } hover:text-primary`}
-          >
-            Pemilihan
-          </Link>
+          {NavList.map((item) => (
+            <button
+              key={item.name.toLowerCase()}
+              onClick={() => handleScroll(item.name.toLowerCase())}
+              className={`font-rubik transition-colors duration-300 ${
+                activeSection === item.name.toLowerCase()
+                  ? "underline underline-offset-8"
+                  : "underline-offset-4"
+              } hover:text-primary`}
+            >
+              {item.name}
+            </button>
+          ))}
           <ProfileButton />
         </div>
         <div className="md:hidden">
@@ -140,36 +122,20 @@ const NavbarLanding = () => {
       </div>
       {isMobileMenuOpen && (
         <div
-          className={`md:hidden bg-white shadow-md transition-all duration-300 `}
+          className={`md:hidden bg-white shadow-md transition-all duration-300`}
         >
-          <Link
-            href="#hero"
-            className="block text-black hover:text-primary font-rubik transition-colors duration-300 p-4"
-            onClick={handleMenuToggle}
-          >
-            Beranda
-          </Link>
-          <Link
-            href="#berita"
-            className="block text-black hover:text-primary font-rubik transition-colors duration-300 p-4"
-            onClick={handleMenuToggle}
-          >
-            Berita
-          </Link>
-          <Link
-            href="#umkm"
-            className="block text-black hover:text-primary font-rubik transition-colors duration-300 p-4"
-            onClick={handleMenuToggle}
-          >
-            UMKM
-          </Link>
-          <Link
-            href="#pemilihan"
-            className="block text-black hover:text-primary font-rubik transition-colors duration-300 p-4"
-            onClick={handleMenuToggle}
-          >
-            Pemilihan
-          </Link>
+          {NavList.map((item) => (
+            <button
+              key={item.name.toLowerCase()}
+              onClick={() => {
+                handleScroll(item.name.toLowerCase());
+                handleMenuToggle(); // Close the menu after scrolling
+              }}
+              className="block text-black hover:text-primary font-rubik transition-colors duration-300 p-4"
+            >
+              {item.name}
+            </button>
+          ))}
           <ProfileButton />
         </div>
       )}

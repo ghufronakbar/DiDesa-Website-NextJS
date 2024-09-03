@@ -1,3 +1,4 @@
+import { ApiSuccessUser } from "@/models/ApiSuccessUser";
 import { Umkm } from "@/models/Umkm";
 import axiosInstance from "@/utils/axiosInstance";
 
@@ -19,7 +20,47 @@ const getJenisUmkm = async () => {
 
 const getDetailUmkm = async (id: number): Promise<Umkm> => {
   const response = await axiosInstance.get(`/api/user/umkm/${id}`);
+  console.log(response);
   return response.data.data;
 };
 
-export { getUmkm, getJenisUmkm, getDetailUmkm };
+const setStatusUmkm = async (
+  id: number,
+  status: boolean
+): Promise<ApiSuccessUser> => {
+  const response = await axiosInstance.put(`/api/user/umkm/status/${id}`, {
+    status,
+  });
+  return response.data;
+};
+
+const editUmkmWithoutImage = async (
+  id: number,
+  nama: string,
+  deskripsi: string,
+  lokasi: string
+): Promise<ApiSuccessUser> => {
+  const response = await axiosInstance.put(`/api/user/umkm/${id}`, {
+    nama,
+    deskripsi,
+    lokasi,
+  });
+  return response.data;
+};
+
+const editImageUmkm = async (id: number, image: File) => {
+  const getData = await getDetailUmkm(id);
+  const formData = new FormData();
+  formData.append("gambar", image);
+  formData.append("nama", getData?.nama);
+  formData.append("deskripsi", getData?.deskripsi);
+  formData.append("lokasi", getData?.lokasi);
+  const response = await axiosInstance.put(`/api/user/umkm/${id}`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data;
+};
+
+export { getUmkm, getJenisUmkm, getDetailUmkm, setStatusUmkm, editUmkmWithoutImage, editImageUmkm };

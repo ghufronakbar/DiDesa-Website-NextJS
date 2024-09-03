@@ -134,10 +134,11 @@ interface NavItemProps {
   isActive?: boolean;
 }
 
-const NavList = [
-  { name: "Beranda", href: "/" },
+export const NavList = [
+  { name: "Beranda", href: "/beranda" },
   { name: "Berita", href: "/berita" },
   { name: "UMKM", href: "/umkm" },
+  { name: "Pengaduan", href: "/pengaduan" },
   { name: "Pemilihan", href: "/pemilihan" },
 ];
 
