@@ -29,7 +29,7 @@ const UMKMPage = () => {
     totalData: 0,
   });
 
-  const { data, isLoading, isFetching, isError, refetch } = useQuery({
+  const { data, isLoading, isFetching, isError } = useQuery({
     queryKey: ["umkm", limit, q, search],
     queryFn: () => getUmkm(limit, q, search),
     refetchOnWindowFocus: false,

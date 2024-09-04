@@ -4,7 +4,7 @@ import { Warga } from "@/models/Warga";
 import axiosInstance from "@/utils/axiosInstance";
 import Cookies from "js-cookie";
 
-type ProfileResponse = ApiSuccessUser & {
+export type ProfileResponse = ApiSuccessUser & {
   data: Warga;
 };
 

@@ -21,16 +21,17 @@ const CardUMKM = ({
   return (
     <Link href={`/umkm/${umkmId}?umkm=${encodeURIComponent(nama)}`} passHref>
       <div
-        className={`w-[50vw] h-[80vw] sm:w-[30vw] sm:h-[50vw] md:w-[25vw] md:h-[44vw] lg:w-[30vw] lg:h-[40vw] xl:w-[20vw] xl:h-[30vw] rounded-2xl overflow-hidden shadow-lg flex-shrink-0 bg-white hover:scale-105  transition-transform duration-300 ml-2`}
+        className={`w-[50vw] h-[80vw] sm:w-[30vw] sm:h-[50vw] md:w-[25vw] md:h-[44vw] lg:w-[30vw] lg:h-[40vw] xl:w-[20vw] xl:h-[30vw] rounded-2xl overflow-hidden shadow-lg flex-shrink-0 bg-white group ml-2`}
       >
-        <div className="relative h-2/5">
+        <div className="relative h-2/5 group overflow-hidden">
           <Image
             src={gambar}
             alt={nama}
-            layout="fill"
-            objectFit="cover"
-            className="rounded-t-2xl"
+            width={500}
+            height={500}
+            className="w-full h-full rounded-t-2xl object-cover group-hover:scale-105 transition-transform duration-300"
           />
+                    <div className="absolute bottom-0 left-0 w-full h-full object-cover rounded-lg transition-all duration-300 bg-black opacity-0 group-hover:scale-110 group-hover:opacity-30"></div>
         </div>
         <div className="p-4 h-3/5 flex flex-col justify-between bg-white">
           <div>

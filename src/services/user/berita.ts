@@ -2,7 +2,18 @@ import { ApiSuccessUser } from "@/models/ApiSuccessUser";
 import { Berita } from "@/models/Berita";
 import axiosInstance from "@/utils/axiosInstance";
 
-const getBerita = async (limit: number, search: string) => {
+interface BeritaResponse extends ApiSuccessUser {
+  data: Berita[];
+  dataLength: {
+    currentData: number;
+    totalData: number;
+  };
+}
+
+const getBerita = async (
+  limit: number,
+  search: string
+): Promise<BeritaResponse> => {
   const response = await axiosInstance.get("/api/user/berita", {
     params: {
       limit,

@@ -25,6 +25,7 @@ import { ApiError } from "@/models/ApiError";
 import ModalContent from "@/components/ModalContent";
 import ModalConfirmation from "@/components/ModalConfirmation";
 import { Umkm } from "@/models/Umkm";
+import { deleteUmkm } from "@/services/user/umkm";
 
 const DetailUMKMPage = () => {
   const router = useRouter();
@@ -33,6 +34,7 @@ const DetailUMKMPage = () => {
   const [formUmkm, setFormUmkm] = useState<Umkm | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [imageSelected, setImageSelected] = useState<File | null>(null);
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState<boolean>(false);
 
   const { data, isLoading, isFetching, isError, refetch } = useQuery({
     queryKey: ["umkmdetail", id],
@@ -45,14 +47,6 @@ const DetailUMKMPage = () => {
       setFormUmkm(data);
     }
   }, [data]);
-
-  if (isLoading || isFetching) {
-    return <LoadingPage />;
-  }
-
-  if (isError) {
-    router.push("/umkm");
-  }
 
   const handleSetStatus = async (status: boolean) => {
     try {
@@ -121,6 +115,29 @@ const DetailUMKMPage = () => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      const response = await deleteUmkm(Number(id));
+      showToast(response?.message || "Berhasil menghapus UMKM", "info");
+      router.push("/profile");
+    } catch (error) {
+      console.log(error);
+      const apiError = error as ApiError;
+      showToast(
+        apiError.response?.data?.message || "Terjadi kesalahan",
+        "error"
+      );
+    }
+  };
+
+  if (isLoading || isFetching) {
+    return <LoadingPage />;
+  }
+
+  if (isError) {
+    router.push("/umkm");
+  }
+
   return (
     <>
       <NavbarUser />
@@ -138,6 +155,14 @@ const DetailUMKMPage = () => {
           onConfirm={() => {
             handleEditImage();
           }}
+        />
+      )}
+      {isConfirmationOpen && (
+        <ModalConfirmation
+          title="Hapus UMKM"
+          message="Apakah anda yakin ingin menghapus UMKM?"
+          onClose={() => setIsConfirmationOpen(false)}
+          onConfirm={() => handleDelete()}
         />
       )}
       {showModal && data && formUmkm && (
@@ -183,6 +208,15 @@ const DetailUMKMPage = () => {
                   />
                 </div>
               </div>
+              <button
+                className="w-fit h-fit bg-secondary rounded-md mt-4 py-1 px-2 text-white hover:bg-primary transition-all duration-300"
+                onClick={() => {
+                  setShowModal(false);
+                  setIsConfirmationOpen(true);
+                }}
+              >
+                Hapus UMKM
+              </button>
             </div>
           }
         />

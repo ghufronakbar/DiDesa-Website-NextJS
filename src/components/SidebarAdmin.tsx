@@ -10,9 +10,8 @@ import { MdArrowRight, MdOutlineHowToVote } from "react-icons/md";
 import { RiAdminLine, RiLogoutBoxLine } from "react-icons/ri";
 import { TfiCommentAlt } from "react-icons/tfi";
 import { VscGroupByRefType } from "react-icons/vsc";
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { COOKIES_KEY } from "@/constant/keyStore";
+import { LogoutAdmin } from "@/services/admin/auth";
 
 const SidebarAdmin: React.FC = () => {
   const router = useRouter();
@@ -20,11 +19,6 @@ const SidebarAdmin: React.FC = () => {
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
-  };
-
-  const handleLogout = () => {
-    router.push("/admin/login");
-    Cookies.remove(COOKIES_KEY);
   };
 
   return (
@@ -48,9 +42,11 @@ const SidebarAdmin: React.FC = () => {
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300`}
       >
-        
-        <div className="p-4 text-xl font-bold font-poppins"><span className="text-primary">Di</span><span className="text-secondary">Desa</span></div>
-        
+        <div className="p-4 text-xl font-bold font-poppins">
+          <span className="text-primary">Di</span>
+          <span className="text-secondary">Desa</span>
+        </div>
+
         <ul className="flex flex-col h-full">
           {menutItem.map((item) => (
             <MenuSidebar key={item.name} item={item} />
@@ -58,7 +54,7 @@ const SidebarAdmin: React.FC = () => {
           <li
             className="px-4 py-4 transition-colors duration-300 ease-in-out hover:bg-secondary hover:text-white hover:shadow-lg cursor-pointer"
             onClick={() => {
-              handleLogout();
+              LogoutAdmin();
             }}
           >
             <RiLogoutBoxLine className={classNameIcon} />

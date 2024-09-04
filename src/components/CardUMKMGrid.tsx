@@ -21,16 +21,17 @@ const CardUMKMGrid = ({
   return (
     <Link href={`/umkm/${umkmId}?umkm=${encodeURIComponent(nama)}`} passHref>
       <div
-        className={`w-full h-96 rounded-2xl overflow-hidden shadow-lg flex flex-col bg-white hover:scale-105 transition-transform duration-300`}
+        className={`w-full h-96 rounded-2xl overflow-hidden shadow-lg flex flex-col bg-white relative group`}
       >
-        <div className="h-2/5">
+        <div className="h-2/5 overflow-hidden relative">
           <Image
             src={gambar}
             alt={nama}
             width={500}
             height={500}            
-            className="object-cover rounded-t-2xl w-full h-48"
+            className="group-hover:scale-105 transition-transform duration-300 object-cover rounded-t-2xl w-full h-48"
           />
+          <div className="absolute bottom-0 left-0 w-full h-full object-cover rounded-lg transition-all duration-300 bg-black opacity-0 group-hover:scale-110 group-hover:opacity-30"></div>
         </div>
         <div className="p-4 h-3/5 flex flex-col justify-between bg-white">
           <div>
