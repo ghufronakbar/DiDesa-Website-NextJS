@@ -84,14 +84,14 @@ const EditPemilihanPage: React.FC = () => {
         try {
             if(calon.calonKetuaId === 0){
                 const response = await createCalon(calon.wargaId, Number(id), calon.deskripsi);                
-                showToast(response.message, "info");
+                showToast(response.message, "success");
                 setIsWaiting(false);
                 setIsContentOpen(false);
                 setCalon({ wargaId: 0, deskripsi: "", calonKetuaId: 0,namaWarga: "" })
                 refetch();
             }else{
                 const response = await editCalon(calon.calonKetuaId,calon.deskripsi);
-                showToast(response.message, "info");
+                showToast(response.message, "success");
                 setIsWaiting(false);
                 setIsContentOpen(false);
                 setCalon({ wargaId: 0, deskripsi: "", calonKetuaId: 0,namaWarga: "" })
@@ -135,7 +135,7 @@ const EditPemilihanPage: React.FC = () => {
         }
         try {
             const response = await editPemilihan(Number(id), pemilihan.judul, pemilihan.deskripsi, formatConvertToIsoString(pemilihan.tanggalMulai), formatConvertToIsoString(pemilihan.tanggalSelesai));
-            showToast(response.message, "info");
+            showToast(response.message, "success");
             setIsWaiting(false);
             router.push('/admin/pemilihan');
         } catch (error) {
@@ -150,7 +150,7 @@ const EditPemilihanPage: React.FC = () => {
         setIsWaiting(true);
         try {
             const response = await deleteCalon(calonKetua.calonKetuaId);
-            showToast(response.message, "info");
+            showToast(response.message, "success");
             setIsWaiting(false);
             setIsConfirmationOpen(false);
             refetch();

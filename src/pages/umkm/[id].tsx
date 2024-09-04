@@ -51,7 +51,7 @@ const DetailUMKMPage = () => {
   const handleSetStatus = async (status: boolean) => {
     try {
       const response = await setStatusUmkm(Number(id), status);
-      showToast(response.message || "Berhasil mengubah status", "info");
+      showToast(response.message || "Berhasil mengubah status", "success");
       refetch();
     } catch (error) {
       console.log(error);
@@ -65,6 +65,7 @@ const DetailUMKMPage = () => {
 
   const handleEdit = async () => {
     if (!formUmkm) return;
+    showToast("Mengubah UMKM...", "info");
     if (
       formUmkm.nama === "" ||
       formUmkm.deskripsi === "" ||
@@ -81,7 +82,7 @@ const DetailUMKMPage = () => {
     );
     refetch();
     setShowModal(false);
-    showToast(response.message || "Berhasil mengubah UMKM", "info");
+    showToast(response.message || "Berhasil mengubah UMKM", "success");
   };
 
   const handlePickImage = () => {
@@ -102,7 +103,7 @@ const DetailUMKMPage = () => {
     try {
       const response = await editImageUmkm(Number(id), imageSelected);
       refetch();
-      showToast(response.message || "Berhasil mengubah UMKM", "info");
+      showToast(response.message || "Berhasil mengubah UMKM", "success");
     } catch (error) {
       console.log(error);
       const apiError = error as ApiError;
@@ -116,9 +117,10 @@ const DetailUMKMPage = () => {
   };
 
   const handleDelete = async () => {
+    showToast("Menghapus UMKM...", "info");
     try {
       const response = await deleteUmkm(Number(id));
-      showToast(response?.message || "Berhasil menghapus UMKM", "info");
+      showToast(response?.message || "Berhasil menghapus UMKM", "success");
       router.push("/profile");
     } catch (error) {
       console.log(error);

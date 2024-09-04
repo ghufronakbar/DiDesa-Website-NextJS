@@ -3,14 +3,12 @@ import LoadingPage from "@/components/LoadingPage";
 import ModalContent from "@/components/ModalContent";
 import NavbarUser from "@/components/NavbarUser";
 import { useToast } from "@/components/Toast";
-import { IMAGE_PLACEHOLDER } from "@/constant/imagePlaceholder";
 import { ApiError } from "@/models/ApiError";
 import { PemilihanKetuaStatus } from "@/models/PemilihanKetua";
 import { doVote, getLatestPemilihan } from "@/services/user/pemilihan";
 import formatDate from "@/utils/format/formatDate";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 
 const PemilihanPage = () => {
@@ -38,6 +36,7 @@ const PemilihanPage = () => {
   };
 
   const handleVote = async () => {
+    showToast("Memilih calon...", "info");
     try {
       const response = await doVote(dataCalon.calonKetuaId);
       showToast(response?.message || "Berhasil melakukan pemilihan", "success");
@@ -70,7 +69,7 @@ const PemilihanPage = () => {
                   {data.data.judul}
                 </div>
                 <div className="md:w-1/4 w-1/2 h-[2px] bg-primary" />
-                <div className="font-rubik text-gray-500 text-sm md:text-base flex flex-row items-center gap-2">
+                <div className="font-rubik text-gray-500 text-sm md:text-base flex flex-col lg:flex-row item-start lg:items-center gap-2">
                   <span
                     className={`${
                       data?.data.status === "Selesai"
@@ -78,7 +77,7 @@ const PemilihanPage = () => {
                         : data?.data.status === "Belum Dimulai"
                         ? "bg-secondary"
                         : "bg-primary"
-                    }  text-white text-2xs px-2 py-1 rounded-full inline-block font-rubik uppercase text-xs`}
+                    }  text-white text-2xs px-2 py-1 rounded-full inline-block font-rubik uppercase text-xs w-fit h-fit`}
                   >
                     {data?.data?.status}
                   </span>

@@ -23,6 +23,7 @@ interface FormUmkm {
 
 const FormUmkmPage = () => {
   const router = useRouter();
+  const [isPending, setIsPending] = useState<boolean>(false);
   const [loadingProfile, setLoadingProfile] = useState<boolean>(true);
   const [formUmkm, setFormUmkm] = useState<FormUmkm>({
     nama: "",
@@ -65,6 +66,8 @@ const FormUmkmPage = () => {
     ) {
       return showToast("Semua data wajib diisi", "error");
     }
+    showToast("Mendaftarkan UMKM...", "info");
+    setIsPending(true);
     try {
       const response = await createUmkm(
         formUmkm.nama,
@@ -73,7 +76,7 @@ const FormUmkmPage = () => {
         formUmkm.jenisUmkmId,
         formUmkm.image
       );
-      showToast(response.message || "Berhasil mendaftarkan UMKM", "info");
+      showToast(response.message || "Berhasil mendaftarkan UMKM", "success");
       setFormUmkm({
         nama: "",
         deskripsi: "",
@@ -89,6 +92,8 @@ const FormUmkmPage = () => {
         apiError.response?.data?.message || "Terjadi kesalahan",
         "error"
       );
+    } finally {
+      setIsPending(false);
     }
   };
 
@@ -245,8 +250,9 @@ const FormUmkmPage = () => {
               <button
                 className="w-fit h-fit bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition-all duration-300 self-center md:self-end"
                 onClick={(e) => handleSend(e)}
+                disabled={isPending}
               >
-                Kirim
+                {isPending ? "Loading..." : "Kirim"}
               </button>
             </div>
           </form>

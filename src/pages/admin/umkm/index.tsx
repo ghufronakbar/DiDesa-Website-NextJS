@@ -60,7 +60,7 @@ const UMKMPage: React.FC = () => {
     setIsWaiting(true);
     try {
       const response = await putApproveUmkm(umkmId, approve);
-      showToast(response?.message, "info");
+      showToast(response?.message, "success");
       refetch();
       setIsWaiting(false);
     } catch (error) {
@@ -78,7 +78,7 @@ const UMKMPage: React.FC = () => {
     setIsWaiting(true);
     try {
       const response = await deleteUmkm(umkmId);
-      showToast(response?.message, "info");
+      showToast(response?.message, "success");
       setIsModalOpen(false);
       refetch();
       setIsWaiting(false);

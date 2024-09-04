@@ -41,7 +41,7 @@ const JenisUmkmPage: React.FC = () => {
         setIsWaiting(true);
         try {
             const response = await deleteJenisUmkm(jenisUmkmId);
-            showToast(response?.message, 'info');
+            showToast(response?.message, 'success');
             setIsWaiting(false);
             setIsModalOpen(false);
             refetch();
@@ -63,13 +63,13 @@ const JenisUmkmPage: React.FC = () => {
         try {
             if(jenisUmkmId === 0){
                 const response = await createJenisUmkm(namaJenisUmkm);
-                showToast(response?.message, 'info');
+                showToast(response?.message, 'success');
                 setIsWaiting(false);
                 setIsContentOpen(false);
                 refetch();
             }else{
                 const response = await editJenisUmkm(jenisUmkmId, namaJenisUmkm);
-                showToast(response?.message, 'info');
+                showToast(response?.message, 'success');
                 setIsWaiting(false);
                 setIsContentOpen(false);
                 refetch();

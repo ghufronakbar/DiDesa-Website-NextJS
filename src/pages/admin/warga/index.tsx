@@ -33,7 +33,7 @@ const WargaPage: React.FC = () => {
         setIsWaiting(true);
         try {
             const response = await deleteWarga(wargaId);
-            showToast(response?.message, 'info');
+            showToast(response?.message, 'success');
             setIsWaiting(false);
             setIsModalOpen(false);
             refetch();

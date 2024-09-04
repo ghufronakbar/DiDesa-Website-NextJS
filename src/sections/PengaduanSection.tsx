@@ -13,6 +13,7 @@ interface FormPengaduan {
 }
 
 const PengaduanSection = ({ className }: { className?: string }) => {
+  const [isPending, setIsPending] = useState<boolean>(false);
   const [formPengaduan, setFormPengaduan] = useState<FormPengaduan>({
     subjek: "",
     isi: "",
@@ -34,6 +35,8 @@ const PengaduanSection = ({ className }: { className?: string }) => {
   };
 
   const handleSend = async (e: React.FormEvent) => {
+    showToast("Mengirim pengaduan...", "info");
+    setIsPending(true);
     e.preventDefault();
     if (formPengaduan.subjek === "" || formPengaduan.isi === "") {
       return showToast("Subjek dan Isi wajib diisi", "error");
@@ -44,7 +47,7 @@ const PengaduanSection = ({ className }: { className?: string }) => {
         formPengaduan.isi,
         formPengaduan.image
       );
-      showToast(response.message || "Berhasil mengirim pengaduan", "info");
+      showToast(response.message || "Berhasil mengirim pengaduan", "success");
       setFormPengaduan({
         subjek: "",
         isi: "",
@@ -57,11 +60,16 @@ const PengaduanSection = ({ className }: { className?: string }) => {
         apiError.response?.data?.message || "Terjadi kesalahan",
         "error"
       );
+    } finally {
+      setIsPending(false);
     }
   };
   return (
     <>
-      <section id="pengaduan" className={"w-full pt-16 pb-40 bg-gray-100 " + className}>
+      <section
+        id="pengaduan"
+        className={"w-full pt-16 pb-40 bg-gray-100 " + className}
+      >
         <div className="w-full h-full lg:px-32 md:px-20 px-8 gap-2">
           <div className="w-full h-full flex flex-col md:flex-row justify-between gap-4">
             <div className="w-full h-full flex flex-col gap-2">
@@ -158,8 +166,9 @@ const PengaduanSection = ({ className }: { className?: string }) => {
               <button
                 className="w-fit h-fit bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition-all duration-300 self-center md:self-end"
                 onClick={(e) => handleSend(e)}
+                disabled={isPending}
               >
-                Kirim
+                {isPending ? "Loading..." : "Kirim"}
               </button>
             </div>
           </form>

@@ -60,7 +60,7 @@ const EditBeritaPage: React.FC = () => {
     setIsWaiting(true);
     try {    
       const response = await editBerita(Number(id),form.judul, form.subjudul, form.isi, image);
-      showToast(response?.message, "info");
+      showToast(response?.message, "success");
       setIsWaiting(false);
       router.push("/admin/berita");
     } catch (error) {

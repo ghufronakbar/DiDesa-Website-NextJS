@@ -45,7 +45,7 @@ const KomentarPage: React.FC = () => {
         setIsWaiting(true);
         try {
             const response = await deleteKomentar(komentarId);
-            showToast(response?.message, 'info');
+            showToast(response?.message, 'success');
             setIsWaiting(false);
             setIsModalOpen(false);
             refetch();

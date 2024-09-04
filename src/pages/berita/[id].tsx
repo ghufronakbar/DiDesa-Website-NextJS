@@ -64,13 +64,14 @@ const DetailBeritaPage = () => {
 
   const handleDelete = async (komentarId: number) => {
     setShowModal(false);
+    showToast("Menghapus komentar...", "info");
     const indexToDelete = dataKomentar.findIndex(
       (komentar) => komentar.komentarId === komentarId
     );
     dataKomentar.splice(indexToDelete, 1);
     try {
       const response = await deleteKomentar(komentarId);
-      showToast(response?.message || "Berhasil menghapus komentar", "info");
+      showToast(response?.message || "Berhasil menghapus komentar", "success");
     } catch (error) {
       console.log(error);
       const apiError = error as ApiError;
@@ -90,6 +91,8 @@ const DetailBeritaPage = () => {
 
   const handleAddKomentar = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isi === "") return showToast("Komentar harus diisi", "error");
+    showToast("Mengirim komentar...", "info");
     const profile = await fetchProfileFirst();
     const random = Math.floor(Math.random() * 1000);
     dataKomentar.unshift({
@@ -107,7 +110,10 @@ const DetailBeritaPage = () => {
     try {
       const response = await addKomentar(Number(id), isi);
       await refreshKomentar();
-      showToast(response?.message || "Berhasil menambahkan komentar", "info");
+      showToast(
+        response?.message || "Berhasil menambahkan komentar",
+        "success"
+      );
     } catch (error) {
       console.log(error);
       const apiError = error as ApiError;

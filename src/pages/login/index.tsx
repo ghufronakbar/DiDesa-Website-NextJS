@@ -18,13 +18,20 @@ const LoginUser: React.FC = () => {
 
   const mutation = useMutation({
     mutationFn: async () => {
+      if (nik === "" || password === "") {
+        showToast("NIK dan password harus diisi", "error");
+        return;
+      }
+      showToast("Harap tunggu sebentar", "info");
       const response = await loginUser(nik, password);
       return response;
     },
     onSuccess: (data) => {
-      showToast(data.message, "success");
-      Cookies.set(COOKIES_KEY, data.token, { expires: 1 });
-      router.push("/");
+      if (data) {
+        showToast(data.message, "success");
+        Cookies.set(COOKIES_KEY, data.token, { expires: 1 });
+        router.push("/");
+      }
     },
     onError: () => {
       showToast("Login gagal. Periksa NIK dan password Anda.", "error");
@@ -58,7 +65,6 @@ const LoginUser: React.FC = () => {
               value={nik}
               onChange={(e) => setNik(e.target.value)}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-              required
             />
           </div>
           <div className="mb-4">
@@ -75,7 +81,6 @@ const LoginUser: React.FC = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-                required
               />
               <button
                 type="button"

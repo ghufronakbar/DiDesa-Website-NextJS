@@ -48,7 +48,7 @@ const PengurusPage: React.FC = () => {
         try {
             const response = await setAccessPengurusDesa(pengurusDesaAnggotaId, aksesAdmin);
             setIsWaiting(false);
-            showToast(response?.message, 'info');
+            showToast(response?.message, 'success');
             refetch();
         } catch (error) {
             console.log(error);
@@ -63,7 +63,7 @@ const PengurusPage: React.FC = () => {
         setIsWaiting(true);
         try {
             const response = await deletePengurusDesa(pengurusDesaAnggotaId);
-            showToast(response?.message, 'info');
+            showToast(response?.message, 'success');
             setIsWaiting(false);
             setIsModalOpen(false);
             refetch();
@@ -81,7 +81,7 @@ const PengurusPage: React.FC = () => {
         setIsWaiting(true);
         try {
             const response = await createPengurusDesa(pengurusDesaAnggotaId, jabatan);
-            showToast(response?.message, 'info');
+            showToast(response?.message, 'success');
             setIsWaiting(false);
             setIsContentOpen(false);
             refetch();

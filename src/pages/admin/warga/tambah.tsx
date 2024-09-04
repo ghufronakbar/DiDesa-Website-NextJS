@@ -39,7 +39,7 @@ const TambahWargaPage: React.FC = () => {
         new Date(data.tanggalLahir).toISOString(),
         `62${data.telepon}`
       );
-      showToast(response?.message, "info");
+      showToast(response?.message, "success");
       setIsWaiting(false);
       router.push("/admin/warga");
     } catch (error) {

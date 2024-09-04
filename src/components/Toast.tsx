@@ -31,7 +31,7 @@ const Toast: React.FC<ToastProps> = ({ text, status, onClose, index }) => {
     {
       'bg-primary text-white': status === 'success',
       'bg-secondary text-white': status === 'error',
-      'bg-primary text-white ': status === 'info',
+      'bg-tertiary text-white ': status === 'info',
     },
     'animate-bounce-in-right',    
   );

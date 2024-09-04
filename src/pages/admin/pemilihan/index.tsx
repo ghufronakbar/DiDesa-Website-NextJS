@@ -49,7 +49,7 @@ const PemilihanPage: React.FC = () => {
         setIsWaiting(true);
         try {
             const response = await deletePemilihan(pemilihanKetuaId);
-            showToast(response?.message, 'info');
+            showToast(response?.message, 'success');
             setIsWaiting(false);
             setIsModalOpen(false);
             refetch();
@@ -69,7 +69,7 @@ const PemilihanPage: React.FC = () => {
         setIsWaiting(true);
         try {
             const response = await createPemilihan(form.judul, form.deskripsi,formatConvertToIsoString(form.tanggalMulai) , formatConvertToIsoString(form.tanggalSelesai));
-            showToast(response?.message, 'info');
+            showToast(response?.message, 'success');
             setIsWaiting(false);
             setIsContentOpen(false);
             refetch();

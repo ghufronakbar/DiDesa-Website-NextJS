@@ -63,7 +63,7 @@ const EditWargaPage: React.FC = () => {
         new Date(form.tanggalLahir).toISOString(),
         `62${form.telepon}`
       );
-      showToast(response?.message, "info");
+      showToast(response?.message, "success");
       setIsWaiting(false);
       router.push("/admin/warga");
     } catch (error) {

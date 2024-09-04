@@ -14,7 +14,7 @@ import ModalConfirmation from "@/components/ModalConfirmation";
 import { useState } from "react";
 
 const DetailPengaduanPage = () => {
-  const router = useRouter();
+  const router = useRouter();  
   const id = router.query.id as string;
   const [showModal, setShowModal] = useState<boolean>(false);
   const { showToast } = useToast();
@@ -34,9 +34,10 @@ const DetailPengaduanPage = () => {
   }
 
   const handleDelete = async () => {
+    showToast("Menghapus pengaduan...", "success");
     try {
       const response = await deletePengaduan(Number(id));
-      showToast(response?.message || "Berhasil menghapus pengaduan", "info");
+      showToast(response?.message || "Berhasil menghapus pengaduan", "success");
       router.push("/profile");
     } catch (error) {
       console.log(error);

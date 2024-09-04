@@ -47,7 +47,7 @@ const EditPengurusPage: React.FC = () => {
         setIsWaiting(true);
         try {
             const response = await setJabatanPengurusDesa(Number(id), jabatan);
-            showToast(response.message, "info");
+            showToast(response.message, "success");
             setIsWaiting(false);
             router.push('/admin/pengurus');
         } catch (error) {
@@ -63,7 +63,7 @@ const EditPengurusPage: React.FC = () => {
         try {
             const response = await setAccessPengurusDesa(pengurusDesaAnggotaId, aksesAdmin);
             setIsWaiting(false);
-            showToast(response?.message, 'info');            
+            showToast(response?.message, 'success');            
         } catch (error) {
             console.log(error);
             const apiError = error as ApiError;

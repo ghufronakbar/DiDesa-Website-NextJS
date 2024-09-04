@@ -55,7 +55,7 @@ const InformasiDesaPage: React.FC = () => {
         form.lahanPertanian,
         form.lahanPeternakan
       );
-      showToast(response.message, "info");
+      showToast(response.message, "success");
       setIsWaiting(false);
     } catch (error) {
       console.log(error);
