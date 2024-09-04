@@ -4,7 +4,7 @@ import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaGooglePlay } from "react-icons/fa";
 
-const HeroLandingPage = () => {
+const BerandaSection = () => {
   const [search, setSearch] = useState<string>("");
   const router = useRouter();
 
@@ -70,4 +70,4 @@ const HeroLandingPage = () => {
   );
 };
 
-export default HeroLandingPage;
+export default BerandaSection;

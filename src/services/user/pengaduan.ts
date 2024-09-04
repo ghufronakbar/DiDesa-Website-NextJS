@@ -17,5 +17,25 @@ const deletePengaduan = async (
   );
   return response.data;
 };
+const createPengaduan = async (subjek: string, isi: string, foto?: File) => {
+  let data: FormData | { subjek: string; isi: string };
+  if (foto) {
+    const formData = new FormData();
+    formData.append("subjek", subjek);
+    formData.append("isi", isi);
+    formData.append("foto", foto);
+    data = formData;
+  } else {
+    data = {
+      subjek,
+      isi,
+    };
+  }
 
-export { getDetailPengaduan, deletePengaduan };
+  const response = await axiosInstance.post(
+    "/api/user/pengaduan-masyarakat",
+    data
+  );
+  return response.data;
+};
+export { getDetailPengaduan, deletePengaduan, createPengaduan };

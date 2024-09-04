@@ -5,7 +5,7 @@ import { NavList } from "./NavbarUser";
 const NavbarLanding = () => {
   const [showNavbar, setShowNavbar] = useState<boolean>(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-  const [isScrolled, setIsScrolled] = useState<boolean>(true);
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>("");
 
   useEffect(() => {

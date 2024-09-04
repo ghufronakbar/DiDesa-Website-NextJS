@@ -31,7 +31,7 @@ const DetailUMKMPage = () => {
   const id = router.query.id as string;
   const { showToast } = useToast();
   const [formUmkm, setFormUmkm] = useState<Umkm | null>(null);
-  const [showModal, setShowModal] = useState<boolean>(false);  
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [imageSelected, setImageSelected] = useState<File | null>(null);
 
   const { data, isLoading, isFetching, isError, refetch } = useQuery({
@@ -97,7 +97,7 @@ const DetailUMKMPage = () => {
     input.onchange = (event) => {
       const file = (event.target as HTMLInputElement)?.files?.[0];
       if (file) {
-        setImageSelected(file);        
+        setImageSelected(file);
       }
     };
     input.click();
@@ -117,7 +117,7 @@ const DetailUMKMPage = () => {
         "error"
       );
     } finally {
-      setImageSelected(null);      
+      setImageSelected(null);
     }
   };
 
@@ -132,7 +132,7 @@ const DetailUMKMPage = () => {
         <ModalConfirmation
           title="Ganti Gambar UMKM"
           message="Apakah anda yakin ingin mengubah gambar UMKM?"
-          onClose={() => {            
+          onClose={() => {
             setImageSelected(null);
           }}
           onConfirm={() => {
