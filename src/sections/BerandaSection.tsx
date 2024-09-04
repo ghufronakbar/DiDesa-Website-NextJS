@@ -20,19 +20,26 @@ const BerandaSection = () => {
 
   return (
     <>
-      <section id="beranda" className="w-full h-screen bg-didesa bg-cover bg-fixed bg-no-repeat bg-center">
-        <div className="w-full h-full pt-32 lg:px-32 md:px-20 px-8 gap-2 bg-black bg-opacity-25 backdrop-blur-sm">
-          <div className="w-full flex flex-col gap-2">
-            <div className="font-playfair text-white lg:text-6xl md:text-5xl text-4xl md:max-w-[40vw] drop-shadow-lg">
+      <section
+        id="beranda"
+        className="w-full h-screen bg-didesa bg-cover bg-fixed bg-no-repeat bg-center overflow-y-hidden"
+      >        
+        <div className="w-full h-full flex flex-col items-center justify-center backdrop-blur-sm gap-8">
+          
+          
+          <div className="w-full md:w-1/2 px-8 flex flex-col justify-center gap-2">
+            <div className="font-playfair text-white lg:text-6xl md:text-5xl text-4xl drop-shadow-lg text-start">
               Membawa Desa ke Era Digital.
             </div>
-            <div className="font-rubik text-white text-base md:text-lg drop-shadow-lg">
+            <div className="font-rubik text-white text-base md:text-lg drop-shadow-lg text-start">
               Di Desa - Digitalisasi Desa
             </div>
           </div>
-          <div className="w-full h-full py-20">
+
+          {/* Form pencarian */}
+          <div className="w-full py-20 flex flex-col items-center">
             <form
-              className="flex md:w-1/2 w-full mx-auto"
+              className="flex md:w-1/2 w-10/12 mx-auto"
               onSubmit={onSubmitSearch}
             >
               <input
@@ -49,15 +56,11 @@ const BerandaSection = () => {
                 <CiSearch className="w-6 h-6 mx-auto " />
               </button>
             </form>
-            <div className="w-fit mx-auto">
-              <Link
-                href={
-                  "/api/download"
-                }
-                target="_blank"
-              >
-                <button className="w-fit h-fit py-2 px-4  mt-16 mx-auto bg-primary hover:bg-secondary text-white text-sm items-center flex  backdrop-blur-sm rounded-lg font-rubik gap-2 hover:scale-105 transition-all duration-300">
-                  {" "}
+
+            {/* Tombol unduh aplikasi */}
+            <div className="w-fit mx-auto mt-16">
+              <Link href="/api/download" target="_blank">
+                <button className="w-fit h-fit py-2 px-4 bg-primary hover:bg-secondary text-white text-sm items-center flex backdrop-blur-sm rounded-lg font-rubik gap-2 hover:scale-105 transition-all duration-300">
                   <FaGooglePlay />
                   Unduh Aplikasi
                 </button>

@@ -38,7 +38,7 @@ const BeritaSection = () => {
 
   return (
     <section id="berita" className="w-full bg-gray-100">
-      <div className="w-full h-full pt-32 lg:px-32 md:px-20 px-8 gap-2">
+      <div className="w-full h-full pt-32 lg:px-32 md:px-20 px-8 gap-2 py-20">
         <div className="w-full h-full flex flex-col md:flex-row justify-between gap-4">
           <div className="w-full h-full flex flex-col gap-2">
             <div className="font-playfair text-black lg:text-6xl md:text-5xl text-4xl">
