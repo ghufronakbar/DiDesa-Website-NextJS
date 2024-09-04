@@ -12,7 +12,7 @@ interface FormPengaduan {
   image?: File;
 }
 
-const PengaduanSection = () => {
+const PengaduanSection = ({ className }: { className?: string }) => {
   const [formPengaduan, setFormPengaduan] = useState<FormPengaduan>({
     subjek: "",
     isi: "",
@@ -61,7 +61,7 @@ const PengaduanSection = () => {
   };
   return (
     <>
-      <section id="pemilihan" className="w-full pt-16 pb-40 bg-gray-100">
+      <section id="pemilihan" className={"w-full pt-16 pb-40 bg-gray-100 " + className}>
         <div className="w-full h-full lg:px-32 md:px-20 px-8 gap-2">
           <div className="w-full h-full flex flex-col md:flex-row justify-between gap-4">
             <div className="w-full h-full flex flex-col gap-2">

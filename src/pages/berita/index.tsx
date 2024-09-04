@@ -67,7 +67,7 @@ const BeritaPage = () => {
   return (
     <>
     <NavbarUser/>
-      <section id="berita" className="w-full min-h-screen bg-gray-100">
+      <section id="berita" className="w-full min-h-screen bg-gray-100 mt-7">
         <div className="w-full h-full py-20 lg:px-32 md:px-20 px-8 gap-2">
           <div className="w-full h-full flex flex-col md:flex-row justify-between gap-4 items-center">
             <div className="w-full h-full flex flex-col gap-2">

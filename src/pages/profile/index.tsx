@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import LoadingPage from "@/components/LoadingPage";
 import NavbarUser from "@/components/NavbarUser";
+import { IMAGE_PLACEHOLDER } from "@/constant/imagePlaceholder";
 import { PengaduanMasyarakat } from "@/models/PengaduanMasyarakat";
 import { Umkm } from "@/models/Umkm";
 import { getProfile, logoutUser } from "@/services/user/profile";
@@ -120,7 +121,7 @@ const ProfilePage = () => {
                 <span className="text-2xl font-bold">Riwayat Pengaduan</span>
                 <Link
                   className="w-fit h-fit flex flex-row gap-2 text-sm items-center bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-all duration-300"
-                  href="/pengaduan/tambah"
+                  href="/pengaduan/form"
                 >
                   <IoMdAdd className="text-white w-4 h-4" />
                   <span>Buat Pengaduan</span>
@@ -140,7 +141,7 @@ const ProfilePage = () => {
                         key={item.pengaduanMasyarakatId}
                         type={"pengaduan"}
                         id={item.pengaduanMasyarakatId}
-                        picture={item.foto || "/images/placeholder.svg"}
+                        picture={item.foto || IMAGE_PLACEHOLDER}
                         text={item.isi}
                       />
                     )
@@ -180,7 +181,7 @@ const ItemScroll = ({
         height={300}
         className="w-full h-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110"
       />
-      <div className="absolute bottom-0 left-0 w-full h-full object-cover rounded-lg transition-all duration-300 bg-black opacity-0 group-hover:scale-110 group-hover:opacity-35"></div>
+      <div className="absolute bottom-0 left-0 w-full h-full object-cover rounded-lg transition-all duration-300 bg-black opacity-30 group-hover:scale-110 group-hover:opacity-60"></div>
       <span className="absolute text-white font-bold bottom-2 left-2 line-clamp-1">
         {text}
       </span>

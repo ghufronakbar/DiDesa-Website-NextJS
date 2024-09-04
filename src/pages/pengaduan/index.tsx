@@ -6,7 +6,7 @@ const PengaduanPage = () => {
   const router = useRouter();
   useEffect(() => {
     if (router.isReady) {
-      router.push("/pengaduan/tambah");
+      router.push("/pengaduan/form");
     }
   }, [router]);  
 };
