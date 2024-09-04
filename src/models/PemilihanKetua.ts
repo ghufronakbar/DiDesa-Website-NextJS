@@ -1,5 +1,10 @@
 import { CalonKetua } from "./CalonKetua";
 
+export type PemilihanKetuaStatus =
+  | "Belum Dimulai"
+  | "Sedang Berlangsung"
+  | "Selesai";
+
 export interface PemilihanKetua {
   pemilihanKetuaId: number;
   tanggalMulai: string;
@@ -10,7 +15,7 @@ export interface PemilihanKetua {
     calonKetua: number;
   };
   calonKetua: CalonKetua[];
-  status: "Belum Dimulai" | "Sedang Berlangsung" | "Selesai";
+  status: PemilihanKetuaStatus;
   isVoted?: boolean;
   isVoteable?: boolean;
 }

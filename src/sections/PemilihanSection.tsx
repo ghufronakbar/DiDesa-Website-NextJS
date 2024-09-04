@@ -1,4 +1,4 @@
-import { getLatestPemilihan } from "@/services/user/landingPage";
+import { getLatestPemilihan } from "@/services/user/pemilihan";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";

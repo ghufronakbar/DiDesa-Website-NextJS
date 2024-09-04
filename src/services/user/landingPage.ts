@@ -18,9 +18,6 @@ const getUmkm = async (limit: number) => {
   return response.data;
 };
 
-const getLatestPemilihan = async () => {
-  const response = await axiosInstance.get("/api/user/pemilihan/latest");
-  return response.data;
-};
 
-export { getBeritaPopuler, getUmkm, getLatestPemilihan };
+
+export { getBeritaPopuler, getUmkm };
