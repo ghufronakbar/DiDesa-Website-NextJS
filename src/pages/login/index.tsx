@@ -9,28 +9,36 @@ import Cookies from "js-cookie";
 import { COOKIES_KEY } from "@/constant/keyStore";
 import { loginUser } from "@/services/user/profile";
 
+interface FormLogin {
+  nik: string;
+  password: string;
+};
+
 const LoginUser: React.FC = () => {
-  const [nik, setNik] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [formLogin, setFormLogin] = useState<FormLogin>({
+    nik: "",
+    password: "",
+  });  
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const router = useRouter();
+  const  redirect  = router.query.redirect as string || "/";
   const { showToast } = useToast();
 
   const mutation = useMutation({
     mutationFn: async () => {
-      if (nik === "" || password === "") {
+      if (formLogin.nik === "" || formLogin.password === "") {
         showToast("NIK dan password harus diisi", "error");
         return;
       }
       showToast("Harap tunggu sebentar", "info");
-      const response = await loginUser(nik, password);
+      const response = await loginUser(formLogin.nik, formLogin.password);
       return response;
     },
     onSuccess: (data) => {
       if (data) {
         showToast(data.message, "success");
         Cookies.set(COOKIES_KEY, data.token, { expires: 1 });
-        router.push("/");
+        router.push(`/${redirect}`);
       }
     },
     onError: () => {
@@ -62,8 +70,8 @@ const LoginUser: React.FC = () => {
               inputMode="numeric"
               pattern="[0-9]*"
               id="nik"
-              value={nik}
-              onChange={(e) => setNik(e.target.value)}
+              value={formLogin.nik}
+              onChange={(e) => setFormLogin({...formLogin, nik: e.target.value})}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
@@ -78,8 +86,8 @@ const LoginUser: React.FC = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formLogin.password}
+                onChange={(e) => setFormLogin({...formLogin, password: e.target.value})}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
               />
               <button

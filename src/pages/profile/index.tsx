@@ -1,24 +1,84 @@
 import Footer from "@/components/Footer";
 import LoadingPage from "@/components/LoadingPage";
+import ModalConfirmation from "@/components/ModalConfirmation";
 import NavbarUser from "@/components/NavbarUser";
-import { IMAGE_PLACEHOLDER } from "@/constant/imagePlaceholder";
+import { useToast } from "@/components/Toast";
+import {
+  IMAGE_PLACEHOLDER,
+  PROFILE_PLACEHOLDER,
+} from "@/constant/imagePlaceholder";
+import { ApiError } from "@/models/ApiError";
 import { PengaduanMasyarakat } from "@/models/PengaduanMasyarakat";
 import { Umkm } from "@/models/Umkm";
-import { getProfile, logoutUser } from "@/services/user/profile";
+import { deletePicUser, getProfile, logoutUser, updatePicUser } from "@/services/user/profile";
 import formatDate from "@/utils/format/formatDate";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
+import { TiDelete } from "react-icons/ti";
 
 const ProfilePage = () => {
   const router = useRouter();
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [image, setImage] = useState<string>(PROFILE_PLACEHOLDER);
+  const { showToast } = useToast();
   const { data, isFetching, isLoading, isError } = useQuery({
     queryKey: ["profileDetail"],
     queryFn: () => getProfile(),
     refetchOnWindowFocus: false,
   });
+
+  const handleChangeImage = () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.onchange = async (event) => {
+      const file = (event.target as HTMLInputElement)?.files?.[0];
+      if (file) {
+        setImage(URL.createObjectURL(file));
+        try {
+          showToast("Mengubah profil...", "info");
+          const response = await updatePicUser(file);
+          showToast(response.message || "Berhasil mengubah profil", "success");
+        } catch (error) {
+          console.log(error);
+          const apiError = error as ApiError;
+          showToast(
+            apiError.response?.data?.message || "Terjadi kesalahan",
+            "error"
+          );
+        }
+      }
+    };
+    input.click();
+  };
+
+  const handleDeletePicture = async () => {
+    setIsConfirmationOpen(false);
+    showToast("Menghapus profil...", "info");
+    setImage(IMAGE_PLACEHOLDER);
+    try {
+      const response = await deletePicUser();
+      showToast(response.message || "Berhasil menghapus profil", "success");      
+    } catch (error) {
+      console.log(error);
+      const apiError = error as ApiError;
+      showToast(
+        apiError.response?.data?.message || "Terjadi kesalahan",
+        "error"
+      );
+    }
+  }
+
+  useEffect(() => {
+    if (data) {
+      setImage(data.data.foto);
+    }
+  }, [data]);
 
   if (isLoading || isFetching) {
     return <LoadingPage />;
@@ -30,17 +90,42 @@ const ProfilePage = () => {
 
   return (
     <>
+      {isConfirmationOpen && (
+        <ModalConfirmation
+          title="Hapus profil"
+          message="Apakah anda yakin ingin menghapus foto profil?"
+          onClose={() => {
+            setIsConfirmationOpen(false);
+          }}
+          onConfirm={handleDeletePicture}
+        />
+      )}
       <NavbarUser />
       {data && (
         <div className="w-full h-full bg-gray-100 flex flex-col lg:flex-row justify-center items-center lg:items-stretch px-8 md:px-12 lg:px-20 py-32 text-black gap-4">
           <div className="flex flex-col justify-center items-center border p-8 border-gray-300 rounded-lg lg:w-[40vw] md:max-w-[70vw] w-[90vw] gap-4 overflow-x-hidden ">
-            <Image
-              width={300}
-              height={300}
-              alt={data?.data?.namaLengkap}
-              src={data?.data?.foto}
-              className="rounded-full w-40 h-40"
-            />
+            <div className="rounded-full w-40 h-40 relative">
+              {data?.data?.isPicDeletable &&
+              <div className="bg-secondary p-2 rounded-full absolute bottom-0 right-0 flex justify-center items-center z-10 hover:bg-primary cursor-pointer transition-all duration-300" onClick={() => setIsConfirmationOpen(true)}>
+                <MdDelete className="text-white w-4 h-4" />
+              </div>
+              }
+              <div className="rounded-full w-40 h-40 overflow-hidden relative group">
+                <Image
+                  width={300}
+                  height={300}
+                  alt={data?.data?.namaLengkap}
+                  src={image}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div
+                  className="bg-black text-white bg-opacity-0 opacity-0 group-hover:opacity-100 group-hover:bg-opacity-30 w-full h-full absolute top-0 left-0 transition-all duration-300 flex flex-col justify-center items-center cursor-pointer"
+                  onClick={handleChangeImage}
+                >
+                  Ganti Foto
+                </div>
+              </div>
+            </div>
             <p className="text-gray-500 text-xs -mt-2">{data?.data?.nik}</p>
             <h1 className="text-xl xl:text-2xl font-bold line-clamp-2">
               {data?.data?.namaLengkap}
@@ -74,23 +159,25 @@ const ProfilePage = () => {
               </tbody>
             </table>
             <div className="flex flex-col sm:flex-row gap-0 sm:gap-2">
-            <button className="text-xs sm:text-sm bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-all duration-300 mt-2">
-              Ganti Password
-            </button>
-            <button
-              className="text-xs sm:text-sm bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-all duration-300 mt-2"
-              onClick={() => {
-                logoutUser();
-              }}
-            >
-              Logout
-            </button>
+              <button className="text-xs sm:text-sm bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-all duration-300 mt-2">
+                Ganti Password
+              </button>
+              <button
+                className="text-xs sm:text-sm bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-all duration-300 mt-2"
+                onClick={() => {
+                  logoutUser();
+                }}
+              >
+                Logout
+              </button>
             </div>
           </div>
           <div className="flex flex-col justify-center items-center border p-8 border-gray-300 rounded-lg lg:w-[60vw] md:max-w-[70vw] w-[90vw] gap-4 overflow-x-hidden">
             <div className="w-full flex flex-col">
               <div className="flex flex-col gap-2 md:gap-0 md:flex-row justify-between md:items-center">
-                <span className="text-lg sm:text-xl xl:text-2xl font-bold">UMKM Saya</span>
+                <span className="text-lg sm:text-xl xl:text-2xl font-bold">
+                  UMKM Saya
+                </span>
                 <Link
                   className="w-fit h-fit flex flex-row gap-1 sm:gap-2 text-sm items-center bg-primary hover:bg-secondary text-white font-bold p-1 sm:p-2 rounded focus:outline-none focus:shadow-outline transition-all duration-300"
                   href="/umkm/form"
@@ -120,7 +207,9 @@ const ProfilePage = () => {
             </div>
             <div className="w-full flex flex-col">
               <div className="flex flex-col gap-2 md:gap-0 md:flex-row justify-between md:items-center">
-                <span className="text-lg sm:text-xl xl:text-2xl font-bold">Riwayat Pengaduan</span>
+                <span className="text-lg sm:text-xl xl:text-2xl font-bold">
+                  Riwayat Pengaduan
+                </span>
                 <Link
                   className="w-fit h-fit flex flex-row gap-1 sm:gap-2 text-sm items-center bg-primary hover:bg-secondary text-white font-bold p-1 sm:p-2 rounded focus:outline-none focus:shadow-outline transition-all duration-300"
                   href="/pengaduan/form"

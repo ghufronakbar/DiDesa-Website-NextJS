@@ -3,10 +3,12 @@ import { getProfile, logoutUser } from "@/services/user/profile";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { CgLogOut, CgProfile } from "react-icons/cg";
 
 const ProfileButton = () => {
+  const router = useRouter();
   const { data, isLoading, isFetching, isError } = useQuery({
     queryKey: ["user"],
     queryFn: () => getProfile(),
@@ -14,7 +16,7 @@ const ProfileButton = () => {
   });
 
   const [isHovered, setIsHovered] = useState(false);
-
+  
   if (isLoading || isFetching) {
     return (
       <>
@@ -39,7 +41,7 @@ const ProfileButton = () => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Link
-        href={!data || isError || data?.status !== 200 ? "/login" : "/profile"}
+        href={!data || isError || data?.status !== 200 ? `/login?redirect=${router.asPath}` : "/profile"}
       >
         {data && !isError && data?.status === 200 ? (
           <>

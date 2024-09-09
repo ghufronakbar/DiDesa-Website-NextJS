@@ -11,4 +11,5 @@ export interface Warga {
   foto: string;
   umkm?: Umkm[];
   pengaduanMasyarakat?: PengaduanMasyarakat[];
+  isPicDeletable: boolean;
 }

@@ -218,7 +218,7 @@ const ModalDetailCalon = ({
             ></p>
             <div
               className={`${
-                isVoteable ? "" : "hidden"
+                isVoteable ? "hidden" : "block"
               } font-rubik text-black text-base text-center`}
             >
               {status === "Selesai"

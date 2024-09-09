@@ -24,7 +24,7 @@ const BerandaSection = () => {
         id="beranda"
         className="w-full h-screen bg-didesa bg-cover bg-fixed bg-no-repeat bg-center overflow-y-hidden"
       >        
-        <div className="w-full h-full flex flex-col items-center justify-center backdrop-blur-sm gap-8">
+        <div className="w-full h-full flex flex-col items-center justify-center backdrop-blur-sm gap-0">
           
           
           <div className="w-full md:w-1/2 px-8 flex flex-col justify-center gap-2">
