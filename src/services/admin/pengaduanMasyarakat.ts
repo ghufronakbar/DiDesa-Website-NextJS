@@ -14,10 +14,19 @@ const getPengaduanById = async (pengaduanMasyarakatId: number) => {
   return response.data;
 };
 
-
 const deletePengaduan = async (pengaduanMasyarakat: number) => {
-  const response = await axiosInstance.delete(`/api/admin/pengaduan-masyarakat/${pengaduanMasyarakat}`);
+  const response = await axiosInstance.delete(
+    `/api/admin/pengaduan-masyarakat/${pengaduanMasyarakat}`
+  );
   return response.data;
 };
 
-export { getAllPengaduan, getPengaduanById, deletePengaduan };
+const setStatus = async (pengaduanMasyarakatId: number, status: boolean) => {
+  const response = await axiosInstance.patch(
+    `/api/admin/pengaduan-masyarakat/${pengaduanMasyarakatId}`,
+    { status }
+  );
+  return response.data;
+};
+
+export { getAllPengaduan, getPengaduanById, deletePengaduan, setStatus };

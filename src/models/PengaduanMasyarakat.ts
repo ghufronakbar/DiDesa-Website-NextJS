@@ -7,5 +7,7 @@ export interface PengaduanMasyarakat {
   isi: string;
   foto: string | null;
   tanggal: string;
+  pending: boolean;
+  status: boolean;
   warga: Warga;
 }

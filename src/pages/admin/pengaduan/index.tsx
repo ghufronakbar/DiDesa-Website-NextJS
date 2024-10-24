@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import LayoutDashboard from "@/components/LayoutDashboard";
 import formatDate from "@/utils/format/formatDate";
 import formatString from "@/utils/format/formatString";
-import { BiCheckCircle, BiXCircle } from "react-icons/bi";
+import { BiCheck, BiCheckCircle, BiX, BiXCircle } from "react-icons/bi";
 import LoadingTable from "@/components/LoadingTable";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
@@ -16,10 +16,23 @@ import LoadingState from "@/components/LoadingState";
 import {
   deletePengaduan,
   getAllPengaduan,
+  setStatus,
 } from "@/services/admin/pengaduanMasyarakat";
 import withAdminAuth from "@/utils/withAdminAuth";
 import ModalContent from "@/components/ModalContent";
 import Image from "next/image";
+
+interface SetStatus {
+  id: number;
+  status: boolean;
+  open: boolean;
+}
+
+const initSetStatus: SetStatus = {
+  id: 0,
+  status: false,
+  open: false,
+};
 
 const PengaduanPage: React.FC = () => {
   const router = useRouter();
@@ -28,6 +41,7 @@ const PengaduanPage: React.FC = () => {
   const [isContentOpen, setIsContentOpen] = useState<boolean>(false);
   const [pengaduanMasyarakatId, setPengaduanMasyarakatId] = useState<number>(0);
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
+  const [formStatus, setFormStatus] = useState<SetStatus>(initSetStatus);
   const { showToast } = useToast();
   type Content = {
     nama: string;
@@ -69,6 +83,29 @@ const PengaduanPage: React.FC = () => {
     }
   };
 
+  const handleOpenSetStatus = (id: number, status: boolean) => {
+    setFormStatus({
+      id,
+      status,
+      open: true,
+    });
+  };
+
+  const handleSetStatus = async () => {
+    try {
+      const response = await setStatus(formStatus.id, formStatus.status);
+      showToast(response.message || "Berhasil mengubah status", "success");
+      refetch();
+    } catch (error) {
+      console.log(error);
+      const apiError = error as ApiError;
+      showToast(
+        apiError.response?.data?.message || "An error occurred",
+        "error"
+      );
+    }
+  };
+
   return (
     <LayoutDashboard>
       <div className="container mx-auto px-4 sm:px-8">
@@ -102,6 +139,12 @@ const PengaduanPage: React.FC = () => {
                     scope="col"
                     className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
+                    Status
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
                     Tanggal
                   </th>
                   <th
@@ -112,13 +155,13 @@ const PengaduanPage: React.FC = () => {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {isLoading || isFetching ? (
-                  <LoadingTable colSpan={4} count={5} />
+                  <LoadingTable colSpan={6} count={5} />
                 ) : isError ? (
                   <ErrorTable colSpan={6} />
                 ) : (
                   data &&
                   data?.data?.map(
-                    (item: PengaduanMasyarakat, index: number): JSX.Element => (
+                    (item: PengaduanMasyarakat, index: number) => (
                       <tr key={index}>
                         <td className="px-6 py-4 whitespace-nowrap">
                           {index + 1}
@@ -132,6 +175,40 @@ const PengaduanPage: React.FC = () => {
                           </div>
                           <div className="text-gray-500 text-sm">
                             {formatString(item.isi, 30)}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center justify-center gap-2">
+                            {item.pending ? (
+                              <>
+                                <button
+                                  className="flex items-center justify-center px-2 py-1 bg-red-500 rounded-lg"
+                                  onClick={() =>
+                                    handleOpenSetStatus(
+                                      item.pengaduanMasyarakatId,
+                                      false
+                                    )
+                                  }
+                                >
+                                  <BiX className="text-white" />
+                                </button>
+                                <button
+                                  className="flex items-center justify-center px-2 py-1 bg-green-500 rounded-lg"
+                                  onClick={() =>
+                                    handleOpenSetStatus(
+                                      item.pengaduanMasyarakatId,
+                                      true
+                                    )
+                                  }
+                                >
+                                  <BiCheck className="text-white" />
+                                </button>
+                              </>
+                            ) : item.status ? (
+                              <BiCheckCircle className="text-green-500 w-6 h-6" />
+                            ) : (
+                              <BiXCircle className="text-red-500 w-6 h-6" />
+                            )}
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -193,6 +270,19 @@ const PengaduanPage: React.FC = () => {
       )}
 
       {isWaiting && <LoadingState />}
+
+      {formStatus.open && (
+        <ModalConfirmation
+          title={`Konfirmasi ${formStatus.status ? "Setujui" : "Tolak"} Aduan`}
+          message={`Apakah Anda yakin ingin ${
+            formStatus.status ? "menyetujui" : "menolak"
+          } pengaduan ini?`}
+          onConfirm={handleSetStatus}
+          onClose={() => {
+            setFormStatus(initSetStatus);
+          }}
+        />
+      )}
 
       {isContentOpen && (
         <ModalContent

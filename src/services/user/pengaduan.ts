@@ -38,4 +38,5 @@ const createPengaduan = async (subjek: string, isi: string, foto?: File) => {
   );
   return response.data;
 };
+
 export { getDetailPengaduan, deletePengaduan, createPengaduan };
