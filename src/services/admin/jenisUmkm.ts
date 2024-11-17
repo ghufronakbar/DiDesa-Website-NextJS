@@ -1,7 +1,11 @@
+import { JenisUmkm } from "@/models/JenisUmkm";
+import { ApiSuccess } from "@/models/Response";
 import axiosInstance from "@/utils/axiosInstance";
 
 const getAllJenisUmkm = async () => {
-  const response = await axiosInstance.get("/api/admin/jenis-umkm");
+  const response = await axiosInstance.get<ApiSuccess<JenisUmkm[]>>(
+    "/api/admin/jenis-umkm"
+  );
   return response.data;
 };
 

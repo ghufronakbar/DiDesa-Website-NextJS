@@ -8,7 +8,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import ButtonPagination from "@/components/ButtonPagination";
 import { useToast } from "@/components/Toast";
-import { ApiError } from "@/models/ApiError";
+import { ApiError } from "@/models/Response";
 import { PengaduanMasyarakat } from "@/models/PengaduanMasyarakat";
 import ErrorTable from "@/components/ErrorTable";
 import ModalConfirmation from "@/components/ModalConfirmation";
@@ -221,10 +221,6 @@ const PengaduanPage: React.FC = () => {
                               setIsContentOpen(true);
                               setContent({
                                 ...content,
-                                nama: item.warga?.namaLengkap,
-                                subjek: item.subjek,
-                                isi: item.isi,
-                                gambar: item.foto,
                                 tanggal: formatDate(item.tanggal),
                               });
                             }}
@@ -250,9 +246,9 @@ const PengaduanPage: React.FC = () => {
               </tbody>
             </table>
           </div>
-          {!isFetching ? (
+          {!isFetching && data && (
             <ButtonPagination pagination={data?.pagination} />
-          ) : null}
+          )}
         </div>
       </div>
       {isModalOpen && (

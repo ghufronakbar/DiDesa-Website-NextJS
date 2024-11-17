@@ -21,7 +21,7 @@ import {
 import { MetaData } from "../_app";
 import { BiSolidEdit } from "react-icons/bi";
 import { useToast } from "@/components/Toast";
-import { ApiError } from "@/models/ApiError";
+import { ApiError } from "@/models/Response";
 import ModalContent from "@/components/ModalContent";
 import ModalConfirmation from "@/components/ModalConfirmation";
 import { Umkm } from "@/models/Umkm";

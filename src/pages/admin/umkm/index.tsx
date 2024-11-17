@@ -7,7 +7,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import ButtonPagination from "@/components/ButtonPagination";
 import { useToast } from "@/components/Toast";
-import { ApiError } from "@/models/ApiError";
+import { ApiError } from "@/models/Response";
 import { Umkm } from "@/models/Umkm";
 import ErrorTable from "@/components/ErrorTable";
 import ModalConfirmation from "@/components/ModalConfirmation";
@@ -212,19 +212,7 @@ const UMKMPage: React.FC = () => {
                             className="text-indigo-600 hover:text-indigo-900 mr-4"
                             onClick={() => {
                               setIsContentOpen(true);
-                              setContent({
-                                ...content,
-                                gambar: item.gambar,
-                                deskripsi: item.deskripsi,
-                                jenisUmkm: item.jenisUmkm.namaJenisUmkm,
-                                lokasi: item.lokasi,
-                                nama: item.nama,
-                                warga: {
-                                  namaLengkap: item.warga?.namaLengkap,
-                                  telepon: item.warga?.telepon,
-                                  foto: item.warga.foto,
-                                },
-                              });
+                              setContent(content);
                             }}
                           >
                             Detail
@@ -246,9 +234,9 @@ const UMKMPage: React.FC = () => {
               </tbody>
             </table>
           </div>
-          {!isFetching ? (
+          {!isFetching && data && (
             <ButtonPagination pagination={data?.pagination} />
-          ) : null}
+          )}
         </div>
       </div>
       {isModalOpen && (

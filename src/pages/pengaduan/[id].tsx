@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { MdDeleteOutline } from "react-icons/md";
 import { MetaData } from "../_app";
 import { useToast } from "@/components/Toast";
-import { ApiError } from "@/models/ApiError";
+import { ApiError } from "@/models/Response";
 import { deletePengaduan, getDetailPengaduan } from "@/services/user/pengaduan";
 import formatDate from "@/utils/format/formatDate";
 import ModalConfirmation from "@/components/ModalConfirmation";

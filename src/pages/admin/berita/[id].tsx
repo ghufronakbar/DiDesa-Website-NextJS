@@ -4,7 +4,7 @@ import Image from "next/image";
 import { getBeritaById, editBerita } from "@/services/admin/berita";
 import { useToast } from "@/components/Toast";
 import LoadingState from "@/components/LoadingState";
-import { ApiError } from "@/models/ApiError";
+import { ApiError } from "@/models/Response";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import LoadingPage from "@/components/LoadingPage";

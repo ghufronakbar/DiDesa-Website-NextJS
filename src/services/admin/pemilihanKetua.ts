@@ -1,12 +1,16 @@
+import { PemilihanKetua } from "@/models/PemilihanKetua";
+import { ApiSuccess } from "@/models/Response";
 import axiosInstance from "@/utils/axiosInstance";
 
 const getAllPemilihan = async () => {
-  const response = await axiosInstance.get("/api/admin/pemilihan");
+  const response = await axiosInstance.get<ApiSuccess<PemilihanKetua[]>>(
+    "/api/admin/pemilihan"
+  );
   return response.data;
 };
 
 const getPemilihanById = async (pemilihanKetuaId: number) => {
-  const response = await axiosInstance.get(
+  const response = await axiosInstance.get<ApiSuccess<PemilihanKetua>>(
     `/api/admin/pemilihan/${pemilihanKetuaId}`
   );
   return response.data;

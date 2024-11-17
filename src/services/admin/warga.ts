@@ -1,14 +1,21 @@
+import { ApiSuccess } from "@/models/Response";
+import { Warga } from "@/models/Warga";
 import axiosInstance from "@/utils/axiosInstance";
 
 const getAllWarga = async (page: number) => {
-  const response = await axiosInstance.get("/api/admin/warga", {
-    params: { page },
-  });
+  const response = await axiosInstance.get<ApiSuccess<Warga[]>>(
+    "/api/admin/warga",
+    {
+      params: { page },
+    }
+  );
   return response.data;
 };
 
 const getWargaById = async (wargaId: number) => {
-  const response = await axiosInstance.get(`/api/admin/warga/${wargaId}`);
+  const response = await axiosInstance.get<ApiSuccess<Warga>>(
+    `/api/admin/warga/${wargaId}`
+  );
   return response.data;
 };
 
@@ -59,4 +66,11 @@ const getAllDataWarga = async () => {
   return response.data;
 };
 
-export { getAllWarga, deleteWarga, createWarga, editWarga, getWargaById, getAllDataWarga };
+export {
+  getAllWarga,
+  deleteWarga,
+  createWarga,
+  editWarga,
+  getWargaById,
+  getAllDataWarga,
+};

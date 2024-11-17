@@ -1,9 +1,14 @@
+import { ApiSuccess } from "@/models/Response";
+import { Umkm } from "@/models/Umkm";
 import axiosInstance from "@/utils/axiosInstance";
 
 const getAllUmkm = async (page: number) => {
-  const response = await axiosInstance.get("/api/admin/umkm", {
-    params: { page },
-  });
+  const response = await axiosInstance.get<ApiSuccess<Umkm[]>>(
+    "/api/admin/umkm",
+    {
+      params: { page },
+    }
+  );
   return response.data;
 };
 

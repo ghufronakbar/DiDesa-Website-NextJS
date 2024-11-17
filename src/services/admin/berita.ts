@@ -1,15 +1,20 @@
+import { Berita } from "@/models/Berita";
+import { ApiSuccess } from "@/models/Response";
 import axiosInstance from "@/utils/axiosInstance";
 
 const getAllBerita = async (page: number) => {
-  const response = await axiosInstance.get("/api/admin/berita", {
-    params: { page },
-  });
+  const response = await axiosInstance.get<ApiSuccess<Berita[]>>(
+    "/api/admin/berita",
+    {
+      params: { page },
+    }
+  );
   return response.data;
 };
 
 const getBeritaById = async (id: number) => {
-  const response = await axiosInstance.get(`/api/admin/berita/${id}`);
-  return response.data;     
+  const response = await axiosInstance.get<ApiSuccess<Berita>>(`/api/admin/berita/${id}`);
+  return response.data;
 };
 
 const putPublikasiBerita = async (beritaId: number, publikasi: boolean) => {
@@ -38,13 +43,13 @@ const createBerita = async (
   subjudul: string,
   isi: string,
   gambar: File
-) => {  
-  const formData = new FormData();  
+) => {
+  const formData = new FormData();
   formData.append("judul", judul);
   formData.append("subjudul", subjudul);
   formData.append("isi", isi);
   formData.append("gambar", gambar);
-  
+
   const response = await axiosInstance.post("/api/admin/berita", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -54,9 +59,19 @@ const createBerita = async (
   return response.data;
 };
 
-const editBerita = async (id: number, judul: string, subjudul: string, isi: string, gambar: File|null) => {
-  if(!gambar) {
-    const response = await axiosInstance.put(`/api/admin/berita/${id}`, { judul, subjudul, isi });
+const editBerita = async (
+  id: number,
+  judul: string,
+  subjudul: string,
+  isi: string,
+  gambar: File | null
+) => {
+  if (!gambar) {
+    const response = await axiosInstance.put(`/api/admin/berita/${id}`, {
+      judul,
+      subjudul,
+      isi,
+    });
     return response.data;
   } else {
     const formData = new FormData();
@@ -64,11 +79,15 @@ const editBerita = async (id: number, judul: string, subjudul: string, isi: stri
     formData.append("subjudul", subjudul);
     formData.append("isi", isi);
     formData.append("gambar", gambar);
-    const response = await axiosInstance.put(`/api/admin/berita/${id}`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const response = await axiosInstance.put(
+      `/api/admin/berita/${id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     return response.data;
   }
 };
@@ -80,5 +99,5 @@ export {
   deleteBerita,
   createBerita,
   editBerita,
-  getBeritaById
+  getBeritaById,
 };

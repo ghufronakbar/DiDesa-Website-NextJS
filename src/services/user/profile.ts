@@ -4,32 +4,29 @@ import { Warga } from "@/models/Warga";
 import axiosInstance from "@/utils/axiosInstance";
 import Cookies from "js-cookie";
 
-export type ProfileResponse = ApiSuccessUser & {
-  data: Warga;
-};
-
-type LoginResponse = ApiSuccessUser & {
+export interface LoginResponse extends ApiSuccessUser<Warga> {
   token: string;
-  data: Warga;
-};
+}
 
-const getProfile = async (): Promise<ProfileResponse> => {
+const getProfile = async () => {
   try {
-    const response = await axiosInstance.get("/api/user/account/profile");
+    const response = await axiosInstance.get<ApiSuccessUser<Warga>>(
+      "/api/user/account/profile"
+    );
     return response.data;
   } catch (error) {
     throw error;
   }
 };
 
-const loginUser = async (
-  nik: string,
-  password: string
-): Promise<LoginResponse> => {
-  const response = await axiosInstance.post("/api/user/account/login", {
-    nik,
-    password,
-  });
+const loginUser = async (nik: string, password: string) => {
+  const response = await axiosInstance.post<LoginResponse>(
+    "/api/user/account/login",
+    {
+      nik,
+      password,
+    }
+  );
   return response.data;
 };
 
@@ -43,7 +40,7 @@ const logoutUser = async () => {
   }
 };
 
-const deletePicUser = async (): Promise<ApiSuccessUser> => {
+const deletePicUser = async () => {
   try {
     const response = await axiosInstance.delete("/api/user/account/profile");
     return response.data;
@@ -52,7 +49,7 @@ const deletePicUser = async (): Promise<ApiSuccessUser> => {
   }
 };
 
-const updatePicUser = async (foto: File): Promise<ApiSuccessUser> => {
+const updatePicUser = async (foto: File) => {
   const formData = new FormData();
   formData.append("foto", foto);
   try {

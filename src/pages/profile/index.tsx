@@ -7,7 +7,7 @@ import {
   IMAGE_PLACEHOLDER,
   PROFILE_PLACEHOLDER,
 } from "@/constant/imagePlaceholder";
-import { ApiError } from "@/models/ApiError";
+import { ApiError } from "@/models/Response";
 import { PengaduanMasyarakat } from "@/models/PengaduanMasyarakat";
 import { Umkm } from "@/models/Umkm";
 import { deletePicUser, getProfile, logoutUser, updatePicUser } from "@/services/user/profile";

@@ -1,7 +1,11 @@
+import { InformasiDesa } from "@/models/InformasiDesa";
+import { ApiSuccess } from "@/models/Response";
 import axiosInstance from "@/utils/axiosInstance";
 
 const getInformasiDesa = async () => {
-  const response = await axiosInstance.get("/api/admin/informasi-desa");
+  const response = await axiosInstance.get<ApiSuccess<InformasiDesa>>(
+    "/api/admin/informasi-desa"
+  );
   return response.data;
 };
 

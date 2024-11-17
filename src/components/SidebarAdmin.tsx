@@ -13,8 +13,7 @@ import { VscGroupByRefType } from "react-icons/vsc";
 import { useRouter } from "next/router";
 import { LogoutAdmin } from "@/services/admin/auth";
 
-const SidebarAdmin: React.FC = () => {
-  const router = useRouter();
+const SidebarAdmin: React.FC = () => {  
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => {

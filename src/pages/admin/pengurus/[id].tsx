@@ -10,7 +10,7 @@ import withAdminAuth from "@/utils/withAdminAuth";
 import { getPengurusDesaById, setAccessPengurusDesa, setJabatanPengurusDesa } from "@/services/admin/pengurusDesa";
 import Image from "next/image";
 import { FaRegEdit } from "react-icons/fa";
-import { ApiError } from "@/models/ApiError";
+import { ApiError } from "@/models/Response";
 
 const EditPengurusPage: React.FC = () => {
     const [isWaiting, setIsWaiting] = useState<boolean>(false);

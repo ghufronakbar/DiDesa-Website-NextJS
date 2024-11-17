@@ -1,14 +1,19 @@
+import { PengaduanMasyarakat } from "@/models/PengaduanMasyarakat";
+import { ApiSuccess } from "@/models/Response";
 import axiosInstance from "@/utils/axiosInstance";
 
 const getAllPengaduan = async (page: number) => {
-  const response = await axiosInstance.get("/api/admin/pengaduan-masyarakat", {
-    params: { page },
-  });
+  const response = await axiosInstance.get<ApiSuccess<PengaduanMasyarakat[]>>(
+    "/api/admin/pengaduan-masyarakat",
+    {
+      params: { page },
+    }
+  );
   return response.data;
 };
 
 const getPengaduanById = async (pengaduanMasyarakatId: number) => {
-  const response = await axiosInstance.get(
+  const response = await axiosInstance.get<ApiSuccess<PengaduanMasyarakat>>(
     `/api/admin/pengaduan-masyarakat/${pengaduanMasyarakatId}`
   );
   return response.data;

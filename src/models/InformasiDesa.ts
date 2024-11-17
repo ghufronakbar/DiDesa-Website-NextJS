@@ -6,3 +6,12 @@ export interface InformasiDesa {
   lahanPertanian: number;
   lahanPeternakan: number;
 }
+
+export const initInformasiDesa: InformasiDesa = {
+  informasiDesaId: 0,
+  namaDesa: "",
+  deskripsi: "",
+  luasWilayah: 0,
+  lahanPertanian: 0,
+  lahanPeternakan: 0,
+};

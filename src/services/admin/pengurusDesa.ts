@@ -1,9 +1,14 @@
+import { PengurusDesa } from "@/models/PengurusDesa";
+import { ApiSuccess } from "@/models/Response";
 import axiosInstance from "@/utils/axiosInstance";
 
 const getAllPengurusDesa = async (page: number) => {
-  const response = await axiosInstance.get("/api/admin/pengurus-desa", {
-    params: { page },
-  });
+  const response = await axiosInstance.get<ApiSuccess<PengurusDesa[]>>(
+    "/api/admin/pengurus-desa",
+    {
+      params: { page },
+    }
+  );
   return response.data;
 };
 

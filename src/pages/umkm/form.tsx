@@ -3,7 +3,7 @@ import LoadingPage from "@/components/LoadingPage";
 import NavbarUser from "@/components/NavbarUser";
 import { useToast } from "@/components/Toast";
 import { IMAGE_PLACEHOLDER } from "@/constant/imagePlaceholder";
-import { ApiError } from "@/models/ApiError";
+import { ApiError } from "@/models/Response";
 import { JenisUmkm } from "@/models/JenisUmkm";
 import { getProfile } from "@/services/user/profile";
 import { createUmkm, getJenisUmkm } from "@/services/user/umkm";

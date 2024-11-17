@@ -1,7 +1,9 @@
+import { CalonKetua } from "@/models/CalonKetua";
+import { ApiSuccess } from "@/models/Response";
 import axiosInstance from "@/utils/axiosInstance";
 
 const getCalonById = async (calonKetuaId: number) => {
-  const response = await axiosInstance.get(
+  const response = await axiosInstance.get<ApiSuccess<CalonKetua>>(
     `/api/admin/pemilihan/calon/${calonKetuaId}`
   );
   return response.data;

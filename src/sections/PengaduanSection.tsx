@@ -1,6 +1,6 @@
 import { useToast } from "@/components/Toast";
 import { IMAGE_PLACEHOLDER } from "@/constant/imagePlaceholder";
-import { ApiError } from "@/models/ApiError";
+import { ApiError } from "@/models/Response";
 import { createPengaduan } from "@/services/user/pengaduan";
 import Image from "next/image";
 import { useState } from "react";

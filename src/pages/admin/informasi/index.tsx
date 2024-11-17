@@ -6,12 +6,12 @@ import { useQuery } from "@tanstack/react-query";
 import LoadingPage from "@/components/LoadingPage";
 import ModalError from "@/components/ModalError";
 import withAdminAuth from "@/utils/withAdminAuth";
-import { ApiError } from "@/models/ApiError";
+import { ApiError } from "@/models/Response";
 import {
   editInformasiDesa,
   getInformasiDesa,
 } from "@/services/admin/informasiDesa";
-import { InformasiDesa } from "@/models/InformasiDesa";
+import { InformasiDesa, initInformasiDesa } from "@/models/InformasiDesa";
 
 const InformasiDesaPage: React.FC = () => {
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
@@ -23,25 +23,11 @@ const InformasiDesaPage: React.FC = () => {
     refetchOnWindowFocus: false,
   });
 
-  const [form, setForm] = useState<InformasiDesa>({
-    informasiDesaId: data?.data?.informasiDesaId,
-    namaDesa: data?.data?.namaDesa,
-    deskripsi: data?.data?.deskripsi,
-    luasWilayah: data?.data?.luasWilayah,
-    lahanPertanian: data?.data?.lahanPertanian,
-    lahanPeternakan: data?.data?.lahanPeternakan,
-  });
+  const [form, setForm] = useState<InformasiDesa>(initInformasiDesa);
 
   useEffect(() => {
     if (data) {
-      setForm({
-        informasiDesaId: data?.data?.informasiDesaId,
-        namaDesa: data?.data?.namaDesa,
-        deskripsi: data?.data?.deskripsi,
-        luasWilayah: data?.data?.luasWilayah,
-        lahanPertanian: data?.data?.lahanPertanian,
-        lahanPeternakan: data?.data?.lahanPeternakan,
-      });
+      setForm(data.data);
     }
   }, [data]);
 
@@ -80,7 +66,7 @@ const InformasiDesaPage: React.FC = () => {
           <div className="flex flex-col border rounded-md p-4 w-full md:max-w-[500px] lg:max-w-[700px] mx-auto">
             <div className="mb-4"></div>
             <div className="flex flex-col gap-4">
-                <h1 className="text-4xl font-semibold">Informasi Desa</h1>
+              <h1 className="text-4xl font-semibold">Informasi Desa</h1>
               <div className="mb-4 md:mb-0 md:flex-1">
                 <label className="block text-gray-700 font-medium mb-2">
                   Nama Desa

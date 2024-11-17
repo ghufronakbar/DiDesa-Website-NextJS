@@ -3,13 +3,14 @@ import LoadingPage from "@/components/LoadingPage";
 import ModalContent from "@/components/ModalContent";
 import NavbarUser from "@/components/NavbarUser";
 import { useToast } from "@/components/Toast";
-import { ApiError } from "@/models/ApiError";
+import { ApiError } from "@/models/Response";
 import { PemilihanKetuaStatus } from "@/models/PemilihanKetua";
 import { doVote, getLatestPemilihan } from "@/services/user/pemilihan";
 import formatDate from "@/utils/format/formatDate";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
+import PieChartPemilihan from "@/components/PieChartPemilihan";
 
 const PemilihanPage = () => {
   const { showToast } = useToast();
@@ -117,12 +118,24 @@ const PemilihanPage = () => {
                     ))}
                   </div>
                 </div>
+                {data &&
+                  data.data.calonKetua.length > 0 &&
+                  data.data.status !== "Belum Dimulai" && (
+                    <div className="w-full  flex items-center justify-center">
+                      <div className="w-full md:w-2/3 lg:w-1/3 self-center">
+                        <PieChartPemilihan
+                          dataCalon={data?.data?.calonKetua}
+                          width="100%"
+                        />
+                      </div>
+                    </div>
+                  )}
                 <div
                   className="font-rubik text-black text-base"
                   dangerouslySetInnerHTML={{
                     __html: data?.data?.deskripsi.replace(/\n/g, "<br />"),
                   }}
-                ></div>
+                />
               </div>
             </div>
           </div>
