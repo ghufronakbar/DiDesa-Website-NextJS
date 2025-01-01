@@ -416,8 +416,8 @@ const EditPemilihanPage: React.FC = () => {
               <label className="mt-2 block text-md font-medium text-gray-700">
                 Deskripsi
               </label>
-              <input
-                className="w-full p-2 border border-gray-300 rounded-md"
+              <textarea
+                className="w-full p-2 border border-gray-300 rounded-md min-h-40"
                 placeholder="Deskripsi Calon Ketua"
                 value={calon.deskripsi}
                 onChange={(e) =>

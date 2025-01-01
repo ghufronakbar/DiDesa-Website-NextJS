@@ -283,7 +283,7 @@ const PemilihanPage: React.FC = () => {
                 Deskripsi
               </label>
               <textarea
-                className="w-full p-2 border border-gray-300 rounded-md"
+                className="w-full p-2 border border-gray-300 rounded-md min-h-40"
                 placeholder="Masukkan Deskripsi"
                 value={form.deskripsi}
                 onChange={(e) => {
