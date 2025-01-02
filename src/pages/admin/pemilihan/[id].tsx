@@ -241,12 +241,7 @@ const EditPemilihanPage: React.FC = () => {
                       <div className="flex flex-row gap-2 items-center">
                         <h1 className="text-lg font-semibold  h-fit">
                           {item.warga.namaLengkap}
-                        </h1>
-                        <div
-                          className={`text-xs font-medium text-white w-fit h-fit px-2 py-1 rounded-lg bg-primary`}
-                        >
-                          {item._count.vote}
-                        </div>
+                        </h1>                        
                       </div>
                       <div className="flex flex-row gap-2 items-center ">
                         <div className="text-sm text-gray-700 bg-transparent line-clamp-3">

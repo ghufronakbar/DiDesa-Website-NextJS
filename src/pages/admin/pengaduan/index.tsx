@@ -220,8 +220,11 @@ const PengaduanPage: React.FC = () => {
                             onClick={() => {
                               setIsContentOpen(true);
                               setContent({
-                                ...content,
+                                gambar: item.foto,
+                                isi: item.isi,
+                                subjek: item.subjek,
                                 tanggal: formatDate(item.tanggal),
+                                nama: item.warga?.namaLengkap,
                               });
                             }}
                           >

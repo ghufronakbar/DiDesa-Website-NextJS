@@ -212,7 +212,14 @@ const UMKMPage: React.FC = () => {
                             className="text-indigo-600 hover:text-indigo-900 mr-4"
                             onClick={() => {
                               setIsContentOpen(true);
-                              setContent(content);
+                              setContent({
+                                warga: item.warga,
+                                nama: item.nama,
+                                lokasi: item.lokasi,
+                                jenisUmkm: item.jenisUmkm.namaJenisUmkm,
+                                gambar: item.gambar,
+                                deskripsi: item.deskripsi,
+                              });
                             }}
                           >
                             Detail
