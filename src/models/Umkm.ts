@@ -15,4 +15,6 @@ export interface Umkm {
   warga: Warga;
   isEditable?: boolean;
   urlMap: string;
+  latitude: number;
+  longitude: number;
 }

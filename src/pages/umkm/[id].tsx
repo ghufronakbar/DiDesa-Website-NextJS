@@ -37,7 +37,7 @@ const DetailUMKMPage = () => {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState<boolean>(false);
 
   const { data, isLoading, isFetching, isError, refetch } = useQuery({
-    queryKey: ["umkmdetail", id],
+    queryKey: ["umkm", id],
     queryFn: () => getDetailUmkm(Number(id)),
     refetchOnWindowFocus: false,
   });
@@ -64,25 +64,30 @@ const DetailUMKMPage = () => {
   };
 
   const handleEdit = async () => {
-    if (!formUmkm) return;
-    showToast("Mengubah UMKM...", "info");
-    if (
-      formUmkm.nama === "" ||
-      formUmkm.deskripsi === "" ||
-      formUmkm.lokasi === ""
-    ) {
-      showToast("Semua kolom harus diisi", "error");
-      return;
+    try {
+      if (!formUmkm) return;
+      showToast("Mengubah UMKM...", "info");
+      if (
+        formUmkm.nama === "" ||
+        formUmkm.deskripsi === "" ||
+        formUmkm.lokasi === ""
+      ) {
+        showToast("Semua kolom harus diisi", "error");
+        return;
+      }
+      const response = await editUmkmWithoutImage(
+        Number(id),
+        formUmkm?.nama,
+        formUmkm?.deskripsi,
+        formUmkm?.lokasi
+      );
+      refetch();
+      setShowModal(false);
+      showToast(response.message || "Berhasil mengubah UMKM", "success");
+    } catch (error) {
+      const err = error as ApiError;
+      showToast(err?.response?.data?.message || "Gagal mengubah UMKM", "error");
     }
-    const response = await editUmkmWithoutImage(
-      Number(id),
-      formUmkm?.nama,
-      formUmkm?.deskripsi,
-      formUmkm?.lokasi
-    );
-    refetch();
-    setShowModal(false);
-    showToast(response.message || "Berhasil mengubah UMKM", "success");
   };
 
   const handlePickImage = () => {

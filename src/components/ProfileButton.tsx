@@ -11,12 +11,12 @@ const ProfileButton = () => {
   const router = useRouter();
   const { data, isLoading, isFetching, isError } = useQuery({
     queryKey: ["user"],
-    queryFn: () => getProfile(),
-    refetchOnWindowFocus: false,
+    queryFn: getProfile,
+    refetchOnWindowFocus: false,    
   });
 
   const [isHovered, setIsHovered] = useState(false);
-  
+
   if (isLoading || isFetching) {
     return (
       <>
@@ -41,7 +41,11 @@ const ProfileButton = () => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Link
-        href={!data || isError || data?.status !== 200 ? `/login?redirect=${router.asPath}` : "/profile"}
+        href={
+          !data || isError || data?.status !== 200
+            ? `/login?redirect=${router.asPath}`
+            : "/profile"
+        }
       >
         {data && !isError && data?.status === 200 ? (
           <>
@@ -72,14 +76,19 @@ const ProfileButton = () => {
         )}
       </Link>
       {data && !isError && data?.status === 200 ? (
-        <div className="block md:hidden text-black hover:text-primary font-rubik transition-colors duration-300 p-4" onClick={()=>{logoutUser()}}>
+        <div
+          className="block md:hidden text-black hover:text-primary font-rubik transition-colors duration-300 p-4"
+          onClick={() => {
+            logoutUser();
+          }}
+        >
           Logout
         </div>
       ) : null}
 
       {/* Tooltip */}
       {isHovered && data && !isError && data?.status === 200 && (
-        <>          
+        <>
           <div className="hidden md:block absolute right-0 w-32 h-12 bg-transparent"></div>
 
           {/* Actual Tooltip */}
@@ -92,7 +101,9 @@ const ProfileButton = () => {
               <span>Profile</span>
             </Link>
             <div
-            onClick={()=>{logoutUser()}}              
+              onClick={() => {
+                logoutUser();
+              }}
               className="px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center gap-2 cursor-pointer"
             >
               <CgLogOut />
