@@ -92,21 +92,21 @@ const TambahWargaPage: React.FC = () => {
                   onChange={(e) => setData({ ...data, nik: e.target.value })}
                 />
               </div>
-              <div className="md:flex-1">
+              {/* <div className="md:flex-1">
                 <label
                   htmlFor="kk"
                   className="block text-gray-700 font-medium mb-2"
                 >
                   KK
                 </label>
-                {/* <input
+                <input
                   type="text"
                   id="kk"
                   inputMode="numeric"
                   className="w-full px-3 py-2 border rounded-md"
                   onChange={(e) => setData({ ...data, kk: e.target.value })}
-                /> */}
-              </div>
+                />
+              </div> */}
             </div>
             <div className="flex flex-col md:flex-row md:space-x-4 mb-4">
               <div className="mb-4 md:mb-0 md:flex-1">
