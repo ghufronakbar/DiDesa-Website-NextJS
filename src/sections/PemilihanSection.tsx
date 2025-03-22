@@ -37,7 +37,7 @@ const PemilihanSection = () => {
           <div className="w-full h-full mt-8 flex md:flex-row flex-col lg:px-32 md:px-20 px-8 gap-8">
             <div className="w-full h-full">
               <Image
-                src={"/images/pemilihan.jpg"}
+                src={"/images/pemilihan.png"}
                 alt="wallpaper"
                 width={500}
                 height={500}
