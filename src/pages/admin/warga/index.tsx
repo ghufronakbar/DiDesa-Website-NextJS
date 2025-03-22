@@ -125,7 +125,7 @@ const WargaPage: React.FC = () => {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="font-semibold">{item.nik}</div>
-                          <div className="text-gray-500 text-sm">{item.kk}</div>
+                          {/* <div className="text-gray-500 text-sm">{item.kk}</div> */}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           {item.telepon}
