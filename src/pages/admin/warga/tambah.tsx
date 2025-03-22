@@ -23,7 +23,7 @@ const TambahWargaPage: React.FC = () => {
     if (
       data.namaLengkap === "" ||
       data.nik === "" ||
-      data.kk === "" ||
+      // data.kk === "" ||
       data.tanggalLahir === "" ||
       data.telepon === ""
     ) {
@@ -99,13 +99,13 @@ const TambahWargaPage: React.FC = () => {
                 >
                   KK
                 </label>
-                <input
+                {/* <input
                   type="text"
                   id="kk"
                   inputMode="numeric"
                   className="w-full px-3 py-2 border rounded-md"
                   onChange={(e) => setData({ ...data, kk: e.target.value })}
-                />
+                /> */}
               </div>
             </div>
             <div className="flex flex-col md:flex-row md:space-x-4 mb-4">
