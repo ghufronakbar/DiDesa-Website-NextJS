@@ -4,7 +4,8 @@ import { Umkm } from "./Umkm";
 export interface Warga {
   wargaId: number;
   nik: string;
-  kk: string;
+  kk: string | null;
+  rw: string;
   namaLengkap: string;
   tanggalLahir: string;
   telepon: string;

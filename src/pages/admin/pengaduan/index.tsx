@@ -42,6 +42,7 @@ const PengaduanPage: React.FC = () => {
   const [pengaduanMasyarakatId, setPengaduanMasyarakatId] = useState<number>(0);
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
   const [formStatus, setFormStatus] = useState<SetStatus>(initSetStatus);
+  const [jawaban, setJawaban] = useState<string>("");
   const { showToast } = useToast();
   type Content = {
     nama: string;
@@ -49,6 +50,7 @@ const PengaduanPage: React.FC = () => {
     isi: string;
     gambar: string | null;
     tanggal: string;
+    jawaban: string;
   };
   const [content, setContent] = useState<Content>({
     nama: "",
@@ -56,6 +58,7 @@ const PengaduanPage: React.FC = () => {
     isi: "",
     gambar: null,
     tanggal: "",
+    jawaban: "",
   });
   const { data, isLoading, isFetching, isError, refetch } = useQuery({
     queryKey: ["pengaduan-masyarakat", router.query.page],
@@ -93,7 +96,11 @@ const PengaduanPage: React.FC = () => {
 
   const handleSetStatus = async () => {
     try {
-      const response = await setStatus(formStatus.id, formStatus.status);
+      const response = await setStatus(
+        formStatus.id,
+        formStatus.status,
+        jawaban
+      );
       showToast(response.message || "Berhasil mengubah status", "success");
       refetch();
     } catch (error) {
@@ -225,6 +232,7 @@ const PengaduanPage: React.FC = () => {
                                 subjek: item.subjek,
                                 tanggal: formatDate(item.tanggal),
                                 nama: item.warga?.namaLengkap,
+                                jawaban: item?.jawaban || "",
                               });
                             }}
                           >
@@ -271,15 +279,36 @@ const PengaduanPage: React.FC = () => {
       {isWaiting && <LoadingState />}
 
       {formStatus.open && (
-        <ModalConfirmation
+        <ModalContent
           title={`Konfirmasi ${formStatus.status ? "Setujui" : "Tolak"} Aduan`}
-          message={`Apakah Anda yakin ingin ${
-            formStatus.status ? "menyetujui" : "menolak"
-          } pengaduan ini?`}
           onConfirm={handleSetStatus}
           onClose={() => {
             setFormStatus(initSetStatus);
           }}
+          content={
+            <div className="w-full flex flex-col gap-6">
+              <div className="flex flex-col gap-2">
+                <p className="font-semibold">
+                  {`Apakah Anda yakin ingin ${
+                    formStatus.status ? "menyetujui" : "menolak"
+                  } pengaduan ini?`}
+                </p>
+                <input
+                  type="text"
+                  placeholder="Masukkan jawaban"
+                  className="w-full px-3 py-2 border rounded-md"
+                  onChange={(e) => setJawaban(e.target.value)}
+                />
+              </div>
+              <button
+                className="bg-secondary text-white px-4 py-2 rounded-md hover:bg-primary transition-all duration-300 mr-2"
+                onClick={handleSetStatus}
+                disabled={!!!jawaban}
+              >
+                Konfirmasi
+              </button>
+            </div>
+          }
         />
       )}
 
@@ -294,6 +323,7 @@ const PengaduanPage: React.FC = () => {
               nama: "",
               subjek: "",
               tanggal: "",
+              jawaban: "",
             });
           }}
           content={
@@ -318,6 +348,10 @@ const PengaduanPage: React.FC = () => {
                 <div className="flex flex-col gap-1">
                   <p className="font-semibold">{content.subjek}</p>
                   <p>{content.isi}</p>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <p className="font-semibold">Jawaban</p>
+                  <p>{content.jawaban || "Belum ada jawaban"}</p>
                 </div>
               </div>
 

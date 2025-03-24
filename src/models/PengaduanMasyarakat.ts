@@ -8,6 +8,7 @@ export interface PengaduanMasyarakat {
   foto: string | null;
   tanggal: string;
   pending: boolean;
+  jawaban: string | null;
   status: boolean;
   warga: Warga;
 }

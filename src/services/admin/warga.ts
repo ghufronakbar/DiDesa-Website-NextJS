@@ -29,7 +29,8 @@ const createWarga = async (
   nik: string,
   kk: string,
   tanggalLahir: string,
-  telepon: string
+  telepon: string,
+  rw: string
 ) => {
   const response = await axiosInstance.post("/api/admin/warga", {
     namaLengkap,
@@ -37,6 +38,7 @@ const createWarga = async (
     kk,
     tanggalLahir,
     telepon,
+    rw
   });
 
   return response.data;
@@ -48,7 +50,8 @@ const editWarga = async (
   nik: string,
   kk: string,
   tanggalLahir: string,
-  telepon: string
+  telepon: string,
+  rw: string
 ) => {
   const response = await axiosInstance.put(`/api/admin/warga/${id}`, {
     namaLengkap,
@@ -56,6 +59,7 @@ const editWarga = async (
     kk,
     tanggalLahir,
     telepon,
+    rw
   });
 
   return response.data;

@@ -16,6 +16,7 @@ export interface PemilihanKetua {
   };
   calonKetua: CalonKetua[];
   status: PemilihanKetuaStatus;
+  rw: string;
   isVoted?: boolean;
   isVoteable?: boolean;
 }

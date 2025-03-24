@@ -40,12 +40,14 @@ const PemilihanPage: React.FC = () => {
     deskripsi: string;
     tanggalMulai: string;
     tanggalSelesai: string;
+    rw: string;
   };
   const [form, setForm] = useState<Form>({
     judul: "",
     deskripsi: "",
     tanggalMulai: "",
     tanggalSelesai: "",
+    rw: "001",
   });
 
   const handleDelete = async (pemilihanKetuaId: number) => {
@@ -264,6 +266,7 @@ const PemilihanPage: React.FC = () => {
               deskripsi: "",
               tanggalMulai: "",
               tanggalSelesai: "",
+              rw: "001",
             });
           }}
           content={
@@ -291,6 +294,24 @@ const PemilihanPage: React.FC = () => {
                 }}
                 rows={5}
               />
+              <label className="block text-md font-medium text-gray-700">
+                RW
+              </label>
+              <select
+                name="rw"
+                value={form.rw}
+                className="w-full px-3 py-2 border rounded-md"
+                onChange={(e) => setForm({ ...form, rw: e.target.value })}
+              >
+                {Array.from({ length: 115 }).map((_, index) => (
+                  <option
+                    key={index + 1}
+                    value={String(index + 1).padStart(3, "0")}
+                  >
+                    RW {String(index + 1).padStart(3, "0")}
+                  </option>
+                ))}
+              </select>
               <label className="block text-md font-medium text-gray-700">
                 Tanggal Mulai
               </label>

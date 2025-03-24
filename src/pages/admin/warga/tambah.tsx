@@ -17,6 +17,7 @@ const TambahWargaPage: React.FC = () => {
     kk: "",
     tanggalLahir: "",
     telepon: "",
+    rw: "001",
   });
 
   const handleAdd = async () => {
@@ -37,7 +38,8 @@ const TambahWargaPage: React.FC = () => {
         data.nik,
         data.kk,
         new Date(data.tanggalLahir).toISOString(),
-        `62${data.telepon}`
+        `62${data.telepon}`,
+        data.rw
       );
       showToast(response?.message, "success");
       setIsWaiting(false);
@@ -92,21 +94,29 @@ const TambahWargaPage: React.FC = () => {
                   onChange={(e) => setData({ ...data, nik: e.target.value })}
                 />
               </div>
-              {/* <div className="md:flex-1">
+              <div className="md:flex-1">
                 <label
-                  htmlFor="kk"
+                  htmlFor="rw"
                   className="block text-gray-700 font-medium mb-2"
                 >
-                  KK
+                  RW
                 </label>
-                <input
-                  type="text"
-                  id="kk"
-                  inputMode="numeric"
+                <select
+                  name="rw"
+                  value={data.rw}
                   className="w-full px-3 py-2 border rounded-md"
-                  onChange={(e) => setData({ ...data, kk: e.target.value })}
-                />
-              </div> */}
+                  onChange={(e) => setData({ ...data, rw: e.target.value })}
+                >
+                  {Array.from({ length: 115 }).map((_, index) => (
+                    <option
+                      key={index + 1}
+                      value={String(index + 1).padStart(3, "0")}
+                    >
+                      RW {String(index + 1).padStart(3, "0")}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
             <div className="flex flex-col md:flex-row md:space-x-4 mb-4">
               <div className="mb-4 md:mb-0 md:flex-1">

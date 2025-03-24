@@ -26,10 +26,10 @@ const deletePengaduan = async (pengaduanMasyarakat: number) => {
   return response.data;
 };
 
-const setStatus = async (pengaduanMasyarakatId: number, status: boolean) => {
+const setStatus = async (pengaduanMasyarakatId: number, status: boolean, jawaban: string) => {
   const response = await axiosInstance.patch(
     `/api/admin/pengaduan-masyarakat/${pengaduanMasyarakatId}`,
-    { status }
+    { status, jawaban }
   );
   return response.data;
 };

@@ -15,32 +15,37 @@ const EditWargaPage: React.FC = () => {
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
   const { showToast } = useToast();
   const router = useRouter();
-  const {id} = router.query
+  const { id } = router.query;
   const [form, setForm] = useState({
     namaLengkap: "",
     nik: "",
     kk: "",
     tanggalLahir: "",
     telepon: "",
+    rw: "001",
   });
 
-  const {data, isLoading, isFetching, isError} = useQuery({
-    queryKey: ['warga', id],
-    queryFn: () => router.isReady && id && typeof id === 'string'? getWargaById(Number(id)): null,
+  const { data, isLoading, isFetching, isError } = useQuery({
+    queryKey: ["warga", id],
+    queryFn: () =>
+      router.isReady && id && typeof id === "string"
+        ? getWargaById(Number(id))
+        : null,
     refetchOnWindowFocus: false,
-  })
+  });
 
   useEffect(() => {
-    if(data){
-        setForm({
-            namaLengkap: data?.data?.namaLengkap,
-            nik: data?.data?.nik,
-            kk: data?.data?.kk,
-            tanggalLahir: formatConvertIsoToNormal(data?.data?.tanggalLahir),
-            telepon: data?.data?.telepon.slice(2)
-        })
-    }  
-  },[data])
+    if (data) {
+      setForm({
+        namaLengkap: data?.data?.namaLengkap,
+        nik: data?.data?.nik,
+        kk: data?.data?.kk || "",
+        tanggalLahir: formatConvertIsoToNormal(data?.data?.tanggalLahir),
+        telepon: data?.data?.telepon.slice(2),
+        rw: data?.data?.rw,
+      });
+    }
+  }, [data]);
 
   const handleEdit = async () => {
     if (
@@ -61,7 +66,8 @@ const EditWargaPage: React.FC = () => {
         form.nik,
         form.kk,
         new Date(form.tanggalLahir).toISOString(),
-        `62${form.telepon}`
+        `62${form.telepon}`,
+        form.rw
       );
       showToast(response?.message, "success");
       setIsWaiting(false);
@@ -80,8 +86,8 @@ const EditWargaPage: React.FC = () => {
 
   return (
     <LayoutDashboard>
-        {isFetching || isLoading?<LoadingPage/>:null}        
-        {isError?<ModalError push="/admin/berita"/>:null}
+      {isFetching || isLoading ? <LoadingPage /> : null}
+      {isError ? <ModalError push="/admin/berita" /> : null}
       <div className="container mx-auto px-4 sm:px-8">
         <div className="py-8">
           <h1 className="text-4xl font-semibold mb-8">Edit Warga</h1>
@@ -122,19 +128,26 @@ const EditWargaPage: React.FC = () => {
               </div>
               <div className="md:flex-1">
                 <label
-                  htmlFor="kk"
+                  htmlFor="rw"
                   className="block text-gray-700 font-medium mb-2"
                 >
-                  KK
+                  RW
                 </label>
-                <input
-                  type="text"
-                  id="kk"
-                  inputMode="numeric"
+                <select
+                  name="rw"
+                  value={form.rw}
                   className="w-full px-3 py-2 border rounded-md"
-                  value={form?.kk}
-                  onChange={(e) => setForm({ ...form, kk: e.target.value })}
-                />
+                  onChange={(e) => setForm({ ...form, rw: e.target.value })}
+                >
+                  {Array.from({ length: 115 }).map((_, index) => (
+                    <option
+                      key={index + 1}
+                      value={String(index + 1).padStart(3, "0")}
+                    >
+                      RW {String(index + 1).padStart(3, "0")}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="flex flex-col md:flex-row md:space-x-4 mb-4">
@@ -154,7 +167,7 @@ const EditWargaPage: React.FC = () => {
                     setForm({ ...form, tanggalLahir: e.target.value })
                   }
                 />
-              </div>              
+              </div>
               <div className="md:flex-1">
                 <label
                   htmlFor="telepon"
