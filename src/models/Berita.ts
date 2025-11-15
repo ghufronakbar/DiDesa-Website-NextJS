@@ -6,7 +6,7 @@ export interface Berita {
   subjudul: string;
   tanggal: string;
   isi: string;
-  gambar: string;
+  gambar: string | null;
   publikasi: boolean;
   prioritas: boolean;
   _count?: {

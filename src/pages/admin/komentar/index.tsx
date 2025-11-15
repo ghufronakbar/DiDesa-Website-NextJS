@@ -17,6 +17,7 @@ import withAdminAuth from "@/utils/withAdminAuth";
 import { deleteKomentar, getAllKomentar } from "@/services/admin/komentar";
 import Image from "next/image";
 import ModalContent from "@/components/ModalContent";
+import { IMAGE_PLACEHOLDER } from "@/constant/imagePlaceholder";
 
 const KomentarPage: React.FC = () => {
   const router = useRouter();
@@ -150,7 +151,7 @@ const KomentarPage: React.FC = () => {
                                 judul: item.berita.judul,
                                 isi: item.isi,
                                 nama: item.warga.namaLengkap,
-                                gambar: item.berita.gambar,
+                                gambar: item.berita.gambar || IMAGE_PLACEHOLDER,
                                 tanggal: formatDate(item.tanggal),
                               });
                             }}
