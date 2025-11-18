@@ -82,11 +82,15 @@ const DetailBeritaPage = () => {
     }
   };
 
-  const fetchProfileFirst = async (): Promise<Warga> => {
-    if (profile) return profile;
-    const getDataProfile = await getProfile();
-    setProfile(getDataProfile?.data || null);
-    return getDataProfile?.data || null;
+  const fetchProfileFirst = async (): Promise<Warga | null> => {
+    try {
+      if (profile) return profile;
+      const getDataProfile = await getProfile();
+      setProfile(getDataProfile?.data || null);
+      return getDataProfile?.data || null;
+    } catch (error) {
+      return null;
+    }
   };
 
   const handleAddKomentar = async (e: React.FormEvent) => {
